@@ -17,14 +17,16 @@ export const getCategory = async (req, res) =>{
             {
                 $group: {
                     _id: '$category',
-                    image_url: { $first: '$image_url' }
+                    image_url: { $first: '$image_url' },
+                    maxDiscount: { $max: '$discount' },
                 }
             },
             {
                 $project: {
                     _id: 0,
                     category: '$_id',
-                    image_url: 1
+                    image_url: 1,
+                    maxDiscount: 2
                 }
             }
         ])

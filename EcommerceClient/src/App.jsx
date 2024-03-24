@@ -8,7 +8,7 @@ import PagesRoutes from "./routes/PagesRoutes";
 const App = () => {
   return (
     <>
-      <div className=" min-h-screen border border-black">
+      <div className=" min-h-screen">
         <NavBar />
         <PagesRoutes/>
       </div>
