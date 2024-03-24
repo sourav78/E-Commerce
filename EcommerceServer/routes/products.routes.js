@@ -1,8 +1,9 @@
 import express from 'express'
-import { getAllData } from '../controllers/product.controller.js'
+import { getAllData, getCategory } from '../controllers/product.controller.js'
 
-const router = express.Router()
+const productRouter = express.Router()
 
-router.get('/get-all-product', getAllData)
+productRouter.get('/get-all-product', getAllData)
+productRouter.get('/get-home-category', getCategory)
 
-export default router
+export default productRouter
