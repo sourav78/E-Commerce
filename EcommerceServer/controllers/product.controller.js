@@ -37,9 +37,25 @@ export const getCategory = async (req, res) =>{
         })
     } catch (error) {
         res.status(200).json({
-            success: true,
+            success: false,
             msg: "There is some error in get category"
         })
     }
     
+}
+
+export const getLatestProduct = async (req, res) =>{
+    try {
+        const latestProduct = await ProductModel.find({}).limit(10)
+
+        res.status(200).json({
+            success: true,
+            msg: latestProduct
+        })
+    } catch (error) {
+        res.status(200).json({
+            success: false,
+            msg: "There is some error in 'getLatestProduct'"
+        })
+    }
 }
