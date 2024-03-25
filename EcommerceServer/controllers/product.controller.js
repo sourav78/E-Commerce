@@ -1,3 +1,4 @@
+import { cache } from "../config/app.js"
 import { ProductModel } from "../models/products.model.js"
 
 export const getAllData = async (req, res) => {
@@ -13,23 +14,32 @@ export const getAllData = async (req, res) => {
 export const getCategory = async (req, res) =>{
     
     try {
-        const allCategory = await ProductModel.aggregate([
-            {
-                $group: {
-                    _id: '$category',
-                    image_url: { $first: '$image_url' },
-                    maxDiscount: { $max: '$discount' },
+
+        let allCategory
+
+        if(cache.has('category')){
+            allCategory = JSON.parse(cache.get('category'))
+        }else{
+            allCategory = await ProductModel.aggregate([
+                {
+                    $group: {
+                        _id: '$category',
+                        image_url: { $first: '$image_url' },
+                        maxDiscount: { $max: '$discount' },
+                    }
+                },
+                {
+                    $project: {
+                        _id: 0,
+                        category: '$_id',
+                        image_url: 1,
+                        maxDiscount: 2
+                    }
                 }
-            },
-            {
-                $project: {
-                    _id: 0,
-                    category: '$_id',
-                    image_url: 1,
-                    maxDiscount: 2
-                }
-            }
-        ])
+            ])
+            cache.set('category', JSON.stringify(allCategory))
+        }
+        
 
         res.status(200).json({
             success: true,
@@ -46,8 +56,15 @@ export const getCategory = async (req, res) =>{
 
 export const getLatestProduct = async (req, res) =>{
     try {
-        const latestProduct = await ProductModel.find({}).limit(10)
+        let latestProduct
 
+        if(cache.has('latestProduct')){
+            latestProduct = JSON.parse(cache.get('latestProduct'))
+        }else{
+            latestProduct = await ProductModel.find({}).limit(10)
+            cache.set('latestProduct', JSON.stringify(latestProduct))
+        }
+        
         res.status(200).json({
             success: true,
             msg: latestProduct
