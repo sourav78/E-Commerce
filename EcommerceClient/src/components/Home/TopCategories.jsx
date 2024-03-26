@@ -9,9 +9,9 @@ const TopCategories = () => {
     useEffect(() => {
         async function fetchData(){
             const getCategories = await axios.get('http://localhost:4001/product/get-home-category')
-            const data = getCategories.data
-            // console.log(data);
-            setCategories(data.msg)
+            const {data} = getCategories.data
+            // console.log(import.meta.env.VITE_API_URL);
+            setCategories(data)
         }
 
         fetchData()
@@ -19,11 +19,11 @@ const TopCategories = () => {
 
   return <>
     <div className="">
-        <h2 className="text-2xl font-semibold">Top Categories</h2>
+        <h2 className="text-2xl font-semibold bg-slate-300 p-2">Top Categories</h2>
         <div className="flex flex-wrap justify-start gap-10 mt-4">
             {
-                categories.map(category => (
-                    <CategoryCard category={category} />
+                categories.map((category, ind) => (
+                    <CategoryCard key={ind} category={category} />
                 ))
             }
         </div>

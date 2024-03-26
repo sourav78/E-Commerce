@@ -43,7 +43,7 @@ export const getCategory = async (req, res) =>{
 
         res.status(200).json({
             success: true,
-            msg: allCategory
+            data: allCategory
         })
     } catch (error) {
         res.status(200).json({
@@ -61,13 +61,13 @@ export const getLatestProduct = async (req, res) =>{
         if(cache.has('latestProduct')){
             latestProduct = JSON.parse(cache.get('latestProduct'))
         }else{
-            latestProduct = await ProductModel.find({}).limit(10)
+            latestProduct = await ProductModel.find({}).limit(8)
             cache.set('latestProduct', JSON.stringify(latestProduct))
         }
         
         res.status(200).json({
             success: true,
-            msg: latestProduct
+            data: latestProduct
         })
     } catch (error) {
         res.status(200).json({

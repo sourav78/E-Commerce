@@ -2,7 +2,6 @@ import React from "react";
 
 const CategoryCard = ({ category }) => {
   return (
-    <>
       <div
         key={Math.random()}
         className="border p-2 rounded-md w-[30%] min-w-48 bg-white cursor-pointer flex-1 lg:flex-none"
@@ -24,7 +23,6 @@ const CategoryCard = ({ category }) => {
           </p>
         </div>
       </div>
-    </>
   );
 };
 
