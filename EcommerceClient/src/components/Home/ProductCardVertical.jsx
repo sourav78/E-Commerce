@@ -1,5 +1,6 @@
 import React from "react";
 import { Rate } from 'antd';
+import { Link } from "react-router-dom";
 
 const ProductCardVertical = ({product}) => {
   return (
@@ -30,7 +31,9 @@ const ProductCardVertical = ({product}) => {
                     <p className="text-[16px] font-bold ">{product.brand}</p>
                 </div>
                 <div className="mt-4">
-                    <p className=" cursor-pointer text-xl border-2 border-black inline-block px-4 py-1 font-semibold hover:bg-black hover:text-white transition-all">View</p>
+                    <Link to={`details/${product._id}`}>
+                        <p className=" cursor-pointer text-xl border-2 border-black inline-block px-4 py-1 font-semibold hover:bg-black hover:text-white transition-all">View</p>
+                    </Link>
                 </div>
             </div>
         </div>
