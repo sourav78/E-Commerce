@@ -5,10 +5,13 @@ import { FaBars } from "react-icons/fa6";
 import { RxCross2 } from "react-icons/rx";
 import { NavLink } from "react-router-dom";
 import { FiLogIn } from "react-icons/fi";
+import { useDispatch, useSelector } from "react-redux";
 
 const NavBar = () => {
 
     const [openNav, setOpenNav] = useState(false)
+
+    const isAuthenticated = useSelector(state => state.isAuthenticated)
 
     return (
         <>
@@ -28,7 +31,7 @@ const NavBar = () => {
                             onClick={() => setOpenNav(false)}
                         className="border-2 border-black lg:border-transparent hover:border-black cursor-pointer mt-4 text-white lg:text-black lg:p-0 lg:px-2 p-2 py-1 lg:rounded-none rounded-lg lg:bg-transparent bg-transparent transition-all">
                             <NavLink to="/" 
-                                className={({ isActive }) => (`${isActive ? `text-blue-500`:`text-black hover:text-white`}`)}
+                                className={({ isActive }) => (`${isActive ? `text-blue-500`:`text-black hover:text-black`}`)}
                             >
                                 Home
                             </NavLink>
@@ -62,11 +65,25 @@ const NavBar = () => {
                         </li>
                         <li 
                             onClick={() => setOpenNav(false)}
-                        className="border-2 border-black lg:border-transparent hover:border-black cursor-pointer mt-4 text-white lg:text-black lg:p-0 lg:px-2 p-2 py-1 lg:rounded-none rounded-lg lg:bg-transparent bg-transparent transition-all">
+                        className={`${isAuthenticated ? `lg:border-none border-2` : `border-2`} border-black lg:border-transparent hover:border-black cursor-pointer mt-4 text-white lg:text-black lg:p-0 lg:px-2 p-2 py-1 lg:rounded-none rounded-lg lg:bg-transparent bg-transparent transition-all`}>
                             <NavLink to="/about" 
                                 className={({ isActive }) => (`flex items-center gap-1 ${isActive ? `text-blue-500`:`text-black hover:text-black`}`)}
                             >
-                                <FiLogIn className="text-gray-700" />Login
+                                {
+                                    !isAuthenticated ? (
+                                        <>
+                                            <FiLogIn className="text-gray-700" />
+                                            <span>Login</span>
+                                        </>
+                                    ) : (
+                                        <div className="flex items-center gap-2">
+                                            <div className="w-12 rounded-full overflow-hidden border border-black">
+                                                <img src="https://images.pexels.com/photos/1520760/pexels-photo-1520760.jpeg?auto=compress&cs=tinysrgb&w=600" alt="" />
+                                            </div>
+                                            <span className="lg:hidden">Profile</span>
+                                        </div>
+                                    )
+                                }
                             </NavLink>
                         </li>
                     </ul>
