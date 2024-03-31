@@ -85,9 +85,6 @@ const ProductDeatails = () => {
                                                     ))
                                                 )
                                             }
-                                            {/* <li>key: value</li>
-                                            <li>key: value</li>
-                                            <li>key: value</li> */}
                                         </ul>
                                     </div>
                                     <div className="mt-4">
