@@ -42,11 +42,19 @@ export const register = async (req, res) => {
         })
     } catch (error) {
 
-        if(error.code == 11000){
+        //this response duplication
+        if(error.code === 11000){
+            let errorMsg = "";
+            // Determine whether it's a duplicate username or email
+            if (error.keyPattern.username) {
+                errorMsg = "This username is already taken";
+            } else if (error.keyPattern.email) {
+                errorMsg = "This email is already registered";
+            }
             return res.status(400).json({
                 success: false,
-                msg: "Please provide a valid username/email"
-            })
+                msg: errorMsg
+            });
         }
         res.status(400).json({
             success: false,
@@ -76,7 +84,7 @@ export const login = async (req, res) => {
             })
         }
 
-        const checkPassword = await bcrypt.compare(password, user.password)
+        const checkPassword = bcrypt.compare(password, user.password)
         if(!checkPassword){
             return res.status(400).json({
                 success: false,
@@ -106,6 +114,29 @@ export const login = async (req, res) => {
     }
 }
 
-export const profile = (req, res) => {
+export const profile = async (req, res) => {
+    const {id} = req.user
 
+    if(!id){
+        return res.status(400).json({
+            success: false,
+            msg: "Not authorize"
+        })
+    }
+
+    try {
+        const user = await UserModel.findById(id)
+
+        user.password = undefined
+
+        res.status(200).json({
+            success: true,
+            data: user
+        })
+    } catch (error) {
+        res.status(400).json({
+            success: false,
+            msg: error.message
+        })
+    }
 }

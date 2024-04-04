@@ -3,6 +3,7 @@ dotenv.config()
 import express from 'express'
 import cors from 'cors'
 import NodeCache from 'node-cache'
+import cookieParser from 'cookie-parser'
 
 import { connectDB } from './database.js'
 import ProductRouter from '../routes/products.routes.js'
@@ -19,6 +20,7 @@ app.use(cors({
     allowedHeaders: ['Content-Type', 'Authorization'],
     credentials: true
 }));
+app.use(cookieParser());
 
 connectDB()
 

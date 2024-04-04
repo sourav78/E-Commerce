@@ -15,7 +15,7 @@ const userSchema = new mongoose.Schema({
     email: {
         type: String,
         require: true,
-        unique: [true, 'Username must be unique'],
+        unique: true
     },
     imageUrl: {
         type: String,
@@ -28,7 +28,12 @@ const userSchema = new mongoose.Schema({
     wishList: [{
         type: mongoose.Schema.Types.ObjectId,
         ref: 'Product'
-    }]
+    }],
+    isAdmin: {
+        type: String,
+        enum: ['USER', 'ADMIN'],
+        default: 'USER'
+    }
 }, {
     timestamps: true
 })
