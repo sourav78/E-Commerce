@@ -1,5 +1,6 @@
 import { hash } from "bcrypt";
 import mongoose from "mongoose";
+import JWT from 'jsonwebtoken'
 
 const userSchema = new mongoose.Schema({
     fullname: {
@@ -14,7 +15,7 @@ const userSchema = new mongoose.Schema({
     email: {
         type: String,
         require: true,
-        unique: true
+        unique: [true, 'Username must be unique'],
     },
     imageUrl: {
         type: String,
@@ -38,5 +39,17 @@ userSchema.pre('save', async function(next){
 
     next()
 })
+
+
+userSchema.methods.JWTSign = function(){
+    const payload = {
+        id: this._id,
+        email: this.email,
+    }
+
+    const token = JWT.sign(payload, process.env.JWT_SECRET)
+
+    return token
+}
 
 export const UserModel = mongoose.model('users', userSchema)
