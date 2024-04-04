@@ -66,7 +66,7 @@ const NavBar = () => {
                         <li 
                             onClick={() => setOpenNav(false)}
                         className={`${isAuthenticated ? `lg:border-none border-2` : `border-2`} border-black lg:border-transparent hover:border-black cursor-pointer mt-4 text-white lg:text-black lg:p-0 lg:px-2 p-2 py-1 lg:rounded-none rounded-lg lg:bg-transparent bg-transparent transition-all`}>
-                            <NavLink to="/about" 
+                            <NavLink to={isAuthenticated ? '/profile' : '/login'} 
                                 className={({ isActive }) => (`flex items-center gap-1 ${isActive ? `text-blue-500`:`text-black hover:text-black`}`)}
                             >
                                 {
