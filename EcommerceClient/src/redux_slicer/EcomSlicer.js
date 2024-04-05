@@ -2,7 +2,8 @@ import { createSlice } from '@reduxjs/toolkit';
 
 const initialState = {
     isAuthenticated: false,
-    user: {}
+    user: {},
+    trigger: true
 };
 
 export const ecomSlice = createSlice({
@@ -14,10 +15,13 @@ export const ecomSlice = createSlice({
         },
         updateUser: (state, action) => {
             state.user = action.payload;
+        },
+        toggleTrigger: (state) => {
+            state.trigger = !state.trigger;
         }
     }
 });
 
-export const { updateIsAuthenticated, updateUser } = ecomSlice.actions;
+export const { updateIsAuthenticated, updateUser, toggleTrigger } = ecomSlice.actions;
 
 export default ecomSlice.reducer;

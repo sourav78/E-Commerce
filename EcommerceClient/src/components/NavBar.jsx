@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import s78_black from "../assets/S78_b.png";
 import { FiShoppingCart } from "react-icons/fi";
 import { FaBars } from "react-icons/fa6";
@@ -6,12 +6,37 @@ import { RxCross2 } from "react-icons/rx";
 import { NavLink } from "react-router-dom";
 import { FiLogIn } from "react-icons/fi";
 import { useDispatch, useSelector } from "react-redux";
+import axios from "axios";
+import { updateIsAuthenticated, updateUser } from "../redux_slicer/EcomSlicer";
 
 const NavBar = () => {
 
     const [openNav, setOpenNav] = useState(false)
 
+    const dispatch = useDispatch()
+
     const isAuthenticated = useSelector(state => state.isAuthenticated)
+    const trigger = useSelector(state => state.trigger)
+    const user = useSelector(state => state.user)
+
+    useEffect(() => {
+        async function authenticateUser(){
+            try {
+                const response = await axios.get('http://localhost:4001/auth/profile', {
+                    withCredentials: true
+                })
+                const {data} = response.data
+                dispatch(updateIsAuthenticated(true))
+                dispatch(updateUser(data))
+                console.log(data);
+            } catch (error) {
+                console.log(error.response.data.msg);
+                dispatch(updateIsAuthenticated(false))
+            }
+        }
+
+        authenticateUser()
+    }, [trigger])
 
     return (
         <>
@@ -78,7 +103,7 @@ const NavBar = () => {
                                     ) : (
                                         <div className="flex items-center gap-2">
                                             <div className="w-12 rounded-full overflow-hidden border border-black">
-                                                <img src="https://images.pexels.com/photos/1520760/pexels-photo-1520760.jpeg?auto=compress&cs=tinysrgb&w=600" alt="" />
+                                                <img src={user.imageUrl} alt="" />
                                             </div>
                                             <span className="lg:hidden">Profile</span>
                                         </div>

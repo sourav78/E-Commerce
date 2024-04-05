@@ -1,9 +1,49 @@
-import React from "react";
+import React, {useState} from "react";
 import logo from '../../assets/S78_b.png'
-import {Link} from 'react-router-dom'
+import {Link, useNavigate} from 'react-router-dom'
 import { Alert} from 'antd';
+import axios from "axios";
+import { useDispatch } from "react-redux";
+import { toggleTrigger } from "../../redux_slicer/EcomSlicer";
 
 const Login = () => {
+
+    const navigate = useNavigate()
+
+    const [email, setEmail] = useState('')
+    const [password, setPassword] = useState('')
+
+    const [showErrors, setShowErrors] = useState('')
+
+    const dispatch = useDispatch()
+
+    const handleFormSubmit = async (e) => {
+        e.preventDefault()
+        const loginData = {email, password}
+
+        try {
+            const response = await axios.post('http://localhost:4001/auth/login', loginData,
+                {
+                    headers: {
+                        'Content-Type': 'application/json',
+                    },
+                    withCredentials: true
+                }
+            )
+
+            const data = await response.data
+            dispatch(toggleTrigger())
+            data.success && navigate('/')
+            console.log(data);
+        } catch (error) {
+            console.log(error.response.data);
+            setShowErrors(error.response.data.msg)
+        }
+    }
+
+    const handleAlertClose = () => {
+        setShowErrors('')
+    }
     return (
         <>
             <div className="w-full p-2 border-black bg-gray-200 flex justify-center items-start " style={{ minHeight: 'calc(100vh - 85px)' }}>
@@ -17,14 +57,19 @@ const Login = () => {
                     <div className="">
                         <p className="text-3xl font-semibold text-center mt-4">Login</p>
                     </div>
-                    <div className=" mt-2 px-4">
-                        <Alert
-                            message="Warning Text Warning Text TextWarning Text"
-                            type="error"
-                            closable
-                            />
-                    </div>
-                    <form className="mt-4">
+                    {
+                        showErrors && (
+                            <div className=" mt-2 px-4">
+                                <Alert
+                                    message={showErrors}
+                                    type="error"
+                                    closable
+                                    onClose={handleAlertClose}
+                                />
+                            </div>
+                        )
+                    }
+                    <form className="mt-4" onSubmit={handleFormSubmit}>
                         <div className=" px-6">
                             <label className="w-full text-xl text-gray-800" htmlFor="">Username/Email:</label>
                             <input 
@@ -32,6 +77,7 @@ const Login = () => {
                                 type="text" 
                                 required 
                                 placeholder="example@email.com" 
+                                onChange={(e)=> setEmail(e.target.value)}
                             />
                         </div>
                         <div className="mt-4 px-6">
@@ -41,6 +87,7 @@ const Login = () => {
                                 type="password" 
                                 required 
                                 placeholder="[):sjs&8" 
+                                onChange={(e)=> setPassword(e.target.value)}
                             />
                         </div>
                         <div className="mt-6 px-6">

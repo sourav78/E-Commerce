@@ -1,9 +1,49 @@
-import React from "react";
+import React, { useState } from "react";
 import logo from '../../assets/S78_b.png'
-import {Link} from 'react-router-dom'
-import { Alert, Space } from 'antd';
+import {Link, useNavigate} from 'react-router-dom'
+import { Alert} from 'antd';
+import axios from "axios";
 
 const Register = () => {
+
+    const navigate = useNavigate()
+
+    const [fullname, setFullname] = useState('')
+    const [ username, setUsername] = useState('')
+    const [email, setEmail] = useState('')
+    const [password, setPassword] = useState('')
+    const [confirmPassword, setConfirmPassword] = useState('')
+
+    const [showErrors, setShowErrors] = useState('')
+
+    const handleFormSubmit = async (e) => {
+        e.preventDefault()
+        const registerData = {fullname, username, email, password, confirmPassword}
+
+        try {
+            const response = await axios.post('http://localhost:4001/auth/register', registerData,
+                {
+                    headers: {
+                        'Content-Type': 'application/json',
+                    },
+                    withCredentials: true
+                }
+            )
+
+            const data = response.data
+            data.success && navigate('/login')
+            console.log(data);
+        } catch (error) {
+            console.log(error.response.data);
+            setShowErrors(error.response.data.msg)
+        }
+    }
+
+    const handleAlertClose = () => {
+        setShowErrors('')
+    }
+
+
     return (
         <>
             <div className="w-full p-2 border-black bg-gray-200 flex justify-center items-start " style={{ minHeight: 'calc(100vh - 85px)' }}>
@@ -17,14 +57,19 @@ const Register = () => {
                     <div className="">
                         <p className="text-3xl font-semibold text-center mt-4">Register</p>
                     </div>
-                    <div className=" mt-2 px-4">
-                        <Alert
-                            message="Warning Text Warning Text TextWarning Text"
-                            type="error"
-                            closable
-                            />
-                    </div>
-                    <form className="mt-4">
+                    {
+                        showErrors && (
+                            <div className=" mt-2 px-4">
+                                <Alert
+                                    message={showErrors}
+                                    type="error"
+                                    closable
+                                    onClose={handleAlertClose}
+                                />
+                            </div>
+                        )
+                    }
+                    <form className="mt-4" onSubmit={handleFormSubmit}>
                         <div className=" px-6">
                             <label className="w-full text-xl text-gray-800" htmlFor="">Full Name:</label>
                             <input 
@@ -32,6 +77,7 @@ const Register = () => {
                                 type="text" 
                                 required 
                                 placeholder="John Doe" 
+                                onChange={(e)=> setFullname(e.target.value)}
                             />
                         </div>
                         <div className="mt-1 px-6">
@@ -41,6 +87,7 @@ const Register = () => {
                                 type="text" 
                                 required 
                                 placeholder="john77" 
+                                onChange={(e)=> setUsername(e.target.value)}
                             />
                         </div>
                         <div className="mt-1 px-6">
@@ -50,6 +97,7 @@ const Register = () => {
                                 type="email" 
                                 required 
                                 placeholder="john@example.com" 
+                                onChange={(e)=> setEmail(e.target.value)}
                             />
                         </div>
                         <div className="mt-1 px-6">
@@ -59,6 +107,7 @@ const Register = () => {
                                 type="password" 
                                 required 
                                 placeholder="[):sjs&8" 
+                                onChange={(e)=> setPassword(e.target.value)}
                             />
                         </div>
                         <div className="mt-1 px-6">
@@ -68,6 +117,7 @@ const Register = () => {
                                 type="password" 
                                 required 
                                 placeholder="[):sjs&8" 
+                                onChange={(e)=> setConfirmPassword(e.target.value)}
                             />
                         </div>
                         <div className="mt-6 px-6">
