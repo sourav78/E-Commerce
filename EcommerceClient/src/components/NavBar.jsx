@@ -32,6 +32,7 @@ const NavBar = () => {
             } catch (error) {
                 console.log(error.response.data.msg);
                 dispatch(updateIsAuthenticated(false))
+                dispatch(updateUser({}))
             }
         }
 

@@ -140,3 +140,19 @@ export const profile = async (req, res) => {
         })
     }
 }
+
+export const logout = (req, res) => {
+    try {
+        res.clearCookie('jwttoken')
+
+        res.status(200).json({
+            success: true,
+            data: 'Loged out successfully'
+        })
+    } catch (error) {
+        res.status(200).json({
+            success: true,
+            data: error.massage
+        })
+    }
+}
