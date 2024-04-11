@@ -50,52 +50,52 @@ const NavBar = () => {
                 </div>
                 <div className="nav-items flex items-center overflow-x-hidden">
                     <ul className={`lg:flex z-20 items-center gap-6 text-2xl font-semibold lg:flex-row flex-col lg:static absolute top-0 ${openNav ? `right-0` : `right-full`}  lg:w-auto w-3/4 lg:bg-transparent bg-gray-100 shadow-md lg:h-auto h-screen p-1`}>
-                        <li className=" mt-6 lg:hidden p-1 inline-block bg-black text-white"
+                        <li className="mt-6 lg:hidden p-1 inline-block bg-[#00ed64] text-black border border-black"
                             onClick={() => setOpenNav(false)}
                         >
                             <RxCross2 />
                         </li>
                         <li 
                             onClick={() => setOpenNav(false)}
-                        className="border-2 border-black lg:border-transparent hover:border-black cursor-pointer mt-4 text-white lg:text-black lg:p-0 lg:px-2 p-2 py-1 lg:rounded-none rounded-lg lg:bg-transparent bg-transparent transition-all">
+                        className="border-2 border-black lg:border-transparent hover:border-black cursor-pointer lg:mt-2 mt-4 text-white lg:text-black lg:p-0 lg:px-2 p-2 py-1 lg:rounded-none rounded-lg lg:bg-transparent bg-transparent transition-all">
                             <NavLink to="/" 
-                                className={({ isActive }) => (`${isActive ? `text-blue-500`:`text-black hover:text-black`}`)}
+                                className={({ isActive }) => (`${isActive ? `text-[#00ce56]`:`text-black hover:text-black`}`)}
                             >
                                 Home
                             </NavLink>
                         </li>
                         <li 
                             onClick={() => setOpenNav(false)}
-                        className="border-2 border-black lg:border-transparent hover:border-black cursor-pointer mt-4 text-white lg:text-black lg:p-0 lg:px-2 p-2 py-1 lg:rounded-none rounded-lg lg:bg-transparent bg-transparent transition-all">
+                        className="border-2 border-black lg:border-transparent hover:border-black cursor-pointer lg:mt-2 mt-4 text-white lg:text-black lg:p-0 lg:px-2 p-2 py-1 lg:rounded-none rounded-lg lg:bg-transparent bg-transparent transition-all">
                             <NavLink to="/product" 
-                                className={({ isActive }) => (`${isActive ? `text-blue-500`:`text-black hover:text-black`}`)}
+                                className={({ isActive }) => (`${isActive ? `text-[#00ce56]`:`text-black hover:text-black`}`)}
                             >
                                 Product
                             </NavLink>
                         </li>
                         <li 
                             onClick={() => setOpenNav(false)}
-                        className="border-2 border-black lg:border-transparent hover:border-black cursor-pointer mt-4 text-white lg:text-black lg:p-0 lg:px-2 p-2 py-1 lg:rounded-none rounded-lg lg:bg-transparent bg-transparent transition-all">
+                        className="border-2 border-black lg:border-transparent hover:border-black cursor-pointer lg:mt-2 mt-4 text-white lg:text-black lg:p-0 lg:px-2 p-2 py-1 lg:rounded-none rounded-lg lg:bg-transparent bg-transparent transition-all">
                             <NavLink to="/about" 
-                                className={({ isActive }) => (`${isActive ? `text-blue-500`:`text-black hover:text-black`}`)}
+                                className={({ isActive }) => (`${isActive ? `text-[#00ce56]`:`text-black hover:text-black`}`)}
                             >
                                 About
                             </NavLink>
                         </li>
                         <li 
                             onClick={() => setOpenNav(false)}
-                        className="border-2 border-black lg:border-transparent  cursor-pointer mt-4 text-white lg:text-black lg:p-0 lg:px-2 p-2 py-1 lg:rounded-none rounded-lg lg:bg-transparent bg-transparent transition-all">
+                        className="border-2 border-black lg:border-transparent  cursor-pointer lg:mt-2 mt-4 text-white lg:text-black lg:p-0 lg:px-2 p-2 py-1 lg:rounded-none rounded-lg lg:bg-transparent bg-transparent transition-all">
                             <NavLink to="/cart" 
-                                className={({ isActive }) => (`${isActive ? `text-blue-500`:`text-black `}`)}
+                                className={({ isActive }) => (`${isActive ? `text-[#00ce56]`:`text-black `}`)}
                             >
-                                <FiShoppingCart className="text-3xl hover:text-blue-500" />
+                                <FiShoppingCart className="text-3xl hover:text-[#00ce56]" />
                             </NavLink>
                         </li>
                         <li 
                             onClick={() => setOpenNav(false)}
-                        className={`${isAuthenticated ? `lg:border-none border-2` : `border-2`} border-black lg:border-transparent hover:border-black cursor-pointer mt-4 text-white lg:text-black lg:p-0 lg:px-2 p-2 py-1 lg:rounded-none rounded-lg lg:bg-transparent bg-transparent transition-all`}>
+                        className={`${isAuthenticated ? `lg:border-none border-2` : `border-2`} border-black lg:border-transparent hover:border-black cursor-pointer lg:mt-2 mt-4 text-white lg:text-black lg:p-0 lg:px-2 p-2 py-1 lg:rounded-none rounded-lg lg:bg-transparent bg-transparent transition-all`}>
                             <NavLink to={isAuthenticated ? '/profile' : '/login'} 
-                                className={({ isActive }) => (`flex items-center gap-1 ${isActive ? `text-blue-500`:`text-black hover:text-black`}`)}
+                                className={({ isActive }) => (`flex items-center gap-1 ${isActive ? `text-[#00ce56]`:`text-black hover:text-black`}`)}
                             >
                                 {
                                     !isAuthenticated ? (

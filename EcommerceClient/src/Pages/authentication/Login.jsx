@@ -94,11 +94,11 @@ const Login = () => {
                         </div>
                         <div className="mt-6 px-6">
                             <button 
-                                className="bg-black border-2 border-black w-full text-white text-xl py-1 hover:bg-gray-700 transition-all"
+                                className="bg-[#00ed64] border-2 border-black w-full text-black text-xl py-1 hover:bg-[#69f287] transition-all"
                             >Login</button>
                         </div>
                     </form>
-                    <p className="text-center mt-4">Don't have an account? <Link to="/register" className="text-blue-600" >Register now</Link></p>
+                    <p className="text-center mt-4">Don't have an account? <Link to="/register" className="text-[#00ed64]" >Register now</Link></p>
                     
                 </div>  
             </div>

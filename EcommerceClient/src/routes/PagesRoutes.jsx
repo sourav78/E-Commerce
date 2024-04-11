@@ -9,7 +9,7 @@ import Products from "../Pages/Products";
 import ProductDeatails from "../Pages/ProductDeatails";
 import Login from "../Pages/authentication/Login";
 import Register from "../Pages/authentication/Register";
-import Profile from "../Pages/Profile";
+import Profile from "../Pages/profile/Profile";
 
 const PagesRoutes = () => {
   return (

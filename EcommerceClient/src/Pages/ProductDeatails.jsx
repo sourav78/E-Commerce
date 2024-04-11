@@ -58,8 +58,8 @@ const ProductDeatails = () => {
                                     <img className="mix-blend-multiply h-full" src={product.image_url} alt="" />
                                 </div>
                                 <div className="mt-4 flex flex-wrap justify-between">
-                                    <button className="border-2 border-black w-[45%] py-2 text-xl font-semibold hover:bg-black bg-white hover:text-white text-black transition-all">Add To Cart</button>
-                                    <button className="border-2 border-black w-[45%] py-2 text-xl font-semibold bg-black hover:bg-white text-white hover:text-black transition-all">Buy Now</button>
+                                    <button className="border-2 border-black w-[45%] py-2 text-xl font-semibold hover:bg-[#00ed64] bg-white  text-black transition-all">Add To Cart</button>
+                                    <button className="border-2 border-black w-[45%] py-2 text-xl font-semibold bg-[#00ed64] hover:bg-white text-black transition-all">Buy Now</button>
                                 </div>
                             </div>
                             <div className=" p-2 sm:flex-1">
@@ -94,7 +94,7 @@ const ProductDeatails = () => {
                                         <div className="w-40 border border-black h-10 flex">
                                             <div 
                                                 onClick={decreaseCounter}
-                                            className="cursor-pointer grid place-content-center w-[33%] h-full border-r border-black">
+                                            className="cursor-pointer grid place-content-center w-[33%] h-full border-r hover:bg-[#aaf8b6] border-black">
                                                 <FaMinus />
                                             </div>
                                             <div className="grid place-content-center select-none w-[33%] h-full border-r border-black">
@@ -102,7 +102,7 @@ const ProductDeatails = () => {
                                             </div>
                                             <div 
                                                 onClick={incraeseCounter}
-                                            className="cursor-pointer grid place-content-center w-[33%] h-full border-black">
+                                            className="cursor-pointer grid place-content-center w-[33%] h-full hover:bg-[#aaf8b6] border-black">
                                                 <FaPlus />
                                             </div>
                                         </div>

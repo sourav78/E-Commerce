@@ -1,10 +1,10 @@
 import axios from "axios";
 import React from "react";
 import { useDispatch } from "react-redux";
-import { toggleTrigger } from "../redux_slicer/EcomSlicer";
+import { toggleTrigger } from "../../redux_slicer/EcomSlicer.js";
 import { useNavigate } from "react-router-dom";
 
-import {BASE_URL} from '../utils/constraints.js'
+import {BASE_URL} from '../../utils/constraints.js'
 
 const Profile = () => {
 
@@ -24,9 +24,7 @@ const Profile = () => {
 
     return (
         <>
-            <div className="">
-                <button className="border p-2" onClick={handleLogout}>Logout</button>
-            </div>
+            
         </>
     );
 };

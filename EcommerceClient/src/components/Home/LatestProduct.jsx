@@ -22,7 +22,7 @@ const LatestProduct = () => {
   return (
     <>
         <div className="mt-8">
-            <h2 className="text-2xl font-semibold bg-slate-300 p-2">Latest Products</h2>
+            <h2 className="text-2xl font-semibold bg-[#49f076] border border-black p-2">Latest Products</h2>
             <div className="flex flex-wrap justify-start gap-10 mt-4">
                 {
                     latestProduct.map((product) => (

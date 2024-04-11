@@ -32,7 +32,7 @@ const ProductCardVertical = ({product}) => {
                 </div>
                 <div className="mt-4">
                     <Link to={`details/${product._id}`}>
-                        <p className=" cursor-pointer text-xl border-2 border-black inline-block px-4 py-1 font-semibold hover:bg-black hover:text-white transition-all">View</p>
+                        <p className=" cursor-pointer text-xl border-2 border-black inline-block px-4 py-1 font-semibold hover:bg-[#00ed64]  transition-all">View</p>
                     </Link>
                 </div>
             </div>

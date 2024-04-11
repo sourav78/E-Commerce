@@ -124,11 +124,11 @@ const Register = () => {
                         </div>
                         <div className="mt-6 px-6">
                             <button 
-                                className="bg-black border-2 border-black w-full text-white text-xl py-1 hover:bg-gray-700 transition-all"
+                                className="bg-[#00ed64] border-2 border-black w-full text-black text-xl py-1 hover:bg-[#69f287] transition-all"
                             >Register</button>
                         </div>
                     </form>
-                    <p className="text-center mt-4">Already have an account? <Link to="/login" className="text-blue-600" >login</Link></p>
+                    <p className="text-center mt-4">Already have an account? <Link to="/login" className="text-[#00ed64]" >login</Link></p>
                     
                 </div>  
             </div>
