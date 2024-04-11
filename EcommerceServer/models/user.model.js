@@ -25,10 +25,6 @@ const userSchema = new mongoose.Schema({
         type: String,
         require: true
     },
-    wishList: [{
-        type: mongoose.Schema.Types.ObjectId,
-        ref: 'Product'
-    }],
     isAdmin: {
         type: String,
         enum: ['USER', 'ADMIN'],

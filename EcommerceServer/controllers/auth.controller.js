@@ -1,4 +1,6 @@
 import { UserModel } from "../models/user.model.js"
+import { WishlistModel } from "../models/wishlist.model.js"
+import { CartModel } from "../models/cart.model.js"
 import emailValidator from 'email-validator'
 import bcrypt from 'bcrypt'
 
@@ -34,6 +36,14 @@ export const register = async (req, res) => {
             username,
             email,
             password
+        })
+
+        const wishlist = await WishlistModel.create({
+            userId: user._id
+        })
+
+        const cart = await CartModel.create({
+            userId: user._id
         })
     
         res.status(200).json({
