@@ -5,9 +5,9 @@ import emailValidator from 'email-validator'
 import bcrypt from 'bcrypt'
 
 export const register = async (req, res) => {
-    const {fullname, username, email, password, confirmPassword} = req.body
+    const {fullname, mobile, email, password, confirmPassword} = req.body
 
-    if(!fullname || !username || !email || !password || !confirmPassword){
+    if(!fullname || !mobile || !email || !password || !confirmPassword){
         return res.status(400).json({
             success: false,
             msg: "All fileds are required"
@@ -33,7 +33,7 @@ export const register = async (req, res) => {
     try {
         const user = await UserModel.create({
             fullname,
-            username,
+            mobile,
             email,
             password
         })

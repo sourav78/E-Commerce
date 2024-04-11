@@ -11,7 +11,7 @@ const Register = () => {
     const navigate = useNavigate()
 
     const [fullname, setFullname] = useState('')
-    const [ username, setUsername] = useState('')
+    const [ mobile, setMobile] = useState('')
     const [email, setEmail] = useState('')
     const [password, setPassword] = useState('')
     const [confirmPassword, setConfirmPassword] = useState('')
@@ -20,7 +20,7 @@ const Register = () => {
 
     const handleFormSubmit = async (e) => {
         e.preventDefault()
-        const registerData = {fullname, username, email, password, confirmPassword}
+        const registerData = {fullname, mobile, email, password, confirmPassword}
 
         try {
             const response = await axios.post(`${BASE_URL}/auth/register`, registerData,
@@ -83,13 +83,13 @@ const Register = () => {
                             />
                         </div>
                         <div className="mt-1 px-6">
-                            <label className="w-full text-xl text-gray-800" htmlFor="">Username:</label>
+                            <label className="w-full text-xl text-gray-800" htmlFor="">Mobile No. :</label>
                             <input 
-                                className="mt-1 w-full border-2 border-gray-600 outline-none px-2 py-1 text-xl" 
-                                type="text" 
+                                className="mt-1 w-full border-2 border-gray-600 outline-none px-2 py-1 text-xl [appearance:textfield] [&::-webkit-outer-spin-button]:appearance-none [&::-webkit-inner-spin-button]:appearance-none" 
+                                type="number"
                                 required 
-                                placeholder="john77" 
-                                onChange={(e)=> setUsername(e.target.value)}
+                                placeholder="7848823478" 
+                                onChange={(e)=> setMobile(e.target.value)}
                             />
                         </div>
                         <div className="mt-1 px-6">
