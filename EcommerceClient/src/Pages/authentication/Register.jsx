@@ -4,6 +4,8 @@ import {Link, useNavigate} from 'react-router-dom'
 import { Alert} from 'antd';
 import axios from "axios";
 
+import {BASE_URL} from '../../utils/constraints.js'
+
 const Register = () => {
 
     const navigate = useNavigate()
@@ -21,7 +23,7 @@ const Register = () => {
         const registerData = {fullname, username, email, password, confirmPassword}
 
         try {
-            const response = await axios.post('http://localhost:4001/auth/register', registerData,
+            const response = await axios.post(`${BASE_URL}/auth/register`, registerData,
                 {
                     headers: {
                         'Content-Type': 'application/json',

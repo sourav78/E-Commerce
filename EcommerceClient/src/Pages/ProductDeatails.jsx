@@ -4,6 +4,8 @@ import { Rate } from 'antd';
 import { FaMinus, FaPlus } from "react-icons/fa6";
 import axios from "axios";
 
+import {BASE_URL} from '../utils/constraints.js'
+
 const ProductDeatails = () => {
 
     const [counter, setCounter] = useState(1);
@@ -17,7 +19,7 @@ const ProductDeatails = () => {
     useEffect(() => {
         async function getProduct(){
 
-            const response = await axios.post('http://localhost:4001/product/get-product-details', {
+            const response = await axios.post(`${BASE_URL}/product/get-product-details`, {
                 productId
             })
 

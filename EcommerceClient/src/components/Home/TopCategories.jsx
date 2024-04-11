@@ -2,13 +2,15 @@ import React, { useEffect, useState } from "react";
 import axios from 'axios'
 import CategoryCard from "./CategoryCard";
 
+import {BASE_URL} from '../../utils/constraints.js'
+
 const TopCategories = () => {
 
     const [categories, setCategories] = useState([])
 
     useEffect(() => {
         async function fetchData(){
-            const getCategories = await axios.get('http://localhost:4001/product/get-home-category')
+            const getCategories = await axios.get(`${BASE_URL}/product/get-home-category`)
             const {data} = getCategories.data
             // console.log(import.meta.env.VITE_API_URL);
             setCategories(data)

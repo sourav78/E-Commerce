@@ -9,6 +9,8 @@ import { useDispatch, useSelector } from "react-redux";
 import axios from "axios";
 import { updateIsAuthenticated, updateUser } from "../redux_slicer/EcomSlicer";
 
+import {BASE_URL} from '../utils/constraints.js'
+
 const NavBar = () => {
 
     const [openNav, setOpenNav] = useState(false)
@@ -22,7 +24,7 @@ const NavBar = () => {
     useEffect(() => {
         async function authenticateUser(){
             try {
-                const response = await axios.get('http://localhost:4001/auth/profile', {
+                const response = await axios.get(`${BASE_URL}/auth/profile`, {
                     withCredentials: true
                 })
                 const {data} = response.data
