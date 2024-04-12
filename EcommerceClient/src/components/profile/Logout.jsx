@@ -26,10 +26,10 @@ const Logout = () => {
 
     return (
         <>
-            <div className=" mt-4">
+            <div className=" sm:mt-4 mt-0">
                 <button 
                     onClick={handleLogout}
-                    className="w-full bg-white p-3 text-lg text-start shadow flex items-center gap-2 font-semibold hover:text-red-500 transition-all">
+                    className="sm:w-full w-1/2 m-auto bg-white p-3 text-lg sm:text-start text-center shadow flex sm:justify-start justify-center items-center sm:gap-2 gap-5 font-semibold hover:text-red-500 transition-all">
                     <FaPowerOff className="text-lg text-red-500" />Logout
                 </button>
             </div>

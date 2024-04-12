@@ -1,3 +1,24 @@
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
+
+@layer utilities {
+    /* Chrome, Safari and Opera */
+    .no-scrollbar::-webkit-scrollbar {
+      display: none;
+    }
+
+    .no-scrollbar {
+      -ms-overflow-style: none; /* IE and Edge */
+      scrollbar-width: none; /* Firefox */
+    }
+
+    .thumb-bar::-webkit-scrollbar {
+      height: 8px;
+    }
+    .thumb-bar::-webkit-scrollbar-thumb{
+      border-radius: 5px;
+      background-color: rgb(193, 193, 193);
+      margin-top: 10px;
+    }
+}
