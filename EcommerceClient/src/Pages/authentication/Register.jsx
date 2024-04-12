@@ -20,7 +20,7 @@ const Register = () => {
 
     const handleFormSubmit = async (e) => {
         e.preventDefault()
-        const registerData = {fullname, mobile, email, password, confirmPassword}
+        const registerData = {fullname, mobile: mobile.toString(), email, password, confirmPassword}
 
         try {
             const response = await axios.post(`${BASE_URL}/auth/register`, registerData,
@@ -87,7 +87,7 @@ const Register = () => {
                             <input 
                                 className="mt-1 w-full border-2 border-gray-600 outline-none px-2 py-1 text-xl [appearance:textfield] [&::-webkit-outer-spin-button]:appearance-none [&::-webkit-inner-spin-button]:appearance-none" 
                                 type="number"
-                                required 
+                                required
                                 placeholder="7848823478" 
                                 onChange={(e)=> setMobile(e.target.value)}
                             />

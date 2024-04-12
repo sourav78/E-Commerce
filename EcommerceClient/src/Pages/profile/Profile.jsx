@@ -1,30 +1,19 @@
-import axios from "axios";
 import React from "react";
-import { useDispatch } from "react-redux";
-import { toggleTrigger } from "../../redux_slicer/EcomSlicer.js";
-import { useNavigate } from "react-router-dom";
+import { Outlet } from "react-router-dom";
 
-import {BASE_URL} from '../../utils/constraints.js'
+import ProfileSideNav from "../../components/profile/ProfileSideNav.jsx";
 
 const Profile = () => {
 
-    const dispatch = useDispatch()
-    const navigate = useNavigate()
-
-    const handleLogout = async () => {
-        const response = await axios.get(`${BASE_URL}/auth/logout`, {
-            withCredentials: true
-        })
-
-        const data = response.data
-        dispatch(toggleTrigger())
-        data.success && navigate('/')
-        console.log(data);
-    }
 
     return (
         <>
-            
+            <div className=" border-black mt-4 sm:w-4/5 w-full m-auto flex gap-4">
+                <ProfileSideNav/>
+                <div className="bg-white p-4 flex-grow h-full">
+                    <Outlet/>
+                </div>
+            </div>
         </>
     );
 };

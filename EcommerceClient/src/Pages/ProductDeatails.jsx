@@ -47,7 +47,7 @@ const ProductDeatails = () => {
 
   return (
     <>
-        <div className="">
+        <div className="bg-white mt-4 mx-1 lg:mx-4 rounded-lg shadow-md">
             <div className="sm:p-10 p-5">
                 <p className="text-4xl font-normal">Product Details</p>
                 {

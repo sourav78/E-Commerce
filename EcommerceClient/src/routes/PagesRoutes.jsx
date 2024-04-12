@@ -10,6 +10,11 @@ import ProductDeatails from "../Pages/ProductDeatails";
 import Login from "../Pages/authentication/Login";
 import Register from "../Pages/authentication/Register";
 import Profile from "../Pages/profile/Profile";
+import PersonalInformation from "../Pages/profile/PersonalInformation";
+import Address from "../Pages/profile/Address";
+import Orders from "../Pages/profile/Orders";
+import Wishlist from "../Pages/profile/Wishlist";
+import ProfileCart from "../Pages/profile/ProfileCart";
 
 const PagesRoutes = () => {
   return (
@@ -22,7 +27,13 @@ const PagesRoutes = () => {
           <Route path="/cart" element={<Cart />}  />
           <Route path="/login" element={<Login />}  />
           <Route path="/register" element={<Register />}  />
-          <Route path="/profile" element={<Profile />}  />
+          <Route path="/profile" element={<Profile />}>
+            <Route exact path="" element={<PersonalInformation />}  />
+            <Route path="address" element={<Address />}  />
+            <Route path="orders" element={<Orders />}  />
+            <Route path="wishlist" element={<Wishlist />}  />
+            <Route path="usercarts" element={<ProfileCart />}  />
+          </Route>
         </Routes>
     </>
   );

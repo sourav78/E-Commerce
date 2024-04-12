@@ -38,11 +38,11 @@ export const register = async (req, res) => {
             password
         })
 
-        const wishlist = await WishlistModel.create({
+        await WishlistModel.create({
             userId: user._id
         })
 
-        const cart = await CartModel.create({
+        await CartModel.create({
             userId: user._id
         })
     
@@ -56,9 +56,7 @@ export const register = async (req, res) => {
         if(error.code === 11000){
             let errorMsg = "";
             // Determine whether it's a duplicate username or email
-            if (error.keyPattern.username) {
-                errorMsg = "This username is already taken";
-            } else if (error.keyPattern.email) {
+            if (error.keyPattern.email) {
                 errorMsg = "This email is already registered";
             }
             return res.status(400).json({
