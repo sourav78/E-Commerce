@@ -3,6 +3,7 @@ import { WishlistModel } from "../models/wishlist.model.js"
 import { CartModel } from "../models/cart.model.js"
 import emailValidator from 'email-validator'
 import bcrypt from 'bcrypt'
+import { uploadOnCloudynary } from "../utils/uploadToCloudynary.js"
 
 export const register = async (req, res) => {
     const {fullname, mobile, email, password, confirmPassword} = req.body
@@ -162,5 +163,32 @@ export const logout = (req, res) => {
             success: true,
             data: error.massage
         })
+    }
+}
+
+export const uploadProfile = async (req, res) => {
+    const { id } = req.body
+
+    const result = await uploadOnCloudynary(`./public/profiles/${req.file.filename}`, id)
+
+    if (result === null) {
+        return res.status(400).json({
+            success: false,
+            msg: "Image not uploaded"
+        })
+    } else {
+
+        try {
+            
+            return res.status(200).json({
+                success: true,
+                data: result
+            })
+        } catch (error) {
+            return res.status(400).json({
+                success: false,
+                msg: "Image not updated"
+            })
+        }
     }
 }
