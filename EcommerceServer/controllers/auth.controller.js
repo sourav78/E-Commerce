@@ -10,7 +10,7 @@ export const register = async (req, res) => {
     if(!fullname || !mobile || !email || !password || !confirmPassword){
         return res.status(400).json({
             success: false,
-            msg: "All fileds are required"
+            msg: "All fileds are required."
         })
     }
 
@@ -19,14 +19,21 @@ export const register = async (req, res) => {
     if(!validatedEmail){
         return res.status(400).json({
             success: false,
-            msg: "Please provide a valid email"
+            msg: "Please provide a valid email."
+        })
+    }
+
+    if(mobile.length !== 10){
+        return res.status(400).json({
+            success: false,
+            msg: "Please provide a valid mobile number."
         })
     }
 
     if(password !== confirmPassword){
         return res.status(400).json({
             success: false,
-            msg: "Confirm password not matched"
+            msg: "Password and confirm password not matched."
         })
     }
 

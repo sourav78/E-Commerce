@@ -34,3 +34,53 @@ export const uploadProfile = async (req, res) => {
         }
     }
 }
+
+export const updatePersonalInfo = async (req, res) => {
+    const {id, field, data} = req.body
+
+    if(!id || !field || !data){
+        return res.status(400).json({
+            success: false,
+            msg: "Field Should not be empty"
+        })
+    }
+
+    if(field === 'email'){
+        const validatedEmail = await emailValidator.validate(data)
+
+        if(!validatedEmail){
+            return res.status(400).json({
+                success: false,
+                msg: "Please provide a valid email."
+            })
+        }
+    }
+
+    if(field === 'mobile' && data.length !== 10){
+        return res.status(400).json({
+            success: false,
+            msg: "Please provide a valid mobile number."
+        })
+    }
+
+    try {
+
+        let updateObject = {};
+        updateObject[field] = data;
+        
+        await UserModel.findByIdAndUpdate(id, updateObject)
+
+        return res.status(200).json({
+            success: true,
+            data: `${field} updated successfully.`
+        })
+
+    } catch (error) {
+        return res.status(400).json({
+            success: false,
+            msg: error.message
+        })
+    }
+
+    
+}
