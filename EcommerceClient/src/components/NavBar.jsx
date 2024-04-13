@@ -105,8 +105,8 @@ const NavBar = () => {
                                         </>
                                     ) : (
                                         <div className="flex items-center gap-2">
-                                            <div className="w-12 rounded-full overflow-hidden border border-black">
-                                                <img src={user.imageUrl} alt="" />
+                                            <div className="w-12 h-12 rounded-full overflow-hidden border border-black">
+                                                <img className="w-full h-full object-cover" src={user.imageUrl} alt="" />
                                             </div>
                                             <span className="lg:hidden">Profile</span>
                                         </div>

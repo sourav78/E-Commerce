@@ -179,10 +179,14 @@ export const uploadProfile = async (req, res) => {
     } else {
 
         try {
-            
+
+            await UserModel.findByIdAndUpdate(id, {
+                imageUrl: result.secure_url
+            })
+
             return res.status(200).json({
                 success: true,
-                data: result
+                data: "Image updated succesfully"
             })
         } catch (error) {
             return res.status(400).json({

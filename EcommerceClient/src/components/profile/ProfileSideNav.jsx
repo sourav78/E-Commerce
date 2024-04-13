@@ -16,8 +16,8 @@ const ProfileSideNav = () => {
         <>
             <div className="sm:w-1/4 w-full h-full">
                 <div className="profile sm:flex hidden p-2 bg-white shadow gap-3 items-center">
-                    <div className="w-14 rounded-full overflow-hidden">
-                        <img className="w-full" src={user.imageUrl} alt="" />
+                    <div className="w-14 h-14 rounded-full overflow-hidden">
+                        <img className="w-full h-full object-cover" src={user.imageUrl} alt="" />
                     </div>
                     <div className="">
                         <p className="text-[12px]">Hello</p>
