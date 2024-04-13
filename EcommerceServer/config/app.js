@@ -8,6 +8,7 @@ import cookieParser from 'cookie-parser'
 import { connectDB } from './database.js'
 import ProductRouter from '../routes/products.routes.js'
 import AuthRouter from '../routes/auth.routes.js'
+import ProfileRouter from '../routes/profile.routes.js'
 
 const app = express()
 export const cache = new NodeCache({ stdTTL: 900 })
@@ -26,5 +27,6 @@ connectDB()
 
 app.use('/product', ProductRouter)
 app.use('/auth', AuthRouter)
+app.use('/profile', ProfileRouter)
 
 export default app

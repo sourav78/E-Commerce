@@ -4,6 +4,8 @@ import axios from "axios";
 import { toggleTrigger } from "../../../redux_slicer/EcomSlicer";
 import { notification } from 'antd';
 
+import {BASE_URL} from '../../../utils/constraints'
+
 const ProfileImage = () => {
 
     const [api, contextHolder] = notification.useNotification();
@@ -56,7 +58,7 @@ const ProfileImage = () => {
         formData.append('id', user._id)
 
         try {
-            const response = await axios.post("http://localhost:4001/auth/upload-image", formData, {
+            const response = await axios.post(`${BASE_URL}/profile/upload-image`, formData, {
                 headers: {
                     'Content-Type': 'multipart/form-data'
                 }
