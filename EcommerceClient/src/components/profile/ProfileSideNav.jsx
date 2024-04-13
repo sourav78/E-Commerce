@@ -32,7 +32,7 @@ const ProfileSideNav = () => {
                         <MdAdminPanelSettings className="text-lg" />Admin Panel
                     </NavLink>
                     <NavLink to='/profile/address' className={({isActive}) => ` flex items-center justify-start gap-2 w-full px-4 py-3 font-semibold sm:border-b sm:border-gray-200 ${isActive ? `sm:bg-[#aaf8b6bf] bg-[#00ed64] sm:border-none border-2 border-black `: `bg-white hover:bg-[#aaf8b647]`} transition-all`}>
-                        <FaLocationDot />Address
+                        <FaLocationDot className="text-lg" />Address
                     </NavLink>
                     <NavLink to='/profile/orders' className={({isActive}) => ` flex items-center justify-start gap-2 w-full px-4 py-3 font-semibold sm:border-b sm:border-gray-200 ${isActive ? `sm:bg-[#aaf8b6bf] bg-[#00ed64] sm:border-none border-2 border-black `: `bg-white hover:bg-[#aaf8b647]`}  transition-all`}>
                         <MdProductionQuantityLimits className="text-lg" />Orders

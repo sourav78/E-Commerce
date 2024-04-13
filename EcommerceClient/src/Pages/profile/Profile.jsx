@@ -10,9 +10,9 @@ const Profile = () => {
 
     return (
         <>
-            <div className=" border-black mt-4 sm:w-4/5 w-full m-auto flex sm:flex-row flex-col gap-4">
+            <div className=" border-black mt-4 lg:w-4/5 sm:w-11/12 w-full px-2 m-auto flex sm:flex-row flex-col gap-4">
                 <ProfileSideNav/>
-                <div className="bg-white p-4 flex-grow h-full">
+                <div className="flex-grow h-full">
                     <Outlet/>
                 </div>
                 <div className=" sm:hidden block">
