@@ -34,11 +34,22 @@ const userSchema = new mongoose.Schema({
 })
 
 userSchema.pre('save', async function(next){
-    const hashedPassword = await hash(this.password, 10)
-    this.password = hashedPassword
+    
+    if(this.isModified("password")){
+        const hashedPassword = await hash(this.password, 10)
+        this.password = hashedPassword
+    }
 
     next()
 })
+
+userSchema.pre('findOneAndUpdate', async function(next) {
+    if (this._update.password) {
+        const hashedPassword = await hash(this._update.password, 10);
+        this._update.password = hashedPassword;
+    }
+    next();
+});
 
 
 userSchema.methods.JWTSign = function(){

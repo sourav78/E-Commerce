@@ -3,6 +3,8 @@ import { WishlistModel } from "../models/wishlist.model.js"
 import { CartModel } from "../models/cart.model.js"
 import emailValidator from 'email-validator'
 import bcrypt from 'bcrypt'
+import nodeMailer from 'nodemailer'
+import otpGenerator from 'otp-generator'
 
 export const register = async (req, res) => {
     const {fullname, mobile, email, password, confirmPassword} = req.body
@@ -172,3 +174,73 @@ export const logout = (req, res) => {
     }
 }
 
+export const sendOtp = async (req, res) => {
+
+    const {email} = req.body
+
+    const transporter = await nodeMailer.createTransport({
+        service: 'gmail',
+        host: 'smtp.gmail.com',
+        port: 587,
+        auth: {
+            user: process.env.SMTP_USER,
+            pass: process.env.SMTP_PASS
+        }
+    });
+
+    const otp = otpGenerator.generate(6, { upperCaseAlphabets: false, specialChars: false, lowerCaseAlphabets: false });
+
+    const mailOptions = {
+        from: '"Sourav" <no-reply@example.com>',
+        to: email,
+        subject: "OTP Verification",
+        text: `your OTP: ${otp}`,
+        replyTo: 'no-reply@example.com',
+    };
+
+    try {
+        const info = await transporter.sendMail(mailOptions);
+
+        if(!info){
+            new Error('OTP not sent')
+        }
+
+        return res.status(200).json({
+            success: true,
+            data: otp
+        });
+    } catch (error) {
+        console.error(error);
+        res.status(500).json({
+            success: false,
+            msg: 'OTP not sent'
+        });
+    }
+}
+
+export const changePassword = async (req, res) => {
+    const {id, password} = req.body
+
+    if(!id || !password){
+        return res.status(400).json({
+            success: true,
+            data: 'Password must not be empty'
+        })
+    }
+
+    try {
+        await UserModel.findByIdAndUpdate({_id: id}, {
+            password
+        })
+    
+        return res.status(200).json({
+            success: true,
+            data: 'Password updated successfully'
+        })
+    } catch (error) {
+        return res.status(400).json({
+            success: true,
+            data: 'Password not updated.'
+        })
+    }
+}

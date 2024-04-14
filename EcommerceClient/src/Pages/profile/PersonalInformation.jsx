@@ -1,13 +1,10 @@
 import React from "react";
 import ProfileImage from "../../components/profile/perosnal-info/ProfileImage";
 import DetailsUpdationForm from "../../components/profile/perosnal-info/DetailsUpdationForm";
-import { useSelector } from "react-redux";
-import FAQs from "../../components/profile/perosnal-info/FAQs";
 import DeleteAccount from "../../components/profile/perosnal-info/DeleteAccount";
 
 const PersonalInformation = () => {
 
-    const user = useSelector(state => state.user)
 
     return (
         <>
