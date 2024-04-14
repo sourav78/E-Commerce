@@ -105,7 +105,7 @@ const ProfileImage = () => {
                     <button className="px-3 py-2 border border-black bg-[#00ed64] font-semibold hover:rounded-md">View Profile</button>
                 </div>
                 
-                <div className={` ${showModal ? 'block' : 'hidden'} p-7 shadow-md sm:w-3/4 w-full bg-gray-200 rounded absolute top-4 left-1/2 -translate-x-1/2`}>
+                <div className={`z-10 ${showModal ? 'block' : 'hidden'} p-7 shadow-md sm:w-3/4 w-full bg-gray-200 rounded absolute top-4 left-1/2 -translate-x-1/2`}>
                     {
                         loading ? (
                             <div className="flex justify-center">

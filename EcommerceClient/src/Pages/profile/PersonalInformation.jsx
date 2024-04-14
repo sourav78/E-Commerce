@@ -2,6 +2,7 @@ import React from "react";
 import ProfileImage from "../../components/profile/perosnal-info/ProfileImage";
 import DetailsUpdationForm from "../../components/profile/perosnal-info/DetailsUpdationForm";
 import DeleteAccount from "../../components/profile/perosnal-info/DeleteAccount";
+import UpdatePassword from "../../components/profile/perosnal-info/UpdatePassword";
 
 const PersonalInformation = () => {
 
@@ -23,6 +24,9 @@ const PersonalInformation = () => {
                     <div className=" mt-10">
                         <DetailsUpdationForm fieldLable={'Mobile Number'} field={'mobile'} />
                     </div>
+                </div>
+                <div className="mt-10">
+                    <UpdatePassword/>
                 </div>
                 <div className="mt-10">
                     <DeleteAccount/>
