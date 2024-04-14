@@ -36,9 +36,9 @@ export const uploadProfile = async (req, res) => {
 }
 
 export const updatePersonalInfo = async (req, res) => {
-    const {id, field, data} = req.body
+    const {id, field, userdata} = req.body
 
-    if(!id || !field || !data){
+    if(!id || !field || !userdata){
         return res.status(400).json({
             success: false,
             msg: "Field Should not be empty"
@@ -46,7 +46,7 @@ export const updatePersonalInfo = async (req, res) => {
     }
 
     if(field === 'email'){
-        const validatedEmail = await emailValidator.validate(data)
+        const validatedEmail = await emailValidator.validate(userdata)
 
         if(!validatedEmail){
             return res.status(400).json({
@@ -56,7 +56,7 @@ export const updatePersonalInfo = async (req, res) => {
         }
     }
 
-    if(field === 'mobile' && data.length !== 10){
+    if(field === 'mobile' && userdata.length !== 10){
         return res.status(400).json({
             success: false,
             msg: "Please provide a valid mobile number."
@@ -66,7 +66,7 @@ export const updatePersonalInfo = async (req, res) => {
     try {
 
         let updateObject = {};
-        updateObject[field] = data;
+        updateObject[field] = userdata;
         
         await UserModel.findByIdAndUpdate(id, updateObject)
 
