@@ -244,3 +244,33 @@ export const changePassword = async (req, res) => {
         })
     }
 }
+
+export const deleteAccount = async (req, res) => {
+    const {id} = req.body
+
+    if(!id){
+        return res.status(400).json({
+            success: false,
+            data: 'User id not found'
+        })
+    }
+
+    try {
+        
+        await UserModel.findByIdAndDelete(id)
+
+        await WishlistModel.findOneAndDelete({userId: id})
+        await CartModel.findOneAndDelete({userId: id})
+
+        return res.status(200).json({
+            success: true,
+            data: 'Account Deleted successfully'
+        })
+
+    } catch (error) {
+        return res.status(400).json({
+            success: false,
+            data: 'Account not deleted'
+        })
+    }
+}
