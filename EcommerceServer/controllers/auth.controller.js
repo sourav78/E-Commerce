@@ -251,7 +251,7 @@ export const deleteAccount = async (req, res) => {
     if(!id){
         return res.status(400).json({
             success: false,
-            data: 'User id not found'
+            msg: 'User id not found'
         })
     }
 
@@ -270,7 +270,7 @@ export const deleteAccount = async (req, res) => {
     } catch (error) {
         return res.status(400).json({
             success: false,
-            data: 'Account not deleted'
+            msg: 'Account not deleted'
         })
     }
 }

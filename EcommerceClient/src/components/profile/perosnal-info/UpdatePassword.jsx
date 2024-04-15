@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from "react";
 import { RxCross2 } from "react-icons/rx";
 import TextField from "@mui/material/TextField";
+import Modal from '@mui/material/Modal';
 import { useSelector } from "react-redux";
 import axios from "axios";
 import {BASE_URL} from '../../../utils/constraints'
@@ -119,61 +120,64 @@ const UpdatePassword = () => {
                 <button 
                     onClick={handleSendOtp}
                     className="border-2 border-black px-10 py-3 font-semibold bg-[#00ed64]">Update Password</button>
-                {
-                    showModal && (
-                        <div className="z-10 flex items-center justify-center fixed top-0 left-0 overflow-hidden max-h-screen w-full h-screen bg-[#00000075]">
-                            <div className="w-full flex items-start justify-center">
-                                <div className="p-4 bg-white rounded-md lg:w-[30%] sm:w-1/2 w-11/12">
-                                    {
-                                        !isOtpMatch && (
-                                            <div className="">
-                                                <p className="font-semibold mb-4">Verify OTP: </p>
-                                                <TextField
-                                                    error = {incorrectOtp}
-                                                    className="w-full"
-                                                    required
-                                                    id="outlined-required"
-                                                    label="OTP"
-                                                    value={userOtp}
-                                                    onChange={(e) => setUserOtp(e.target.value)}
-                                                    helperText={incorrectOtp ? userOtpMsg : ""}  
-                                                />
-                                                <div className="flex justify-center">
-                                                    <button 
-                                                        onClick={onVerify}
-                                                        className="mt-2 px-6 py-2 border border-black bg-[#00ed64] font-semibold">Verify</button>
-                                                </div>
-                                            </div>
-                                        )
-                                    }
-                                    {
-                                        isOtpMatch && (
-                                            <div className="mt-4">
-                                                <p className="font-semibold mb-4">New Password: </p>
-                                                <TextField
-                                                    className="w-full"
-                                                    required
-                                                    id="outlined-required"
-                                                    label="New Password"
-                                                    value={newPassword}
-                                                    onChange={(e) => setNewPassword(e.target.value)}
-                                                />
-                                                <div className="flex justify-center">
-                                                    <button 
-                                                        onClick={onPasswordChange}
-                                                        className="mt-2 px-6 py-2 border border-black bg-[#00ed64] font-semibold">Change Password</button>
-                                                </div>
-                                            </div>
-                                        )
-                                    }
-                                </div>           
-                                <RxCross2 
-                                    onClick={onModalClose}
-                                    className="text-4xl text-[#00ed64] cursor-pointer" />
-                            </div>
-                        </div>
-                    )
-                }
+                
+                <Modal
+                    open={showModal}
+                    onClose={onModalClose}
+                    aria-labelledby="modal-modal-title"
+                    aria-describedby="modal-modal-description"
+                >
+                    <div className="w-[95%] flex items-start justify-center absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2">
+                        <div className="p-4 bg-white rounded-md lg:w-[30%] sm:w-1/2 w-11/12">
+                            {
+                                !isOtpMatch && (
+                                    <div className="">
+                                        <p className="font-semibold mb-4">Verify OTP: </p>
+                                        <TextField
+                                            error = {incorrectOtp}
+                                            className="w-full"
+                                            required
+                                            id="outlined-required"
+                                            label="OTP"
+                                            value={userOtp}
+                                            onChange={(e) => setUserOtp(e.target.value)}
+                                            helperText={incorrectOtp ? userOtpMsg : ""}  
+                                        />
+                                        <div className="flex justify-center">
+                                            <button 
+                                                onClick={onVerify}
+                                                className="mt-2 px-6 py-2 border border-black bg-[#00ed64] font-semibold">Verify</button>
+                                        </div>
+                                    </div>
+                                )
+                            }
+                            {
+                                isOtpMatch && (
+                                    <div className="mt-4">
+                                        <p className="font-semibold mb-4">New Password: </p>
+                                        <TextField
+                                            className="w-full"
+                                            required
+                                            id="outlined-required"
+                                            label="New Password"
+                                            value={newPassword}
+                                            onChange={(e) => setNewPassword(e.target.value)}
+                                        />
+                                        <div className="flex justify-center">
+                                            <button 
+                                                onClick={onPasswordChange}
+                                                className="mt-2 px-6 py-2 border border-black bg-[#00ed64] font-semibold">Change Password</button>
+                                        </div>
+                                    </div>
+                                )
+                            }
+                        </div>           
+                        <RxCross2 
+                            onClick={onModalClose}
+                            className="text-4xl text-[#00ed64] cursor-pointer" />
+                    </div>
+
+                </Modal>
             </div>
         </>
     );
