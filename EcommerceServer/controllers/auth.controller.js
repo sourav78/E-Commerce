@@ -5,6 +5,7 @@ import emailValidator from 'email-validator'
 import bcrypt from 'bcrypt'
 import nodeMailer from 'nodemailer'
 import otpGenerator from 'otp-generator'
+import { UserAddressModel } from "../models/address.model.js"
 
 export const register = async (req, res) => {
     const {fullname, mobile, email, password, confirmPassword} = req.body
@@ -47,11 +48,15 @@ export const register = async (req, res) => {
             password
         })
 
-        await WishlistModel.create({
-            userId: user._id
-        })
+        // await WishlistModel.create({
+        //     userId: user._id
+        // })
 
-        await CartModel.create({
+        // await CartModel.create({
+        //     userId: user._id
+        // })
+
+        await UserAddressModel.create({
             userId: user._id
         })
     
