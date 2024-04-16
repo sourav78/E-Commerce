@@ -86,6 +86,25 @@ export const updatePersonalInfo = async (req, res) => {
     
 }
 
+export const getAllAddress = async (req, res) => {
+    const userId = req.params.userId
+
+    try {
+        const userAddresses = await UserAddressModel.findOne({userId})
+
+        return res.status(200).json({
+            success: true,
+            data: userAddresses.address
+        })
+    } catch (error) {
+        return res.status(400).json({
+            success: false,
+            msg: error.message
+        })
+    }
+
+}
+
 export const addNewAddress = async (req, res) => {
     const { id, name, mobile, locality, area, city, state, postalCode, type} = req.body
 
