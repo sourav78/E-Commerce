@@ -47,20 +47,20 @@ export const register = async (req, res) => {
             email,
             password
         })
-
-        // await WishlistModel.create({
-        //     userId: user._id
-        // })
-
-        // await CartModel.create({
-        //     userId: user._id
-        // })
-
+        
+        await WishlistModel.create({
+            userId: user._id
+        })
+        
+        await CartModel.create({
+            userId: user._id
+        })
+        
         await UserAddressModel.create({
             userId: user._id
         })
     
-        res.status(200).json({
+        return res.status(200).json({
             success: true,
             data: user
         })
@@ -78,7 +78,7 @@ export const register = async (req, res) => {
                 msg: errorMsg
             });
         }
-        res.status(400).json({
+        return res.status(400).json({
             success: false,
             msg: error.message
         })

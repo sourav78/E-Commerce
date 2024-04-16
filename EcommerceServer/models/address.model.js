@@ -1,39 +1,5 @@
-import mongoose, { mongo } from 'mongoose'
+import mongoose from 'mongoose'
 
-const addressSchema = new mongoose.Schema({
-    name: {
-        type: String,
-        required: true
-    },
-    mobile: {
-        type: String,
-        required: true
-    },
-    locality: {
-        type: String,
-        required: true
-    },
-    area: {
-        type: String,
-        required: true
-    },
-    city: {
-        type: String,
-        required: true
-    },
-    state: {
-        type: String,
-        required: true
-    },
-    postalCode: {
-        type: String,
-        required: true
-    },
-    type: {
-        type: String,
-        required: true
-    }
-});
 
 const userAddressSchema = new mongoose.Schema({
     userId: {
@@ -41,9 +7,42 @@ const userAddressSchema = new mongoose.Schema({
         ref: 'users',
         require: true
     },
-    address: [addressSchema]
+    address: [{
+        name: {
+            type: String,
+            require: true
+        },
+        mobile: {
+            type: String,
+            require: true
+        },
+        locality: {
+            type: String,
+            require: true
+        },
+        area: {
+            type: String,
+            require: true
+        },
+        city: {
+            type: String,
+            require: true
+        },
+        state: {
+            type: String,
+            require: true
+        },
+        postalCode: {
+            type: String,
+            require: true
+        },
+        type: {
+            type: String,
+            require: true
+        }
+    }]
 },{
     timestamps: true
 })
 
-export const UserAddressModel = mongoose.model('addresses', userAddressSchema)
+export const UserAddressModel = mongoose.model('address', userAddressSchema)

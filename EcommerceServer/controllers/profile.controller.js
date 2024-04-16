@@ -134,3 +134,55 @@ export const addNewAddress = async (req, res) => {
     }
     
 }
+
+export const updateAddress = async (req, res) => {
+    const { addressId, name, mobile, locality, area, city, state, postalCode, type} = req.body
+
+    if(!addressId || !name || !mobile || !locality || !area || !city || !state || !postalCode || !type ){
+        return res.status(400).json({
+            success: false,
+            msg: "All fields are required."
+        })
+    }
+
+    if(mobile.length !== 10){
+        return res.status(400).json({
+            success: false,
+            msg: "Please provide a valid phone number."
+        })
+    }
+
+    if(postalCode.length !== 6){
+        return res.status(400).json({
+            success: false,
+            msg: "Please provide a valid postal code."
+        })
+    }
+
+    try {
+
+        const newAddress = {
+            name, mobile, locality, area, city, state, postalCode, type
+        }
+        
+        const updatedAddress = await UserAddressModel.findOneAndUpdate({"address._id": addressId},{
+            $set: {
+                "address.$" : newAddress
+            }
+        })
+
+        if(!updatedAddress){
+            throw new Error('Address is not update!!.');
+        }
+
+        return res.status(200).json({
+            success: true,
+            data: "Aaddress is updated successfully."
+        })
+    } catch (error) {
+        return res.status(400).json({
+            success: false,
+            msg: error.message
+        })
+    }
+}
