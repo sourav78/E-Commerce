@@ -186,3 +186,35 @@ export const updateAddress = async (req, res) => {
         })
     }
 }
+
+export const deleteAddress = async (req, res) => {
+    const {id,addressId} = req.body
+
+    if(!id || !addressId){
+        return res.status(400).json({
+            success: false,
+            msg: "All fields are required."
+        })
+    }
+
+    try {
+        const updatedDocument = await UserAddressModel.findOneAndUpdate(
+            { userId: id },
+            { $pull: { address: { _id: addressId } } }
+        );
+
+        if(!updatedDocument){
+            throw new Error('Address is not deleted!!.');
+        }
+
+        return res.status(200).json({
+            success: true,
+            data: "Aaddress is deleted successfully."
+        })
+    } catch (error) {
+        return res.status(400).json({
+            success: false,
+            msg: error.message
+        })
+    }
+}
