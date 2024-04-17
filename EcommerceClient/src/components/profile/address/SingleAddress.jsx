@@ -1,12 +1,40 @@
+import axios from "axios";
 import React, { useState } from "react";
 import { BsThreeDotsVertical } from "react-icons/bs";
+import {BASE_URL} from '../../../utils/constraints'
 
-const SingleAddress = ({address, userId}) => {
+const SingleAddress = ({address, userId, setLoadAddress, setOnDeleteAddress}) => {
 
     const [showBtn, setShowBtn] = useState(false)
 
     const showButtons = () => {
         setShowBtn(!showBtn)
+    }
+
+    const handleDeleteAddress = async () => {
+        console.log(address._id);
+        console.log(userId);
+
+        try {
+            const response = await axios.post(`${BASE_URL}/profile/delete-address`, {
+                id: userId,
+                addressId: address._id
+            }, {
+                headers: {
+                    'Content-Type': 'application/json',
+                },
+                withCredentials: true
+            })
+
+            const {data} = response
+
+            data.success && setLoadAddress(prev => !prev)
+            data.success && setOnDeleteAddress({success: true, type: 'success', msg: data.data})
+        } catch (error) {
+            console.log(error.message);
+            console.log(error.response.data.msg);
+            setOnDeleteAddress({success: true, type: 'error', msg: error.response.data.msg})
+        }
     }
 
     return (
@@ -22,8 +50,13 @@ const SingleAddress = ({address, userId}) => {
                         {
                             showBtn && (
                                 <div className="px-6 py-3 bg-white shadow-xl absolute right-0">
-                                    <button className="text-sm block  text-center w-full font-semibold text-gray-600 hover:text-[#00ce56]">Edit</button>
-                                    <button className="text-sm block mt-2 text-center w-full font-semibold text-gray-600 hover:text-[#00ce56]">Delete</button>
+                                    <button 
+                                        className="text-sm block  text-center w-full font-semibold text-gray-600 hover:text-[#00ce56]"
+                                    >Edit</button>
+                                    <button 
+                                        onClick={handleDeleteAddress}
+                                        className="text-sm block mt-2 text-center w-full font-semibold text-gray-600 hover:text-[#00ce56]"
+                                    >Delete</button>
                                 </div>
                             )
                         }

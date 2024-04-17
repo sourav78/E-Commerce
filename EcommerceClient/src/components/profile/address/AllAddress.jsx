@@ -4,12 +4,30 @@ import axios from "axios";
 import {BASE_URL} from '../../../utils/constraints'
 import { useSelector } from "react-redux";
 import CircularProgress from '@mui/material/CircularProgress';
+import { notification } from 'antd';
 
 const AllAddress = () => {
+
+    const [api, contextHolder] = notification.useNotification();
 
     const user = useSelector(state => state.user)
 
     const [address, setAddress] = useState([])
+
+    const [loadAddress, setLoadAddress] = useState(false)
+
+    const [onDeleteAddress, setOnDeleteAddress] = useState({
+        success: false,
+        type: '',
+        msg: ''
+    })
+
+    const openNotificationWithIcon = (type, msg) => {
+        api[type]({
+            description: msg,
+            placement: 'bottomRight',
+        });
+    };
 
     useEffect(() => {
 
@@ -29,7 +47,13 @@ const AllAddress = () => {
         }
 
         fetchAllAddress()
-    }, [user])
+    }, [user, loadAddress])
+
+    useEffect(() => {
+        if (onDeleteAddress.success) {
+            openNotificationWithIcon('success', onDeleteAddress.msg);
+        }
+    }, [onDeleteAddress]);
 
     if(!address){
         return (
@@ -43,13 +67,16 @@ const AllAddress = () => {
 
     return (
         <>
+            {contextHolder}
             <div className="border border-gray-300">
                 {
                     address && (
                         <>
                             {
                                 address.map(add => (
-                                    <SingleAddress address={add} userId={user._id}/>
+                                    <div key={add._id}>
+                                        <SingleAddress address={add} userId={user._id} setLoadAddress={setLoadAddress} setOnDeleteAddress={setOnDeleteAddress}/>
+                                    </div>
                                 ))
                             }
                         </>
