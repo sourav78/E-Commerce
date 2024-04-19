@@ -1,6 +1,7 @@
 import React from "react";
 import AddNewAddress from "../../components/profile/address/AddNewAddress";
 import AllAddress from "../../components/profile/address/AllAddress";
+import AddressForm from "../../components/profile/address/AddressForm";
 
 const Address = () => {
     return (
@@ -12,6 +13,9 @@ const Address = () => {
                 </div>
                 <div className="mt-8">
                     <AllAddress/>
+                </div>
+                <div className="mt-8">
+                    <AddressForm/>
                 </div>
             </div>
         </>
