@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import TextField from "@mui/material/TextField";
 import Radio from '@mui/material/Radio';
 import RadioGroup from '@mui/material/RadioGroup';
@@ -10,27 +10,72 @@ import MenuItem from '@mui/material/MenuItem';
 import Select from '@mui/material/Select';
 
 import {statesOfIndia} from '../../../utils/constraints'
+import {BASE_URL} from '../../../utils/constraints'
+import { useSelector } from "react-redux";
+import axios from "axios";
 
-const AddressForm = () => {
+const AddressForm = ({setShowAddressForm, address, setAddressStatus}) => {
 
-    const [addressName, setAddressName] = useState('')
-    const [addressMobile, setAddressMobile] = useState('')
-    const [addressPincode, setAddressPincode] = useState('')
-    const [addressLocality, setAddressLocality] = useState('')
-    const [addressArea, setAddressArea] = useState('')
-    const [addressCity, setAddressCity] = useState('')
-    const [addressState, setAddressState] = useState('')
-    const [addressType, setAddressType] = useState('')
 
-    const onHandleSave = () => {
-        console.log(addressName);
-        console.log(addressMobile);
-        console.log(addressPincode);
-        console.log(addressLocality);
-        console.log(addressArea);
-        console.log(addressCity);
-        console.log(addressState);
-        console.log(addressType);
+    const user = useSelector(state => state.user)
+
+    const [addressName, setAddressName] = useState(address?.name || '')
+    const [addressMobile, setAddressMobile] = useState(address?.mobile || '')
+    const [addressPincode, setAddressPincode] = useState(address?.postalCode || '')
+    const [addressLocality, setAddressLocality] = useState(address?.locality || '')
+    const [addressArea, setAddressArea] = useState(address?.area || '')
+    const [addressCity, setAddressCity] = useState(address?.city || '')
+    const [addressState, setAddressState] = useState(address?.state || '')
+    const [addressType, setAddressType] = useState(address?.type || '')
+
+    useEffect(() => {
+
+    }, [user])
+
+    async function addNewAddress(){
+        console.log('new');
+
+        try {
+            const response = await axios.post(`${BASE_URL}/profile/add-new-address`, {
+                id: user._id,
+                name: addressName,
+                mobile: addressMobile,
+                locality: addressLocality,
+                area: addressArea,
+                city: addressCity,
+                state: addressState,
+                postalCode: addressPincode,
+                type: addressType
+            },{
+                headers: {
+                    'Content-Type': 'application/json',
+                },
+                withCredentials: true
+            })
+    
+            const {data} = response
+    
+            data.success && console.log(data.data);
+            data.success && setAddressStatus({success: true, type: 'success', msg: data.data})
+            data.success && onHandleCancel()
+        } catch (error) {
+            console.log(error.message);
+            console.log(error.response.data.msg);
+            setAddressStatus({success: false, type: 'error', msg: error.response.data.msg})
+        }
+    }
+    
+    function editAddress(){
+        console.log('edit');
+    }
+
+    const onHandleSave = async () => {
+
+        if(address){
+            await editAddress()
+        }else{
+            addNewAddress()
+        }
     }
 
     const onHandleCancel = () => {
@@ -42,20 +87,17 @@ const AddressForm = () => {
         setAddressCity('')
         setAddressState('')
         setAddressType('')
-    }
 
-    const onAddressChange = (e) => {
-        console.log(e.target.value);
-        setAddressType(e.target.value)
+        setShowAddressForm(false)
     }
 
     return (
         <>
-            <div className="p-6 bg-[#F5FAFF] border border-gray-300">
+            <div className="sm:p-6 p-2 bg-[#F5FAFF] border border-gray-300">
                 <div className="">
-                    <p className="text-sm font-semibold text-[#00ce56]">ADD NEW ADDRESS</p>
+                    <p className="text-sm font-semibold text-[#00ce56]">{address ? `EDIT ADDRESS` : `ADD NEW ADDRESS`}</p>
                 </div>
-                <div className="w-4/5">
+                <div className="sm:w-4/5 w-full">
                     <div className="mt-4 flex flex-wrap gap-4 justify-between">
                         <div className="sm:w-[45%] w-full">
                             <p className="mb-2 font-semibold">Name</p>
@@ -155,7 +197,8 @@ const AddressForm = () => {
                                 <RadioGroup
                                     aria-labelledby="demo-radio-buttons-group-label"
                                     name="radio-buttons-group"
-                                    onChange={onAddressChange}
+                                    defaultValue={addressType}
+                                    onChange={(e) => setAddressType(e.target.value)}
                                 >
                                     <div className="flex">
                                         <FormControlLabel value="work" control={<Radio />} label="Work" />

@@ -14,9 +14,6 @@ const Address = () => {
                 <div className="mt-8">
                     <AllAddress/>
                 </div>
-                <div className="mt-8">
-                    <AddressForm/>
-                </div>
             </div>
         </>
     );
