@@ -1,14 +1,40 @@
 import axios from "axios";
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { BsThreeDotsVertical } from "react-icons/bs";
 import {BASE_URL} from '../../../utils/constraints'
 import AddressForm from "./AddressForm";
+import { notification } from 'antd';
 
 const SingleAddress = ({address, userId, setLoadAddress, setOnDeleteAddress}) => {
+
+    const [api, contextHolder] = notification.useNotification();
 
     const [showAddressForm, setShowAddressForm] = useState(false)
 
     const [showBtn, setShowBtn] = useState(false)
+
+    const [addressState, setAddressState] = useState({
+        success: false,
+        type: '',
+        msg: ''
+    })
+    const openNotificationWithIcon = (type, msg) => {
+        api[type]({
+            description: msg,
+            placement: 'bottomRight',
+        });
+    };
+
+    useEffect(() => {
+        if(addressState.type){
+            if (addressState.success ) {
+                openNotificationWithIcon('success', addressState.msg);
+            }else{
+                openNotificationWithIcon('error', addressState.msg);
+            }
+        }
+    }, [addressState]);
+
 
     const handleNewAddress = () => {
         setShowAddressForm(!showAddressForm)
@@ -48,10 +74,11 @@ const SingleAddress = ({address, userId, setLoadAddress, setOnDeleteAddress}) =>
 
     return (
         <>
+        {contextHolder}
             <div className="w-full border-b border-gray-300 sm:p-6 p-2">
                 {
                     showAddressForm ? (
-                        <AddressForm setShowAddressForm={setShowAddressForm} address={address}/>
+                        <AddressForm setShowAddressForm={setShowAddressForm} address={address} setAddressStatus={setAddressState}/>
                     ) : (
                         <div className="">
                             <div className="flex justify-between items-center">

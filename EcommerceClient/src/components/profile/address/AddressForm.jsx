@@ -65,8 +65,37 @@ const AddressForm = ({setShowAddressForm, address, setAddressStatus}) => {
         }
     }
     
-    function editAddress(){
-        console.log('edit');
+    async function editAddress(){
+
+        console.log(address._id);
+        try {
+            const response = await axios.post(`${BASE_URL}/profile/update-address`, {
+                addressId: address._id,
+                name: addressName,
+                mobile: addressMobile,
+                locality: addressLocality,
+                area: addressArea,
+                city: addressCity,
+                state: addressState,
+                postalCode: addressPincode,
+                type: addressType
+            },{
+                headers: {
+                    'Content-Type': 'application/json',
+                },
+                withCredentials: true
+            })
+    
+            const {data} = response
+    
+            data.success && console.log(data.data);
+            data.success && setAddressStatus({success: true, type: 'success', msg: data.data})
+            data.success && onHandleCancel()
+        } catch (error) {
+            console.log(error.message);
+            console.log(error.response.data.msg);
+            setAddressStatus({success: false, type: 'error', msg: error.response.data.msg})
+        }
     }
 
     const onHandleSave = async () => {

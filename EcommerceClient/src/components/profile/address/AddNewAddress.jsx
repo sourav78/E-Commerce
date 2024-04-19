@@ -17,10 +17,12 @@ const AddNewAddress = () => {
     })
 
     useEffect(() => {
-        if (addressState.success) {
-            openNotificationWithIcon('success', addressState.msg);
-        }else{
-            openNotificationWithIcon('error', addressState.msg);
+        if(addressState.type){
+            if (addressState.success ) {
+                openNotificationWithIcon('success', addressState.msg);
+            }else{
+                openNotificationWithIcon('error', addressState.msg);
+            }
         }
     }, [addressState]);
 
