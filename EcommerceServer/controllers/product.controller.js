@@ -99,6 +99,8 @@ export const getFilteredProduct = async(req, res) => {
 
     const {price, category, ratting, dataOrder} = req.body
 
+    const {limit, skip} = req.query
+
     if(!price || !dataOrder){
         return res.status(400).json({
             success: false,
@@ -120,7 +122,9 @@ export const getFilteredProduct = async(req, res) => {
             query.ratting = {$gte: Number(ratting)}
         }
 
-        let products = await ProductModel.find(query)
+        const totalProduct = await ProductModel.countDocuments(query)
+
+        let products = await ProductModel.find(query).limit(Number(limit)).skip(Number(skip)*12)
 
         if(dataOrder !== 'rec'){
             if (dataOrder === "lth") {
@@ -134,7 +138,7 @@ export const getFilteredProduct = async(req, res) => {
             success: true,
             data: {
                 products,
-                total: products.length
+                total: totalProduct
             }
         })
     } catch (error) {
