@@ -94,3 +94,55 @@ export const getProductDetail = async (req, res) => {
         })
     }
 }
+
+export const getFilteredProduct = async(req, res) => {
+
+    const {price, category, ratting, dataOrder} = req.body
+
+    if(!price || !dataOrder){
+        return res.status(400).json({
+            success: false,
+            msg: "Please provide a valid information."
+        })
+    }
+
+    try {
+
+        const query = {
+            price: { $gte: Number(price.low), $lte: Number(price.high) } ,
+        }
+
+        if(category !== "all"){
+            query.category = category
+        }
+
+        if(ratting){
+            query.ratting = {$gte: Number(ratting)}
+        }
+
+        let products = await ProductModel.find(query)
+
+        if(dataOrder !== 'rec'){
+            if (dataOrder === "lth") {
+                products = products.sort((a, b) => a.price - b.price);
+            } else if (dataOrder === "htl") {
+                products = products.sort((a, b) => b.price - a.price);
+            }
+        }
+
+        return res.status(200).json({
+            success: true,
+            data: {
+                products,
+                total: products.length
+            }
+        })
+    } catch (error) {
+        return res.status(400).json({
+            success: false,
+            msg: error.message
+        })
+    }
+
+
+}
