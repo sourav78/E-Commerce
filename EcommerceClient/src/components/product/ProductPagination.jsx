@@ -4,7 +4,6 @@ import ReactPaginate from 'react-paginate'
 const ProductPagination = ({totalData, setSelectedPage}) => {
 
     const handlePageChange = (data) => {
-        console.log(data.selected);
         setSelectedPage(data.selected)
     }
 
@@ -15,7 +14,7 @@ const ProductPagination = ({totalData, setSelectedPage}) => {
                 nextLabel={'Next'}
                 pageCount={Math.ceil(totalData/12)}
                 onPageChange={handlePageChange}
-                containerClassName=" flex justify-center gap-2"
+                containerClassName=" flex flex-wrap justify-center gap-2"
                 pageClassName="border-2 border-green-400 px-4 py-2 rounded"
                 pageLinkClassName=""
                 previousClassName="border-2 border-green-400 px-4 py-2 rounded bg-green-400"

@@ -2,8 +2,12 @@ import React, { useEffect, useState } from "react";
 import { FaAngleDown } from "react-icons/fa";
 import axios from "axios";
 import {BASE_URL} from '../../utils/constraints'
+import { useDispatch } from "react-redux";
+import { updateCategory } from "../../redux_slicer/ProductSlicer";
 
 const Category = () => {
+
+    const dispatch = useDispatch()
 
     const [hideOption, setHideOption] = useState(false)
     const [selectedCategory, setSelectedCategory] = useState('all');
@@ -16,6 +20,7 @@ const Category = () => {
 
     const onCategoryChange = (e) => {
         console.log(e.target.value);
+        dispatch(updateCategory(e.target.value))
         setSelectedCategory(e.target.value)
     }
     useEffect(() => {
