@@ -17,7 +17,7 @@ import axios from "axios";
 const AddressForm = ({setShowAddressForm, address, setAddressStatus}) => {
 
 
-    const user = useSelector(state => state.user)
+    const user = useSelector(state => state.ecom.user)
 
     const [addressName, setAddressName] = useState(address?.name || '')
     const [addressMobile, setAddressMobile] = useState(address?.mobile || '')

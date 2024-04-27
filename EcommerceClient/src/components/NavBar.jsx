@@ -19,9 +19,9 @@ const NavBar = () => {
 
     const navigate = useNavigate()
 
-    const isAuthenticated = useSelector(state => state.isAuthenticated)
-    const trigger = useSelector(state => state.trigger)
-    const user = useSelector(state => state.user)
+    const isAuthenticated = useSelector(state => state.ecom.isAuthenticated)
+    const trigger = useSelector(state => state.ecom.trigger)
+    const user = useSelector(state => state.ecom.user)
 
     useEffect(() => {
         async function authenticateUser(){

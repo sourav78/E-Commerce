@@ -10,7 +10,7 @@ import Logout from "./Logout";
 
 const ProfileSideNav = () => {
 
-    const user = useSelector(state => state.user)
+    const user = useSelector(state => state.ecom.user)
 
     return (
         <>

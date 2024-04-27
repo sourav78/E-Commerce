@@ -10,7 +10,7 @@ const AllAddress = () => {
 
     const [api, contextHolder] = notification.useNotification();
 
-    const user = useSelector(state => state.user)
+    const user = useSelector(state => state.ecom.user)
 
     const [address, setAddress] = useState([])
 

@@ -12,7 +12,7 @@ const DetailsUpdationForm = ({field, fieldLable}) => {
 
     const [api, contextHolder] = notification.useNotification();
     
-    const user = useSelector(state => state.user)
+    const user = useSelector(state => state.ecom.user)
     const dispatch = useDispatch()
 
     const [isDisabled, setIsDisabled] = useState(true);

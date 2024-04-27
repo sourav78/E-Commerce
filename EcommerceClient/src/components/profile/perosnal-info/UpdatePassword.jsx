@@ -11,7 +11,7 @@ const UpdatePassword = () => {
 
     const [api, contextHolder] = notification.useNotification();
 
-    const user = useSelector(state => state.user)
+    const user = useSelector(state => state.ecom.user)
 
     const [showModal, setShowModal] = useState(false)
 
