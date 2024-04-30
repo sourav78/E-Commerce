@@ -9,9 +9,9 @@ const Category = () => {
 
     const dispatch = useDispatch()
 
-    const [hideOption, setHideOption] = useState(false)
     const [selectedCategory, setSelectedCategory] = useState('all');
     const [allCategories, setAllCategories] = useState([])
+    const [hideOption, setHideOption] = useState(false)
     
 
     const handleHideOption = () => {
@@ -39,8 +39,8 @@ const Category = () => {
     }, [])
     return (
         <>
-            <div className="px-2 sm:py-2 py-0 border-b-0 sm:border-b border-gray-300">
-                <div className="transition-all">
+            <div className="px-2 sm:py-2 py-0 border-b-0 sm:border-b border-gray-300 transition-all">
+                <div className="">
                     <button 
                         onClick={handleHideOption}
                         className="font-semibold py-2 text-sm flex justify-between items-center w-full">

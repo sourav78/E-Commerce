@@ -45,6 +45,7 @@ const PriceSlider = () => {
                                         onChange={handleChange}
                                         valueLabelDisplay="auto"
                                         step={1000}
+                                        marks
                                         min={100}
                                         max={130000}
                                         disableSwap
@@ -53,6 +54,7 @@ const PriceSlider = () => {
                             </div>
                             <div className="flex justify-between items-center">
                                 <p className="border border-gray-400 rounded-sm px-3 py-[1px]">{value[0]}</p>
+                                <p className=" px-3 py-[1px]">to</p>
                                 <p className="border border-gray-400 rounded-sm px-3 py-[1px]">{value[1]}</p>
                             </div>
                         </div>
