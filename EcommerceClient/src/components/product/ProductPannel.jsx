@@ -52,13 +52,9 @@ const ProductPannel = () => {
     return (
         <>
             <div className=" border-black pb-4">
-                <div className="bg-white rounded shadow p-4">
-                    <div className="">
-                        <div className=" flex gap-2 items-center border-2 border-gray-400 w-1/4 px-2 py-1 rounded-sm">
-                            <CiSearch className="text-xl text-gray-500" />
-                            <input className="outline-none " type="text" placeholder="Search..." name="search" id="" />
-                        </div>
-                    </div>
+                <div className="mt-2">
+                    <p className="text-xl font-semibold">Results</p>
+                    <p className="text-xs">Check each product page for other buying options.</p>
                 </div>
                 <div className="mt-4">
                     <div className="flex flex-wrap justify-start gap-10">

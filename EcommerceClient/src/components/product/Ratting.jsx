@@ -42,23 +42,23 @@ const Ratting = () => {
                             ></div>
                             <div className="p-2 sm:relative fixed -bottom-1 right-0 w-full bg-white sm:pt-0 pt-4 rounded-xl z-10">
                                 <div className="flex items-center sm:gap-1 gap-2 sm:mb-0 mb-1">
-                                    <input className=" cursor-pointer " type="radio" name="category" id="all" value="all" onChange={onRattingChange} checked={selectedRatting === 'all'} />
+                                    <input className=" cursor-pointer " type="radio" name="all" id="all" value="all" onChange={onRattingChange} checked={selectedRatting === 'all'} />
                                     <label className=" cursor-pointer font-semibold text-xl sm:text-[16px]" htmlFor="all">All</label>
                                 </div>
                                 <div className="flex items-center sm:gap-1 gap-2 sm:mb-0 mb-1">
-                                    <input className=" cursor-pointer " type="radio" name="category" id="4" value="4" onChange={onRattingChange} checked={selectedRatting === '4'} />
+                                    <input className=" cursor-pointer " type="radio" name="4" id="4" value="4" onChange={onRattingChange} checked={selectedRatting === '4'} />
                                     <label className=" cursor-pointer font-semibold text-xl sm:text-[16px]" htmlFor="4">4 & above</label>
                                 </div>
                                 <div className="flex items-center sm:gap-1 gap-2 sm:mb-0 mb-1">
-                                    <input className=" cursor-pointer " type="radio" name="category" id="3" value="3" onChange={onRattingChange} checked={selectedRatting === '3'} />
+                                    <input className=" cursor-pointer " type="radio" name="3" id="3" value="3" onChange={onRattingChange} checked={selectedRatting === '3'} />
                                     <label className=" cursor-pointer font-semibold text-xl sm:text-[16px]" htmlFor="3">3 & above</label>
                                 </div>
                                 <div className="flex items-center sm:gap-1 gap-2 sm:mb-0 mb-1">
-                                    <input className=" cursor-pointer " type="radio" name="category" id="2" value="2" onChange={onRattingChange} checked={selectedRatting === '2'} />
+                                    <input className=" cursor-pointer " type="radio" name="2" id="2" value="2" onChange={onRattingChange} checked={selectedRatting === '2'} />
                                     <label className=" cursor-pointer font-semibold text-xl sm:text-[16px]" htmlFor="2">2 & above</label>
                                 </div>
                                 <div className="flex items-center sm:gap-1 gap-2 sm:mb-0 mb-1">
-                                    <input className=" cursor-pointer " type="radio" name="category" id="1" value="1" onChange={onRattingChange} checked={selectedRatting === '1'} />
+                                    <input className=" cursor-pointer " type="radio" name="1" id="1" value="1" onChange={onRattingChange} checked={selectedRatting === '1'} />
                                     <label className=" cursor-pointer font-semibold text-xl sm:text-[16px]" htmlFor="1">1 & above</label>
                                 </div>
                             </div>
