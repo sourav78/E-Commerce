@@ -1,4 +1,5 @@
 import { cache } from "../config/app.js"
+import { CartModel } from "../models/cart.model.js"
 import { ProductModel } from "../models/products.model.js"
 
 export const getAllData = async (req, res) => {
@@ -149,4 +150,57 @@ export const getFilteredProduct = async(req, res) => {
     }
 
 
+}
+
+export const productAddToCart = async(req, res) => {
+    const {userId, productId, quantity} = req.body
+
+    if(!userId || !productId || !quantity){
+        return res.status(400).json({
+            success: false,
+            data: "All fields are required"
+        })
+    }
+
+    try {
+
+        const existingCartItem = await CartModel.findOne({
+            userId: userId,
+            "items.productId": productId
+        });
+
+        if(existingCartItem){
+            return res.status(400).json({
+                success: false,
+                data: "Product is already added in your cart"
+            })
+        }
+        
+        const result = await CartModel.findOneAndUpdate({userId: userId}, {
+            $push:{
+                items:{
+                    productId: productId,
+                    quantity: Number(quantity)
+                }
+            }
+        })
+
+        if(!result){
+            throw new Error("Product is not added to the cart")
+        }
+
+
+        return res.status(200).json({
+            success: true,
+            data: "Product is added in your cart"
+        })
+
+    } catch (error) {
+        return res.status(400).json({
+            success: false,
+            data: error.message
+        })
+    }
+
+    
 }
