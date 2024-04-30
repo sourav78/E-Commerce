@@ -39,7 +39,7 @@ const Category = () => {
     }, [])
     return (
         <>
-            <div className="px-2 py-2 border-b-0 sm:border-b border-gray-300">
+            <div className="px-2 sm:py-2 py-0 border-b-0 sm:border-b border-gray-300">
                 <div className="transition-all">
                     <button 
                         onClick={handleHideOption}
@@ -49,7 +49,7 @@ const Category = () => {
                     </button>
                     {
                         hideOption && (
-                            <div className="p-2 sm:relative fixed bottom-0 right-0 w-full sm:bg-white bg-slate-300 rounded-xl z-10">
+                            <div className="p-2 sm:border-t-0 border-t-2 border-black sm:relative fixed -bottom-1 right-0 w-full sm:bg-white bg-slate-300 rounded-xl z-10">
                                 <div className="flex items-center sm:gap-1 gap-2 sm:mb-0 mb-1">
                                     <input className=" cursor-pointer " type="radio" name="category" id="all" value="all" onChange={onCategoryChange} checked={selectedCategory === 'all'} />
                                     <label className=" cursor-pointer font-semibold text-xl sm:text-[16px]" htmlFor="all">All</label>

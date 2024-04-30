@@ -1,5 +1,6 @@
 import React, { useEffect, useState } from "react";
 import Category from "./Category";
+import PriceSlider from "./PriceSlider";
 
 const FilterBar = () => {
 
@@ -12,6 +13,7 @@ const FilterBar = () => {
                 </div>
                 <div className="flex flex-row sm:flex-col sm:overflow-x-auto overflow-x-scroll">
                     <Category/>
+                    <PriceSlider/>
                 </div>
             </div>
         </>
