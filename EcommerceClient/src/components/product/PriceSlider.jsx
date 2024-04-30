@@ -35,29 +35,34 @@ const PriceSlider = () => {
 
                 {
                     hideOption && (
-                        <div className="p-2 sm:border-t-0 border-t-2 border-black sm:relative fixed -bottom-1 right-0 w-full sm:bg-white bg-slate-300 rounded-xl z-10 pb-7">
-                            <div className="w-9/12 m-auto mt-2">
-                                <div className="">
-                                    <Slider
-                                    className="w-12"
-                                        getAriaLabel={() => 'Temperature range'}
-                                        value={value}
-                                        onChange={handleChange}
-                                        valueLabelDisplay="auto"
-                                        step={1000}
-                                        marks
-                                        min={100}
-                                        max={130000}
-                                        disableSwap
-                                    />
+                        <>
+                            <div className="fixed top-0 sm:hidden block left-0 w-full h-screen bg-[#0000006c] z-[9]"
+                                    onClick={() => setHideOption(!hideOption)}
+                            ></div>
+                            <div className="p-2 sm:relative fixed -bottom-1 right-0 w-full sm:pt-0 pt-4 bg-white rounded-xl z-10 pb-7">
+                                <div className="w-9/12 m-auto mt-2">
+                                    <div className="">
+                                        <Slider
+                                        className="w-12"
+                                            getAriaLabel={() => 'Temperature range'}
+                                            value={value}
+                                            onChange={handleChange}
+                                            valueLabelDisplay="auto"
+                                            step={1000}
+                                            marks
+                                            min={100}
+                                            max={130000}
+                                            disableSwap
+                                        />
+                                    </div>
+                                </div>
+                                <div className="flex justify-between items-center">
+                                    <p className="border border-gray-400 rounded-sm px-3 py-[1px]">{value[0]}</p>
+                                    <p className=" px-3 py-[1px]">to</p>
+                                    <p className="border border-gray-400 rounded-sm px-3 py-[1px]">{value[1]}</p>
                                 </div>
                             </div>
-                            <div className="flex justify-between items-center">
-                                <p className="border border-gray-400 rounded-sm px-3 py-[1px]">{value[0]}</p>
-                                <p className=" px-3 py-[1px]">to</p>
-                                <p className="border border-gray-400 rounded-sm px-3 py-[1px]">{value[1]}</p>
-                            </div>
-                        </div>
+                        </>
                     )
                 }
             </div>
