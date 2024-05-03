@@ -158,7 +158,7 @@ export const productAddToCart = async(req, res) => {
     if(!userId || !productId || !quantity){
         return res.status(400).json({
             success: false,
-            data: "All fields are required"
+            msg: "All fields are required"
         })
     }
 
@@ -172,7 +172,7 @@ export const productAddToCart = async(req, res) => {
         if(existingCartItem){
             return res.status(400).json({
                 success: false,
-                data: "Product is already added in your cart"
+                msg: "Product is already added in your cart"
             })
         }
         
@@ -198,9 +198,32 @@ export const productAddToCart = async(req, res) => {
     } catch (error) {
         return res.status(400).json({
             success: false,
-            data: error.message
+            msg: error.message
         })
     }
+}
 
-    
+export const itemCountInCart = async (req, res) => {
+    const { userId } = req.query;
+
+    if (!userId) {
+        return res.status(400).json({
+            success: false,
+            message: 'User ID parameter is required'
+        });
+    }
+
+    try {
+        const cartData = await CartModel.find({userId})
+
+        return res.status(200).json({
+            success: true,
+            data: cartData[0].items.length
+        })
+    } catch (error) {
+        return res.status(400).json({
+            success: false,
+            message: error.message
+        });
+    }
 }
