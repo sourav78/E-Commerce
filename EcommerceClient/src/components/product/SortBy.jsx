@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { FaAngleDown } from "react-icons/fa";
 import { useDispatch } from "react-redux";
 import { updateDataOrder } from "../../redux_slicer/ProductSlicer";
@@ -6,7 +6,7 @@ import { updateDataOrder } from "../../redux_slicer/ProductSlicer";
 const SortBy = () => {
     const dispatch = useDispatch()
 
-    const [hideOption, setHideOption] = useState(false)
+    const [hideOption, setHideOption] = useState(window.innerWidth >= 640)
     const [selectedRatting, setSelectedRatting] = useState('rec');
 
     const handleHideOption = () => {
@@ -18,6 +18,18 @@ const SortBy = () => {
         dispatch(updateDataOrder(e.target.value))
         setSelectedRatting(e.target.value)
     }
+
+    useEffect(() => {
+        const handleResize = () => {
+            setHideOption(window.innerWidth >= 640);
+        };
+
+        window.addEventListener('resize', handleResize);
+
+        return () => {
+            window.removeEventListener('resize', handleResize);
+        };
+    }, []);
     return (
         <>
             <div className="px-2 sm:py-2 py-0 border-b-0 sm:border-b border-gray-300 transition-all">

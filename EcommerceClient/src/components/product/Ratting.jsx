@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { FaAngleDown } from "react-icons/fa";
 import { useDispatch } from "react-redux";
 import { updateRatting } from "../../redux_slicer/ProductSlicer";
@@ -7,7 +7,7 @@ const Ratting = () => {
 
     const dispatch = useDispatch()
 
-    const [hideOption, setHideOption] = useState(false)
+    const [hideOption, setHideOption] = useState(window.innerWidth >= 640)
     
     const [selectedRatting, setSelectedRatting] = useState('all');
 
@@ -24,6 +24,18 @@ const Ratting = () => {
         }
         setSelectedRatting(e.target.value)
     }
+
+    useEffect(() => {
+        const handleResize = () => {
+            setHideOption(window.innerWidth >= 640);
+        };
+
+        window.addEventListener('resize', handleResize);
+
+        return () => {
+            window.removeEventListener('resize', handleResize);
+        };
+    }, []);
 
     return (
         <>

@@ -1,4 +1,4 @@
-import React, {useState} from "react";
+import React, {useState, useEffect} from "react";
 import Slider from '@mui/material/Slider';
 import { useDispatch } from "react-redux";
 import { updatePrice } from "../../redux_slicer/ProductSlicer";
@@ -9,7 +9,7 @@ const PriceSlider = () => {
     const dispatch = useDispatch()
 
     
-    const [hideOption, setHideOption] = useState(false)
+    const [hideOption, setHideOption] = useState(window.innerWidth >= 640)
     
     const [value, setValue] = React.useState([100, 130000]);
 
@@ -22,6 +22,18 @@ const PriceSlider = () => {
         console.log(newValue);
         dispatch(updatePrice({low:newValue[0], high:newValue[1]}))
     };
+
+    useEffect(() => {
+        const handleResize = () => {
+            setHideOption(window.innerWidth >= 640);
+        };
+
+        window.addEventListener('resize', handleResize);
+
+        return () => {
+            window.removeEventListener('resize', handleResize);
+        };
+    }, []);
     
     return (
         <>

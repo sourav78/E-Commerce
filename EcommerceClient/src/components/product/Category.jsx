@@ -11,7 +11,7 @@ const Category = () => {
 
     const [selectedCategory, setSelectedCategory] = useState('all');
     const [allCategories, setAllCategories] = useState([])
-    const [hideOption, setHideOption] = useState(false)
+    const [hideOption, setHideOption] = useState(window.innerWidth >= 640)
     
 
     const handleHideOption = () => {
@@ -37,6 +37,19 @@ const Category = () => {
 
         fetchCategory()
     }, [])
+
+    useEffect(() => {
+        const handleResize = () => {
+            setHideOption(window.innerWidth >= 640);
+        };
+
+        window.addEventListener('resize', handleResize);
+
+        return () => {
+            window.removeEventListener('resize', handleResize);
+        };
+    }, []);
+
     return (
         <>
             <div className="px-2 sm:py-2 py-0 border-b-0 sm:border-b border-gray-300 transition-all">
