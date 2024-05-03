@@ -3,6 +3,7 @@ import { useDispatch, useSelector } from "react-redux";
 import axios from "axios";
 import { toggleTrigger } from "../../../redux_slicer/EcomSlicer";
 import { notification } from 'antd';
+import Modal from '@mui/material/Modal';
 
 import {BASE_URL} from '../../../utils/constraints'
 
@@ -21,6 +22,8 @@ const ProfileImage = () => {
     const [showModal, setShowModal] = useState(false);
 
     const [loading, setLoading] = useState(false)
+
+    const [showViewImageModal, setShowViewImageModal] = useState(false)
 
     const openNotificationWithIcon = (type, msg) => {
         api[type]({
@@ -85,6 +88,10 @@ const ProfileImage = () => {
         
     }
 
+    const handleClose = () => {
+        setShowViewImageModal(false)
+    }
+
     return (
         <>
             
@@ -102,7 +109,9 @@ const ProfileImage = () => {
                         id="profileImage" 
                         onChange={onHandleChange}
                     />
-                    <button className="px-3 py-2 border border-black bg-[#00ed64] font-semibold hover:rounded-md">View Profile</button>
+                    <button 
+                        onClick={() => setShowViewImageModal(true)}
+                        className="px-3 py-2 border border-black bg-[#00ed64] font-semibold hover:rounded-md">View Profile</button>
                 </div>
                 
                 <div className={`z-10 ${showModal ? 'block' : 'hidden'} p-7 shadow-md sm:w-3/4 w-full bg-gray-200 rounded absolute top-4 left-1/2 -translate-x-1/2`}>
@@ -133,6 +142,22 @@ const ProfileImage = () => {
                             </>
                         )
                     }
+                </div>
+                <div>
+                    <Modal
+                        open={showViewImageModal}
+                        onClose={handleClose}
+                        aria-labelledby="modal-modal-title"
+                        aria-describedby="modal-modal-description"
+                    >
+
+                        <div className="lg:w-[30%] sm:w-[50%] w-[95%] absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2">
+                            <div className="">
+                                <img src={user.imageUrl} alt="" />
+                            </div>
+                        </div>
+                        
+                    </Modal>
                 </div>
             </div>
         </>
