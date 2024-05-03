@@ -7,7 +7,8 @@ const initialState = {
         high: 100000
     },
     ratting: null,
-    dataOrder: 'rec'
+    dataOrder: 'rec',
+    cartTrigger: true
 };
 
 export const productSlice = createSlice({
@@ -25,6 +26,9 @@ export const productSlice = createSlice({
         },
         updateDataOrder: (state, action) => {
             state.dataOrder = action.payload
+        },
+        toggleCartTrigger: (state) => {
+            state.cartTrigger = !state.cartTrigger;
         }
     }
 });

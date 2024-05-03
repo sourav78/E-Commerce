@@ -14,6 +14,7 @@ import {BASE_URL} from '../utils/constraints.js'
 const NavBar = () => {
 
     const [openNav, setOpenNav] = useState(false)
+    const [numberOfProduct, setNumberOfProduct] = useState(0)
 
     const dispatch = useDispatch()
 
@@ -22,6 +23,8 @@ const NavBar = () => {
     const isAuthenticated = useSelector(state => state.ecom.isAuthenticated)
     const trigger = useSelector(state => state.ecom.trigger)
     const user = useSelector(state => state.ecom.user)
+
+    const cartTriger = useSelector(state => state.product.cartTrigger)
 
     useEffect(() => {
         async function authenticateUser(){
@@ -43,6 +46,21 @@ const NavBar = () => {
 
         authenticateUser()
     }, [trigger])
+
+    useEffect(() => {
+        async function fetchNumberOfItemInCart(){
+            try {
+                const response = await axios.get(`${BASE_URL}/product/items-in-cart?userId=${user._id}`, {
+                    withCredentials: true
+                })
+                const {data} = response
+                data.success && setNumberOfProduct(data.data)
+            } catch (error) {
+                console.log(error.message);
+            }
+        }
+        fetchNumberOfItemInCart()
+    }, [user, cartTriger])
 
     return (
         <>
@@ -91,7 +109,10 @@ const NavBar = () => {
                             <NavLink to="/cart" 
                                 className={({ isActive }) => (`${isActive ? `text-[#00ce56]`:`text-black `}`)}
                             >
-                                <FiShoppingCart className="text-3xl hover:text-[#00ce56]" />
+                                <div className="relative sm:block inline-block">
+                                    <FiShoppingCart className="text-3xl hover:text-[#00ce56]" />
+                                    <p className="border border-black text-[10px] bg-[#00ed64] w-4 h-4 grid place-content-center rounded-full absolute -top-2 -right-2">{numberOfProduct}</p>
+                                </div>
                             </NavLink>
                         </li>
                         <li 
