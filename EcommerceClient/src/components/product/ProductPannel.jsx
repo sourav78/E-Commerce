@@ -1,5 +1,4 @@
 import React, { useEffect, useState } from "react";
-import { CiSearch } from "react-icons/ci";
 import axios from "axios";
 import {BASE_URL} from '../../utils/constraints'
 import { useSelector } from "react-redux";

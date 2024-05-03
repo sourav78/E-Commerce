@@ -33,6 +33,6 @@ export const productSlice = createSlice({
     }
 });
 
-export const { updateCategory, updatePrice, updateRatting, updateDataOrder } = productSlice.actions;
+export const { updateCategory, updatePrice, updateRatting, updateDataOrder, toggleCartTrigger } = productSlice.actions;
 
 export default productSlice.reducer;

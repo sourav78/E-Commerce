@@ -1,20 +1,37 @@
 import React, {useEffect, useState} from "react";
-import { useParams } from "react-router-dom";
+import { useNavigate, useParams } from "react-router-dom";
 import { Rate } from 'antd';
 import { FaMinus, FaPlus } from "react-icons/fa6";
 import axios from "axios";
+import { notification } from 'antd';
 
 import {BASE_URL} from '../utils/constraints.js'
+import { useDispatch, useSelector } from "react-redux";
+import { toggleCartTrigger } from "../redux_slicer/ProductSlicer.js";
 
 const ProductDeatails = () => {
+
+    const [api, contextHolder] = notification.useNotification();
+
+    const isAuthenticated = useSelector(state => state.ecom.isAuthenticated)
+
+    const user = useSelector(state => state.ecom.user)
+
+    const navigate = useNavigate()
+    const dispatch = useDispatch()
 
     const [counter, setCounter] = useState(1);
     const [product, setProduct] = useState({});
     const [highlights, setHighlights] = useState({})
-    
-    
 
     const {productId} = useParams()
+
+    const openNotificationWithIcon = (type, msg) => {
+        api[type]({
+            description: msg,
+            placement: 'bottomRight'
+        });
+    };
 
     useEffect(() => {
         async function getProduct(){
@@ -45,8 +62,36 @@ const ProductDeatails = () => {
         }
     }
 
+    const handleAddToCart = async () => {
+        if(isAuthenticated){
+            if(product.stock <= 1){
+                openNotificationWithIcon('error', "Sorry, Product is not available right now")
+            }else{
+                try {
+                    const response = await axios.post(`${BASE_URL}/product/add-to-cart`, {
+                        userId: user._id,
+                        productId: productId,
+                        quantity: counter
+                    })
+    
+                    const {data} = response
+
+                    data.success && openNotificationWithIcon('success', data.data)
+                    data.success && dispatch(toggleCartTrigger())
+
+                } catch (error) {
+                    console.log(error);
+                    openNotificationWithIcon('error', error.response.data.msg)
+                }
+            }
+        }else{
+            navigate('/login')
+        }
+    }
+
   return (
     <>
+        {contextHolder}
         <div className="bg-white mt-4 mx-1 lg:mx-4 rounded-lg shadow-md">
             <div className="sm:p-10 p-5">
                 <p className="text-4xl font-normal">Product Details</p>
@@ -58,7 +103,9 @@ const ProductDeatails = () => {
                                     <img className="mix-blend-multiply h-full" src={product.image_url} alt="" />
                                 </div>
                                 <div className="mt-4 flex flex-wrap justify-between">
-                                    <button className="border-2 border-black w-[45%] py-2 text-xl font-semibold hover:bg-[#00ed64] bg-white  text-black transition-all">Add To Cart</button>
+                                    <button 
+                                        onClick={handleAddToCart}
+                                        className="border-2 border-black w-[45%] py-2 text-xl font-semibold hover:bg-[#00ed64] bg-white  text-black transition-all">Add To Cart</button>
                                     <button className="border-2 border-black w-[45%] py-2 text-xl font-semibold bg-[#00ed64] hover:bg-white text-black transition-all">Buy Now</button>
                                 </div>
                             </div>
