@@ -14,7 +14,7 @@ import {BASE_URL} from '../../../utils/constraints'
 import { useSelector } from "react-redux";
 import axios from "axios";
 
-const AddressForm = ({setShowAddressForm, address, setAddressStatus}) => {
+const AddressForm = ({setShowAddressForm, address, setAddressStatus, setLoadAddress}) => {
 
 
     const user = useSelector(state => state.ecom.user)
@@ -58,6 +58,7 @@ const AddressForm = ({setShowAddressForm, address, setAddressStatus}) => {
             data.success && console.log(data.data);
             data.success && setAddressStatus({success: true, type: 'success', msg: data.data})
             data.success && onHandleCancel()
+            data.success && setLoadAddress(prev => !prev)
         } catch (error) {
             console.log(error.message);
             console.log(error.response.data.msg);
@@ -91,6 +92,7 @@ const AddressForm = ({setShowAddressForm, address, setAddressStatus}) => {
             data.success && console.log(data.data);
             data.success && setAddressStatus({success: true, type: 'success', msg: data.data})
             data.success && onHandleCancel()
+            data.success && setLoadAddress(prev => !prev)
         } catch (error) {
             console.log(error.message);
             console.log(error.response.data.msg);
@@ -203,12 +205,12 @@ const AddressForm = ({setShowAddressForm, address, setAddressStatus}) => {
                         <div className="sm:w-[45%] w-full">
                             <p className="mb-2 font-semibold">State</p>
                             <FormControl fullWidth>
-                                <InputLabel id="demo-simple-select-label">Age</InputLabel>
+                                <InputLabel id="demo-simple-select-label">State</InputLabel>
                                     <Select
                                         labelId="demo-simple-select-label"
                                         id="demo-simple-select"
                                         value={addressState}
-                                        label="Age"
+                                        label="State"
                                         onChange={(e) => setAddressState(e.target.value)}
                                     >
                                         {

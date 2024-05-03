@@ -78,7 +78,7 @@ const SingleAddress = ({address, userId, setLoadAddress, setOnDeleteAddress}) =>
             <div className="w-full border-b border-gray-300 sm:p-6 p-2">
                 {
                     showAddressForm ? (
-                        <AddressForm setShowAddressForm={setShowAddressForm} address={address} setAddressStatus={setAddressState}/>
+                        <AddressForm setShowAddressForm={setShowAddressForm} setLoadAddress={setLoadAddress} address={address} setAddressStatus={setAddressState}/>
                     ) : (
                         <div className="">
                             <div className="flex justify-between items-center">
