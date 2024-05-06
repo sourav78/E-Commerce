@@ -17,7 +17,7 @@ const ProductCart = () => {
                 <div style={{ boxShadow: '0px -5px 10px rgba(0, 0, 0, 0.25)' }} className=" py-4 sm:px-8 px-4 shadow-md sticky bottom-0 bg-white">
                     <div className=" flex justify-between items-center">
                         <p className='text-3xl font-semibold'>₹4000</p>
-                        <button className='sm:px-16 px-12 py-4 border border-black text-xl font-semibold bg-[#00ed64]'>Place Order</button>
+                        <button className='sm:px-16 px-12 py-3 border border-black text-xl font-semibold bg-[#00ed64]'>Place Order</button>
                     </div>
                 </div>
             </div>
