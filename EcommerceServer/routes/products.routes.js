@@ -1,5 +1,15 @@
 import express from 'express'
-import { getAllData, getCartProducts, getCategory, getFilteredProduct, getLatestProduct, getProductDetail, itemCountInCart, productAddToCart } from '../controllers/product.controller.js'
+import { 
+    createCoupon, 
+    getAllData, 
+    getCartProducts, 
+    getCategory, 
+    getFilteredProduct, 
+    getLatestProduct, 
+    getProductDetail, 
+    itemCountInCart,
+    productAddToCart 
+} from '../controllers/product.controller.js'
 
 const productRouter = express.Router()
 
@@ -11,5 +21,7 @@ productRouter.post('/get-filtered-product', getFilteredProduct)
 productRouter.post('/add-to-cart', productAddToCart)
 productRouter.get('/items-in-cart', itemCountInCart)
 productRouter.get('/get-cart-product', getCartProducts)
+
+productRouter.post('/create-coupon', createCoupon)
 
 export default productRouter
