@@ -227,3 +227,29 @@ export const itemCountInCart = async (req, res) => {
         });
     }
 }
+
+export const getCartProducts = async (req, res) => {
+    const { userId } = req.query;
+
+    if (!userId) {
+        return res.status(400).json({
+            success: false,
+            message: 'User ID parameter is required'
+        });
+    }
+    try {
+        const cartData = await CartModel.find({userId})
+
+        if(!cartData) throw new Error('User ID not found')
+
+        return res.status(200).json({
+            success: true,
+            data: cartData[0].items
+        })
+    } catch (error) {
+        return res.status(400).json({
+            success: false,
+            message: error.message
+        });
+    }
+}

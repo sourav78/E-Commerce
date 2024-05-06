@@ -8,7 +8,7 @@ const PriceDetail = () => {
                     <p className='font-semibold text-gray-600'>PRICE DETAILS</p>
                 </div>
                 <div className=" p-4">
-                    <div className="border-b pb-4 border-dashed">
+                    <div className="border-b border-gray-300 pb-4 border-dashed">
                         <div className="flex justify-between items-center">
                             <p className='font-semibold text-gray-700'>Price</p>
                             <p className='font-semibold text-lg text-gray-700'>₹34,668</p>
@@ -22,7 +22,7 @@ const PriceDetail = () => {
                             <p className='font-semibold text-lg text-gray-700'>₹332</p>
                         </div>
                     </div>
-                    <div className="border-b py-4 border-dashed">
+                    <div className="border-b border-gray-300 py-4 border-dashed">
                         <div className="">
                             <p className='font-semibold text-gray-700 mb-2'>COUPONS</p>
                             <div className="flex justify-between items-center gap-2">
@@ -31,7 +31,7 @@ const PriceDetail = () => {
                             </div>
                         </div>
                     </div>
-                    <div className="border-b py-4 border-dashed">
+                    <div className="border-b border-gray-300 py-4 border-dashed">
                         <div className="my-2 flex justify-between items-center">
                             <p className='text-lg font-semibold'>Total Amount</p>
                             <p className='text-lg font-semibold'>₹12,231</p>
