@@ -5,7 +5,7 @@ import {Link} from 'react-router-dom'
 const EmptyCart = () => {
     return (
         <>
-            <div className="w-full bg-white p-8 rounded">
+            <div className="w-full sm:bg-white bg-transparent p-8 rounded">
                 <div className="flex items-center flex-col text-center">
                     <img className='w-52' src={emptyCart} alt="" />
                     <div className="mt-4 ">
