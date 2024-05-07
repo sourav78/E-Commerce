@@ -29,7 +29,7 @@ const ProductDeatails = () => {
     const openNotificationWithIcon = (type, msg) => {
         api[type]({
             description: msg,
-            placement: 'bottomRight'
+            placement: 'bottomRight',
         });
     };
 
@@ -54,6 +54,8 @@ const ProductDeatails = () => {
     const incraeseCounter = () =>{
         if(counter < product.stock){
             setCounter(prev => prev+1)
+        }else{
+            openNotificationWithIcon('error', 'Quantity has reached the maximum stock limit.')
         }
     }
     const decreaseCounter = () =>{

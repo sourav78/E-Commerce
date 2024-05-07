@@ -235,22 +235,22 @@ export const getCartProducts = async (req, res) => {
     if (!userId) {
         return res.status(400).json({
             success: false,
-            message: 'User ID parameter is required'
+            msg: 'User ID parameter is required'
         });
     }
     try {
-        const cartData = await CartModel.find({userId})
+        const cartData = await CartModel.findOne({userId})
 
         if(!cartData) throw new Error('User ID not found')
 
         return res.status(200).json({
             success: true,
-            data: cartData[0].items
+            data: cartData.items
         })
     } catch (error) {
         return res.status(400).json({
             success: false,
-            message: error.message
+            msg: error.message
         });
     }
 }
