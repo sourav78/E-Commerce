@@ -297,7 +297,7 @@ export const updateCartProductQantity = async (req, res) => {
 
         return res.status(200).json({
             success: true,
-            data: `Chenaged product quantity to ${quantity}`
+            data: `Changed product quantity to ${quantity}`
         })
     } catch (error) {
         return res.status(400).json({
@@ -306,7 +306,35 @@ export const updateCartProductQantity = async (req, res) => {
         })
     }
     
-} 
+}
+
+export const removeProductFromCart = async (req, res) => {
+    const {itemId, userId} = req.body
+
+    if(!itemId || !userId){
+        return res.status(400).json({
+            success: false,
+            msg: 'All fields are required'
+        })
+    }
+
+    try {
+        await CartModel.updateOne(
+            { userId },
+            { $pull: { items: { _id: itemId } } }
+        );
+
+        return res.status(200).json({
+            success: true,
+            data: `Product is removed from cart.`
+        })
+    } catch (error) {
+        return res.status(400).json({
+            success: false,
+            msg: 'Product not removed from cart'
+        })
+    }
+}
 
 export const createCoupon = async (req, res) => {
     const {code, discountType, discountAmount, minOrderAmount, maxUses, isActive} = req.body

@@ -9,6 +9,7 @@ import {
     getProductDetail, 
     itemCountInCart,
     productAddToCart, 
+    removeProductFromCart, 
     updateCartProductQantity
 } from '../controllers/product.controller.js'
 
@@ -23,6 +24,7 @@ productRouter.post('/add-to-cart', productAddToCart)
 productRouter.get('/items-in-cart', itemCountInCart)
 productRouter.get('/get-cart-product', getCartProducts)
 productRouter.post('/update-product-quantity', updateCartProductQantity)
+productRouter.post('/remove-product-cart', removeProductFromCart)
 
 productRouter.post('/create-coupon', createCoupon)
 
