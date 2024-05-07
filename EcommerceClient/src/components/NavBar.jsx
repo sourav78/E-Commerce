@@ -111,7 +111,7 @@ const NavBar = () => {
                             >
                                 <div className="relative sm:block inline-block">
                                     <FiShoppingCart className="text-3xl hover:text-[#00ce56]" />
-                                    <p className="border border-black text-[10px] bg-[#00ed64] w-4 h-4 grid place-content-center rounded-full absolute -top-2 -right-2">{numberOfProduct}</p>
+                                    <p className="border border-black text-black text-[10px] bg-[#00ed64] w-4 h-4 grid place-content-center rounded-full absolute -top-2 -right-2">{numberOfProduct}</p>
                                 </div>
                             </NavLink>
                         </li>

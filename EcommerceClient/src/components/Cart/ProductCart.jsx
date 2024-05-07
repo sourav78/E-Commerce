@@ -1,10 +1,14 @@
 import React, { useEffect, useState } from 'react'
 import CartProduct from './CartProduct'
-import {useSelector} from 'react-redux'
+import {useDispatch, useSelector} from 'react-redux'
 import {BASE_URL} from '../../utils/constraints.js'
 import axios from 'axios'
+import EmptyCart from './EmptyCart.jsx'
+import { toggleCartTrigger } from '../../redux_slicer/ProductSlicer.js'
 
-const ProductCart = () => {
+const ProductCart = ({onCartEmptyChange}) => {
+
+    const dispatch = useDispatch()
 
     const user = useSelector(state => state.ecom.user)
 
@@ -12,19 +16,30 @@ const ProductCart = () => {
 
     const [reloadTrigger, setReloadTrigger] = useState(false)
 
-    useEffect(()=> {
-        async function fetchCartProductData(){
-            try {
-                const response = await axios.get(`${BASE_URL}/product/get-cart-product?userId=${user._id}`)
-                const {data} = response
+    async function fetchCartProductData(){
+        try {
+            const response = await axios.get(`${BASE_URL}/product/get-cart-product?userId=${user._id}`)
+            const {data} = response
 
-                data.success && setAllCartProduct(data.data)
-            } catch (error) {
-                console.log(error.response.data.msg);
-            }
+            data.success && console.log(data.data);
+            data.success && setAllCartProduct(data.data)
+        } catch (error) {
+            console.log(error.response.data.msg);
         }
+    }
+
+    useEffect(()=> {
         fetchCartProductData()
     },[user, reloadTrigger])
+
+
+    if(allCartProduct.length === 0){
+        onCartEmptyChange(true)
+        dispatch(toggleCartTrigger())
+        return <EmptyCart/>
+    }else{
+        onCartEmptyChange(false)
+    }
 
     return (
         <>

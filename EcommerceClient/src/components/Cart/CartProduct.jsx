@@ -2,9 +2,13 @@ import React, {useState, useEffect} from 'react'
 import {BASE_URL} from '../../utils/constraints.js'
 import axios from 'axios'
 import { notification } from 'antd';
-import { useSelector } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
+import Modal from '@mui/material/Modal';
+import { toggleCartTrigger } from '../../redux_slicer/ProductSlicer.js'
 
 const CartProduct = ({product, setReloadTrigger}) => {
+    
+    const dispatch = useDispatch()
 
     const [api, contextHolder] = notification.useNotification();
 
@@ -14,6 +18,8 @@ const CartProduct = ({product, setReloadTrigger}) => {
     const [productData, setProductData] = useState({})
 
     const [counterDisabled, setCounterDisabled] = useState(false)
+
+    const [showRemoveModal, setShowRemoveModal] = useState(false)
 
     const openNotificationWithIcon = (type, msg) => {
         api[type]({
@@ -94,8 +100,23 @@ const CartProduct = ({product, setReloadTrigger}) => {
         }
     }
 
-    const handleProductRemove = () => {
-        setReloadTrigger(prev => !prev)
+    const handleProductRemove = async () => {
+        // setReloadTrigger(prev => !prev)
+        try {
+            const response = await axios.post(`${BASE_URL}/product/remove-product-cart`, {
+                itemId: product._id,
+                userId: user._id,
+            })
+
+            const {data} = response
+
+            data.success && openNotificationWithIcon('success', data.data)
+            data.success && dispatch(toggleCartTrigger())
+            data.success && setReloadTrigger(prev => !prev)
+        } catch (error) {
+            console.log(error.response.data.msg);
+            openNotificationWithIcon('error', error.response.data.msg)
+        }
     }
 
     return (
@@ -132,12 +153,35 @@ const CartProduct = ({product, setReloadTrigger}) => {
                             </div>
                             <div className="mt-2">
                                 <button 
-                                    onClick={handleProductRemove}
+                                    onClick={() => setShowRemoveModal(true)}
                                 className='font-semibold hover:text-red-500 transition-all'>REMOVE</button>
                             </div>
                         </div>
                     </div>
                 </div>
+                <Modal
+                    open={showRemoveModal}
+                    onClose={() => setShowRemoveModal(false)}
+                    aria-labelledby="modal-modal-title"
+                    aria-describedby="modal-modal-description"
+                >
+
+                    <div className="lg:w-[26%] sm:w-[50%] w-[95%] absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2">
+                        <div className="bg-white p-6 rounded-md">
+                            <p className='mt-1 text-lg font-semibold'>Remove Item</p>
+                            <p className='my-8 text-gray-500'>Are you sure you want to remove this item?</p>
+                            <div className=" flex justify-between">
+                                <button 
+                                    onClick={() => setShowRemoveModal(false)}
+                                    className='w-[42%] py-3 border rounded-sm border-black text-lg font-semibold'>CANCEL</button>
+                                <button 
+                                    onClick={handleProductRemove}
+                                    className='w-[42%] py-3 border rounded-sm border-black text-lg font-semibold bg-[#00ed64]'>REMOVE</button>
+                            </div>
+                        </div>
+                    </div>
+                    
+                </Modal>
             </div>
         </>
     )
