@@ -1,11 +1,26 @@
 import React, {useState, useEffect} from 'react'
 import {BASE_URL} from '../../utils/constraints.js'
 import axios from 'axios'
+import { notification } from 'antd';
+import { useSelector } from 'react-redux';
 
 const CartProduct = ({product, setReloadTrigger}) => {
 
+    const [api, contextHolder] = notification.useNotification();
+
+    const user = useSelector(state => state.ecom.user)
+
     const [quantity, setQuantity] = useState(product.quantity)
     const [productData, setProductData] = useState({})
+
+    const [counterDisabled, setCounterDisabled] = useState(false)
+
+    const openNotificationWithIcon = (type, msg) => {
+        api[type]({
+            description: msg,
+            placement: 'bottomRight',
+        });
+    };
 
     useEffect(() => {
         async function getProduct(){
@@ -26,15 +41,56 @@ const CartProduct = ({product, setReloadTrigger}) => {
         getProduct()
     }, [])
 
-    const handleCounterIncrease = () => {
+    const handleCounterIncrease = async () => {
         if(quantity < productData.stock){
-            setQuantity(prev => prev+1)
+            setCounterDisabled(true)
+            try {
+                const response = await axios.post(`${BASE_URL}/product/update-product-quantity`, {
+                    itemId: product._id,
+                    userId: user._id,
+                    quantity: quantity+1
+                })
+    
+                const {data} = response
+
+                data.success && console.log(data.data);
+                data.success && setQuantity(prev => prev+1)
+                data.success && setCounterDisabled(false)
+                data.success && openNotificationWithIcon('success', data.data)
+            } catch (error) {
+                console.log(error.response.data.msg);
+                setCounterDisabled(false)
+                openNotificationWithIcon('error', error.response.data.msg)
+            }
+
+            // setQuantity(prev => prev+1)
+        }else{
+            openNotificationWithIcon('error', 'Quantity has reached the maximum stock limit.')
         }
     }
 
-    const handleCounterDecrease = () => {
+    const handleCounterDecrease = async () => {
         if(quantity > 1){
-            setQuantity(prev => prev-1)
+            setCounterDisabled(true)
+            try {
+                const response = await axios.post(`${BASE_URL}/product/update-product-quantity`, {
+                    itemId: product._id,
+                    userId: user._id,
+                    quantity: quantity-1
+                })
+    
+                const {data} = response
+
+                data.success && setQuantity(prev => prev-1)
+                data.success && setCounterDisabled(false)
+                data.success && openNotificationWithIcon('success', data.data)
+            } catch (error) {
+                console.log(error.response.data.msg);
+                setCounterDisabled(false)
+                openNotificationWithIcon('error', error.response.data.msg)
+            }
+        }else{
+            openNotificationWithIcon('error', 'Quantity can not be 0')
         }
     }
 
@@ -44,6 +100,7 @@ const CartProduct = ({product, setReloadTrigger}) => {
 
     return (
         <>
+            {contextHolder}
             <div className="w-full border-b pb-4 mt-4">
                 <div className="flex gap-2 sm:flex-row flex-col items-center">
                     <div className="sm:w-1/4 w-full flex flex-col items-center">
@@ -54,11 +111,13 @@ const CartProduct = ({product, setReloadTrigger}) => {
                             <div className="flex items-center gap-2">
                                 <button 
                                     onClick={handleCounterDecrease}
-                                    className='border border-gray-400 w-6 h-6 rounded grid place-content-center font-semibold hover:bg-gray-200 transition-all'>-</button>
-                                <p className='text-lg w-10 h-6 border border-gray-400 grid place-content-center'>{quantity}</p>
+                                    disabled={counterDisabled}
+                                    className={`border border-gray-400 ${counterDisabled ? 'bg-gray-100 opacity-55' : ''} w-6 h-6 rounded grid place-content-center font-semibold hover:bg-gray-200 transition-all`}>-</button>
+                                <p className={`text-lg ${counterDisabled ? 'bg-gray-100 opacity-55' : ''} w-10 h-6 border border-gray-400 grid place-content-center`}>{quantity}</p>
                                 <button 
                                     onClick={handleCounterIncrease}
-                                    className='border border-gray-400 w-6 h-6 rounded grid place-content-center font-semibold hover:bg-gray-200 transition-all'>+</button>
+                                    disabled={counterDisabled}
+                                    className={`border border-gray-400 ${counterDisabled ? 'bg-gray-100 opacity-55' : ''} w-6 h-6 rounded grid place-content-center font-semibold hover:bg-gray-200 transition-all`}>+</button>
                             </div>
                         </div>
                     </div>

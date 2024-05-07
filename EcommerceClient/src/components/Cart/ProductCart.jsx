@@ -18,7 +18,6 @@ const ProductCart = () => {
                 const response = await axios.get(`${BASE_URL}/product/get-cart-product?userId=${user._id}`)
                 const {data} = response
 
-                data.success && console.log(data.data);
                 data.success && setAllCartProduct(data.data)
             } catch (error) {
                 console.log(error.response.data.msg);
