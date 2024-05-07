@@ -8,7 +8,8 @@ import {
     getLatestProduct, 
     getProductDetail, 
     itemCountInCart,
-    productAddToCart 
+    productAddToCart, 
+    updateCartProductQantity
 } from '../controllers/product.controller.js'
 
 const productRouter = express.Router()
@@ -21,6 +22,7 @@ productRouter.post('/get-filtered-product', getFilteredProduct)
 productRouter.post('/add-to-cart', productAddToCart)
 productRouter.get('/items-in-cart', itemCountInCart)
 productRouter.get('/get-cart-product', getCartProducts)
+productRouter.post('/update-product-quantity', updateCartProductQantity)
 
 productRouter.post('/create-coupon', createCoupon)
 

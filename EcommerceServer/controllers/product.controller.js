@@ -163,6 +163,13 @@ export const productAddToCart = async(req, res) => {
         })
     }
 
+    if (quantity > 10) {
+        return res.status(400).json({
+            success: false,
+            msg: 'Maximum order limit is 10'
+        })
+    }
+
     try {
 
         const existingCartItem = await CartModel.findOne({
@@ -254,6 +261,52 @@ export const getCartProducts = async (req, res) => {
         });
     }
 }
+
+export const updateCartProductQantity = async (req, res) => {
+    const {itemId, userId, quantity} = req.body
+
+    if(!itemId || !userId || !quantity){
+        return res.status(400).json({
+            success: false,
+            msg: 'All fields are required'
+        })
+    }
+
+    if (quantity > 10) {
+        return res.status(400).json({
+            success: false,
+            msg: 'Maximum order limit is 10'
+        })
+    }
+
+    try {
+        const userCart = await CartModel.findOne({ userId });
+        if (!userCart) {
+            throw new Error('User cart not found');
+        }
+
+        const item = userCart.items.find(item => item._id.toString() === itemId);
+
+        if (!item) {
+            throw new Error('Item not found in the user cart');
+        }
+
+        item.quantity = quantity;
+
+        await userCart.save();
+
+        return res.status(200).json({
+            success: true,
+            data: `Chenaged product quantity to ${quantity}`
+        })
+    } catch (error) {
+        return res.status(400).json({
+            success: false,
+            msg: error.message
+        })
+    }
+    
+} 
 
 export const createCoupon = async (req, res) => {
     const {code, discountType, discountAmount, minOrderAmount, maxUses, isActive} = req.body
