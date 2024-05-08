@@ -337,7 +337,7 @@ export const removeProductFromCart = async (req, res) => {
 }
 
 export const getCartPriceDetails = async (req, res) => {
-    const { userId } = req.query;
+    const { userId } = req.body;
 
     try {
         const cart = await CartModel.findOne({ userId });
@@ -429,6 +429,89 @@ export const createCoupon = async (req, res) => {
         return res.status(400).json({
             success: false,
             msg: 'Coupon not created'
+        })
+    }
+}
+
+export const applyCoupon = async (req, res) => {
+    const { couponCode, userId, totalAmount } = req.body;
+
+    if(!couponCode || !userId || !totalAmount){
+        return res.status(400).json({
+            success: false,
+            msg: 'All fields are required'
+        }) 
+    }
+
+    try {
+        const coupon = await CouponModel.findOne({code: couponCode})
+
+        if(!coupon){
+            return res.status(400).json({
+                success: false,
+                msg: 'Coupon not found.'
+            }) 
+        }
+        
+        const isClaimed = coupon.claimedBy.includes(userId);
+        
+        if(isClaimed){
+            return res.status(400).json({
+                success: false,
+                msg: 'This coupon is already claimed by you.'
+            }) 
+        }
+        
+        if(!coupon.isActive){
+            return res.status(400).json({
+                success: false,
+                msg: 'The coupon is not currently active.'
+            }) 
+        }
+        
+        if(coupon.uses >= coupon.maxUses){
+            return res.status(400).json({
+                success: false,
+                msg: 'The maximum number of uses for this coupon has been reached.'
+            }) 
+        }
+
+        let discountedAmount
+        if(totalAmount > coupon.minOrderAmount){
+            
+            if(coupon.discountType === "percentage"){
+                const discountPercentage = coupon.discountAmount / 100;
+                discountedAmount = totalAmount * discountPercentage;
+            }else if(coupon.discountType === "fixed"){
+                discountedAmount = coupon.discountAmount;
+            }else{
+                return res.status(400).json({
+                    success: false,
+                    msg: 'Unsupported discount type'
+                })
+            }
+
+            
+            
+        }else{
+            return res.status(400).json({
+                success: false,
+                msg: `Minimum order amount should be ${coupon.minOrderAmount} in this coupon.`
+            })
+        }
+        
+        
+        const finalAmount = totalAmount - discountedAmount;
+            
+        return res.status(200).json({
+            success: true,
+            data: finalAmount
+        })
+
+    } catch (error) {
+        return res.status(400).json({
+            success: false,
+            msg: error
         })
     }
 }
