@@ -5,8 +5,9 @@ import { notification } from 'antd';
 import { useDispatch, useSelector } from 'react-redux';
 import Modal from '@mui/material/Modal';
 import { toggleCartTrigger } from '../../redux_slicer/ProductSlicer.js'
+import { Link } from 'react-router-dom';
 
-const CartProduct = ({product, setReloadTrigger}) => {
+const CartProduct = ({product, setReloadTrigger, setReloadOnQuantityUpdate}) => {
     
     const dispatch = useDispatch()
 
@@ -62,6 +63,7 @@ const CartProduct = ({product, setReloadTrigger}) => {
                 data.success && console.log(data.data);
                 data.success && setQuantity(prev => prev+1)
                 data.success && setCounterDisabled(false)
+                data.success && setReloadOnQuantityUpdate(prev => !prev)
                 data.success && openNotificationWithIcon('success', data.data)
             } catch (error) {
                 console.log(error.response.data.msg);
@@ -89,6 +91,7 @@ const CartProduct = ({product, setReloadTrigger}) => {
 
                 data.success && setQuantity(prev => prev-1)
                 data.success && setCounterDisabled(false)
+                data.success && setReloadOnQuantityUpdate(prev => !prev)
                 data.success && openNotificationWithIcon('success', data.data)
             } catch (error) {
                 console.log(error.response.data.msg);
@@ -113,6 +116,7 @@ const CartProduct = ({product, setReloadTrigger}) => {
             data.success && openNotificationWithIcon('success', data.data)
             data.success && dispatch(toggleCartTrigger())
             data.success && setReloadTrigger(prev => !prev)
+            data.success && setReloadOnQuantityUpdate(prev => !prev)
         } catch (error) {
             console.log(error.response.data.msg);
             openNotificationWithIcon('error', error.response.data.msg)
@@ -144,11 +148,11 @@ const CartProduct = ({product, setReloadTrigger}) => {
                     </div>
                     <div className="flex-1 sm:mt-0 mt-4">
                         <div className="w-full flex flex-col justify-between">
-                            <p className=''>{productData.name} {productData.description}</p>
+                            <Link to={`../details/${product.productId}`} className='hover:text-blue-700'>{productData.name} {productData.description}</Link>
                             <p className='text-gray-500 mt-2 font-semibold'>{productData.brand}</p>
                             <div className="mt-2 flex gap-3 items-end">
-                                <p className="text-2xl font-bold">₹{productData.price}</p>
-                                <p className=" font-normal text-gray-700 line-through">₹{Math.round(Number(productData.price)/(1-(Number(productData.discount)/100)))}</p>
+                                <p className="text-2xl font-bold">₹{productData.price * quantity}</p>
+                                <p className=" font-normal text-gray-700 line-through">₹{Math.round(Number(productData.price)/(1-(Number(productData.discount)/100))) * quantity}</p>
                                 <p className=" text-green-600 font-semibold">{productData.discount}% off</p>
                             </div>
                             <div className="mt-2">
