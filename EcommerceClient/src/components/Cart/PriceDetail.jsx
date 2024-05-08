@@ -112,7 +112,7 @@ const PriceDetail = ({reloadOnQuantityUpdate, setTotalOrderPrice}) => {
                                 <input 
                                     value={couponValue}
                                     onChange={(e) => setCouponValue(e.target.value)}
-                                    className='outline-none border border-black focus:border-[#00ed64] px-2 py-1 flex-1' type="text" />
+                                    className='outline-none block border border-black focus:border-[#00ed64] px-2 py-1 w-full' type="text" />
                                 <button 
                                     onClick={handleCouponApply}
                                     className='px-4 py-1 border border-black bg-[#00ed64]'>Apply</button>

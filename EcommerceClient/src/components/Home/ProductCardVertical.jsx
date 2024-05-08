@@ -5,7 +5,7 @@ import { Link } from "react-router-dom";
 const ProductCardVertical = ({product}) => {
     return (
         <>
-            <div className="border p-2 rounded-md w-[22%] min-w-48 bg-white flex-1 lg:flex-none hover:shadow-md transition-all">
+            <div className="border p-2 rounded-md xl:w-[22%] w-[30%] min-w-48 bg-white flex-1 lg:flex-none hover:shadow-md transition-all">
                 <div className="w-full p-4">
                     <img
                         className="m-auto h-full max-h-56 sm:min-h-56 object-contain mix-blend-multiply"

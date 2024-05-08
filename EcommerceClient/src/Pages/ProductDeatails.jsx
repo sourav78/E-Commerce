@@ -131,8 +131,8 @@ const ProductDeatails = () => {
                                         <ul className="list-disc">
                                             {
                                                 highlights && (
-                                                    Object.keys(highlights).map((high) => (
-                                                        <li>{high}: {highlights[high]}</li>
+                                                    Object.keys(highlights).map((high, ind) => (
+                                                        <li key={ind}>{high}: {highlights[high]}</li>
                                                     ))
                                                 )
                                             }

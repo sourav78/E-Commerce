@@ -19,17 +19,17 @@ const HeroSwiper = () => {
           slidesPerView={1}
           loop={true}
           autoplay={{
-            delay: 3000,
+            delay: 1000,
           }}
         >
-          <SwiperSlide>
-            <img className="sm:h-auto min-h-56" src={poster2} alt="" />
+          <SwiperSlide className="">
+            <img className="sm:h-auto min-h-56 w-full" src={poster2} alt="" />
           </SwiperSlide>
           <SwiperSlide>
-            <img className="sm:h-auto min-h-56" src={poster1} alt="" />
+            <img className="sm:h-auto min-h-56 w-full" src={poster1} alt="" />
           </SwiperSlide>
           <SwiperSlide>
-            <img className="sm:h-auto min-h-56" src={poster3} alt="" />
+            <img className="sm:h-auto min-h-56 w-full" src={poster3} alt="" />
           </SwiperSlide>
         </Swiper>
       </div>

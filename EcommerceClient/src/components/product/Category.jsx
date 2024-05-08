@@ -72,8 +72,8 @@ const Category = () => {
                                     <label className=" cursor-pointer font-semibold text-xl sm:text-[16px]" htmlFor="all">All</label>
                                 </div>
                                 {
-                                    allCategories.map(cat => (
-                                        <div className="flex items-center sm:gap-1 gap-2 sm:mb-0 mb-1">
+                                    allCategories.map((cat, ind) => (
+                                        <div key={ind} className="flex items-center sm:gap-1 gap-2 sm:mb-0 mb-1">
                                             <input className=" cursor-pointer " type="radio" name="category" id={cat.category} value={cat.category} onChange={onCategoryChange} checked={selectedCategory === cat.category} />
                                             <label className=" cursor-pointer font-semibold text-xl sm:text-[16px] capitalize" htmlFor={cat.category}>{cat.category}</label>
                                         </div>
