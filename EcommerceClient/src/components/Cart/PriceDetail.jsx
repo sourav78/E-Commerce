@@ -2,19 +2,37 @@ import React, { useEffect, useState } from 'react'
 import { useSelector } from 'react-redux'
 import {BASE_URL} from '../../utils/constraints.js'
 import axios from 'axios'
+import { notification } from 'antd';
 
 const PriceDetail = ({reloadOnQuantityUpdate, setTotalOrderPrice}) => {
 
+    const [api, contextHolder] = notification.useNotification();
+
     const user = useSelector(state => state.ecom.user)
+
+    const [couponValue, setCouponValue] = useState('')
 
     const [totalPrice, setTotalPrice] = useState(0)
     const [actualPrice, setActualPrice] = useState(0)
     const [priceDeatils, setPriceDeatils] = useState([])
 
+    const [appliedCoupons, setAppliedCoupons] = useState([])
+
+    const [couponDiscount, setCouponDiscount] = useState(0)
+
+    const openNotificationWithIcon = (type, msg) => {
+        api[type]({
+            description: msg,
+            placement: 'bottomRight',
+        });
+    };
+
     useEffect(() => {
         async function getPriceDeatils(){
             try {
-                const response = await axios.get(`${BASE_URL}/product/get-price-deatils?userId=${user._id}`)
+                const response = await axios.post(`${BASE_URL}/product/get-price-deatils`, {
+                    userId: user._id
+                })
                 const {data} = response
     
                 data.success && console.log(data.data);
@@ -33,9 +51,41 @@ const PriceDetail = ({reloadOnQuantityUpdate, setTotalOrderPrice}) => {
         setTotalOrderPrice(totalPriceSum)
         setActualPrice(actualTotalPriceSum)
     }, [priceDeatils])
+    
+    useEffect(() => {
+        if(!appliedCoupons.includes(couponValue)){
+            setTotalPrice(couponDiscount)
+            setTotalOrderPrice(couponDiscount)
+            setAppliedCoupons(prev => [...prev, couponValue])
+            couponValue && openNotificationWithIcon('success', 'Coupon apply successfully')
+            setCouponValue('')
+        }else{
+            console.log("applied");
+            openNotificationWithIcon('error', 'This coupon is already applied.')
+        }
+    }, [couponDiscount])
+
+    const handleCouponApply = async () => {
+        try {
+            const response = await axios.post(`${BASE_URL}/product/apply-coupon`, {
+                couponCode: couponValue,
+                userId: user._id,
+                totalAmount: totalPrice
+            })
+
+            const {data} = response
+
+            data.success && console.log(data.data);
+            data.success && setCouponDiscount(Math.ceil(data.data))
+        } catch (error) {
+            console.log(error.response.data.msg);
+            openNotificationWithIcon('error', error.response.data.msg)
+        }
+    }
 
     return (
-        <>
+        <> 
+            {contextHolder}
             <div className="bg-white shadow-xl sticky top-4">
                 <div className=" p-4 border-b">
                     <p className='font-semibold text-gray-600'>PRICE DETAILS</p>
@@ -59,15 +109,20 @@ const PriceDetail = ({reloadOnQuantityUpdate, setTotalOrderPrice}) => {
                         <div className="">
                             <p className='font-semibold text-gray-700 mb-2'>COUPONS</p>
                             <div className="flex justify-between items-center gap-2">
-                                <input className='outline-none border border-black focus:border-[#00ed64] px-2 py-1 flex-1' type="text" />
-                                <button className='px-4 py-1 border border-black bg-[#00ed64]'>Apply</button>
+                                <input 
+                                    value={couponValue}
+                                    onChange={(e) => setCouponValue(e.target.value)}
+                                    className='outline-none border border-black focus:border-[#00ed64] px-2 py-1 flex-1' type="text" />
+                                <button 
+                                    onClick={handleCouponApply}
+                                    className='px-4 py-1 border border-black bg-[#00ed64]'>Apply</button>
                             </div>
                         </div>
                     </div>
                     <div className="border-b border-gray-300 py-4 border-dashed">
                         <div className="my-2 flex justify-between items-center">
                             <p className='text-lg font-semibold'>Total Amount</p>
-                            <p className='text-lg font-semibold'>₹{totalPrice+100}</p>
+                            <p className='text-lg font-semibold'>₹{totalPrice}</p>
                         </div>
                     </div>
                     <div className="mt-2">
