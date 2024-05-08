@@ -2,6 +2,7 @@ import express from 'express'
 import { 
     createCoupon, 
     getAllData, 
+    getCartPriceDetails, 
     getCartProducts, 
     getCategory, 
     getFilteredProduct, 
@@ -25,6 +26,7 @@ productRouter.get('/items-in-cart', itemCountInCart)
 productRouter.get('/get-cart-product', getCartProducts)
 productRouter.post('/update-product-quantity', updateCartProductQantity)
 productRouter.post('/remove-product-cart', removeProductFromCart)
+productRouter.get('/get-price-deatils', getCartPriceDetails)
 
 productRouter.post('/create-coupon', createCoupon)
 

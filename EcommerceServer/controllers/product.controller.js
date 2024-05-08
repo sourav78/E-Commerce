@@ -336,6 +336,42 @@ export const removeProductFromCart = async (req, res) => {
     }
 }
 
+export const getCartPriceDetails = async (req, res) => {
+    const { userId } = req.query;
+
+    try {
+        const cart = await CartModel.findOne({ userId });
+
+        if (!cart) {
+            return res.status(404).json({ success: false, msg: 'Cart not found' });
+        }
+
+        const productIds = cart.items.map(item => item.productId);
+
+        const products = await ProductModel.find({ _id: { $in: productIds } });
+
+        const cartProducts = cart.items.map(item => {
+            const product = products.find(prod => prod._id.toString() === item.productId.toString());
+            const totalPrice = product ? (product.price * item.quantity) : 0; 
+            const totalAcutualPrice = product ? (Math.round(Number(product.price)/(1-(Number(product.discount)/100))) * item.quantity) : 0;
+            return {
+                productId: item.productId,
+                quantity: item.quantity,
+                price: product ? product.price : 0,
+                totalPrice: totalPrice,
+                actualPrice: product ? Math.round(Number(product.price)/(1-(Number(product.discount)/100))) : 0,
+                totalAcutualPrice: totalAcutualPrice
+            };
+        });
+
+        return res.status(200).json({ success: true, data: cartProducts });
+    } catch (error) {
+        console.error(error);
+        return res.status(500).json({ success: false, msg: 'Internal Server Error' });
+    }
+
+}
+
 export const createCoupon = async (req, res) => {
     const {code, discountType, discountAmount, minOrderAmount, maxUses, isActive} = req.body
 
