@@ -6,6 +6,7 @@ import bcrypt from 'bcrypt'
 import nodeMailer from 'nodemailer'
 import otpGenerator from 'otp-generator'
 import { UserAddressModel } from "../models/address.model.js"
+import { OrderModel } from "../models/orders.model.js"
 
 export const register = async (req, res) => {
     const {fullname, mobile, email, password, confirmPassword} = req.body
@@ -57,6 +58,10 @@ export const register = async (req, res) => {
         })
         
         await UserAddressModel.create({
+            userId: user._id
+        })
+
+        await OrderModel.create({
             userId: user._id
         })
     
@@ -266,6 +271,7 @@ export const deleteAccount = async (req, res) => {
 
         await WishlistModel.findOneAndDelete({userId: id})
         await CartModel.findOneAndDelete({userId: id})
+        await UserAddressModel.findOneAndDelete({userId: id})
 
         return res.status(200).json({
             success: true,

@@ -1,6 +1,7 @@
 import { cache } from "../config/app.js"
 import { CartModel } from "../models/cart.model.js"
 import { CouponModel } from "../models/coupons.model.js"
+import { OrderModel } from "../models/orders.model.js"
 import { ProductModel } from "../models/products.model.js"
 
 export const getAllData = async (req, res) => {
@@ -512,6 +513,43 @@ export const applyCoupon = async (req, res) => {
         return res.status(400).json({
             success: false,
             msg: error
+        })
+    }
+}
+
+export const createOrder = async (req, res) => {
+    const {userId, products, totalAmount, address} = req.body
+
+    if(!userId || !products || !totalAmount || !address){
+        return res.status(400).json({
+            success: false,
+            msg: "All fields are required"
+        })
+    }
+
+    try {
+        const order = await OrderModel.findOneAndUpdate({userId: userId}, {
+            $push:{
+                orders:{
+                    products,
+                    totalAmount,
+                    address
+                }
+            }
+        })
+
+        if(!order){
+            throw new Error("Order is not created.")
+        }
+
+        return res.status(200).json({
+            success: true,
+            data: "Order has been created successfully."
+        })
+    } catch (error) {
+        return res.status(400).json({
+            success: false,
+            msg: error.message
         })
     }
 }

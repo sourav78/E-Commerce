@@ -2,6 +2,7 @@ import express from 'express'
 import { 
     applyCoupon,
     createCoupon, 
+    createOrder, 
     getAllData, 
     getCartPriceDetails, 
     getCartProducts, 
@@ -31,5 +32,8 @@ productRouter.post('/get-price-deatils', getCartPriceDetails)
 
 productRouter.post('/create-coupon', createCoupon)
 productRouter.post('/apply-coupon', applyCoupon)
+
+
+productRouter.post('/create-order', createOrder)
 
 export default productRouter
