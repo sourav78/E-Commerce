@@ -1,12 +1,15 @@
 import React, { useEffect, useState } from 'react'
-import { useSelector } from 'react-redux'
+import { useDispatch, useSelector } from 'react-redux'
 import {BASE_URL} from '../../utils/constraints.js'
 import axios from 'axios'
 import { notification } from 'antd';
+import { updateCoupons, updateProducts } from '../../redux_slicer/OrderSlicer.js';
 
 const PriceDetail = ({reloadOnQuantityUpdate, setTotalOrderPrice}) => {
 
     const [api, contextHolder] = notification.useNotification();
+
+    const dispatch = useDispatch()
 
     const user = useSelector(state => state.ecom.user)
 
@@ -50,6 +53,13 @@ const PriceDetail = ({reloadOnQuantityUpdate, setTotalOrderPrice}) => {
         setTotalPrice(totalPriceSum)
         setTotalOrderPrice(totalPriceSum)
         setActualPrice(actualTotalPriceSum)
+        const data = priceDeatils.map(product => ({
+            productId: product.productId,
+            quantity: product.quantity,
+            totalPrice: product.totalPrice
+        }));
+        dispatch(updateProducts(data))
+        
     }, [priceDeatils])
     
     useEffect(() => {
@@ -58,6 +68,7 @@ const PriceDetail = ({reloadOnQuantityUpdate, setTotalOrderPrice}) => {
             setTotalOrderPrice(couponDiscount)
             setAppliedCoupons(prev => [...prev, couponValue])
             couponValue && openNotificationWithIcon('success', 'Coupon apply successfully')
+            dispatch(updateCoupons(couponValue))
             setCouponValue('')
         }else{
             console.log("applied");
