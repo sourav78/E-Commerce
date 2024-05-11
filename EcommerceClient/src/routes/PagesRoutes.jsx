@@ -15,6 +15,7 @@ import Address from "../Pages/profile/Address";
 import Orders from "../Pages/profile/Orders";
 import Wishlist from "../Pages/profile/Wishlist";
 import ProfileCart from "../Pages/profile/ProfileCart";
+import Checkout from "../Pages/Checkout";
 
 const PagesRoutes = () => {
   return (
@@ -34,6 +35,7 @@ const PagesRoutes = () => {
             <Route path="wishlist" element={<Wishlist />}  />
             <Route path="usercarts" element={<ProfileCart />}  />
           </Route>
+          <Route path="/checkout" element={<Checkout />} />
         </Routes>
     </>
   );

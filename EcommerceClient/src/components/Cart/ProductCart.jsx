@@ -5,11 +5,14 @@ import {BASE_URL} from '../../utils/constraints.js'
 import axios from 'axios'
 import EmptyCart from './EmptyCart.jsx'
 import { toggleCartTrigger } from '../../redux_slicer/ProductSlicer.js'
-import { updateTotalAmount, updateUserDetails } from '../../redux_slicer/OrderSlicer.js'
+import { updateInitializeOrder, updateTotalAmount, updateUserDetails } from '../../redux_slicer/OrderSlicer.js'
+import { useNavigate } from 'react-router-dom'
 
 const ProductCart = ({onCartEmptyChange, setReloadOnQuantityUpdate, totalOrderPrice}) => {
 
     const dispatch = useDispatch()
+
+    const navigate = useNavigate()
 
     const user = useSelector(state => state.ecom.user)
 
@@ -46,6 +49,8 @@ const ProductCart = ({onCartEmptyChange, setReloadOnQuantityUpdate, totalOrderPr
     const handlePlaceOrder = () => {
         dispatch(updateTotalAmount(totalOrderPrice+100))
         dispatch(updateUserDetails({userId: user._id, email: user.email, userName: user.fullname}))
+        dispatch(updateInitializeOrder(true))
+        navigate("../checkout")
     }
 
     return (

@@ -5,7 +5,8 @@ const initialState = {
     totalAmount: 0,
     address: {},
     coupons: [],
-    userDetails: {}
+    userDetails: {},
+    initializeOrder: false
 }
 
 export const orderSlice = createSlice({
@@ -33,9 +34,12 @@ export const orderSlice = createSlice({
         updateUserDetails: (state, action) => {
             state.userDetails = action.payload;
         },
+        updateInitializeOrder: (state, action) => {
+            state.initializeOrder = action.payload;
+        }
     }
 })
 
-export const { updateProducts, updateTotalAmount, updateAddress, updateCoupons, updateUserDetails} = orderSlice.actions;
+export const { updateProducts, updateTotalAmount, updateAddress, updateCoupons, updateUserDetails, updateInitializeOrder} = orderSlice.actions;
 
 export default orderSlice.reducer

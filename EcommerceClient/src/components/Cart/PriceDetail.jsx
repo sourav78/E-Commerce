@@ -133,7 +133,7 @@ const PriceDetail = ({reloadOnQuantityUpdate, setTotalOrderPrice}) => {
                     <div className="border-b border-gray-300 py-4 border-dashed">
                         <div className="my-2 flex justify-between items-center">
                             <p className='text-lg font-semibold'>Total Amount</p>
-                            <p className='text-lg font-semibold'>₹{totalPrice}</p>
+                            <p className='text-lg font-semibold'>₹{totalPrice+100}</p>
                         </div>
                     </div>
                     <div className="mt-2">
