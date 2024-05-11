@@ -553,3 +553,68 @@ export const createOrder = async (req, res) => {
         })
     }
 }
+
+export const claimCoupons = async (req, res) => {
+    const { couponCodes, userId } = req.body;
+
+    try {
+        const coupons = await CouponModel.find({ code: { $in: couponCodes } });
+        // console.log(coupons);
+        if (!coupons || coupons.length === 0) {
+            return res.status(404).json({ 
+                success: false,
+                msg: 'Coupons not found' 
+            });
+        }
+
+        
+        for (const coupon of coupons) {
+            
+            coupon.uses++;
+
+            coupon.claimedBy.push(userId);
+            
+            await coupon.save();
+        }
+
+        return res.status(200).json({ 
+            success: true,
+            msg: 'Coupons claimed successfully' 
+        });
+    } catch (error) {
+        return res.status(404).json({ 
+            success: false,
+            msg: 'Internal server Error' 
+        });
+    }
+}
+
+export const updateProductStock = async (req, res) => {
+    const {productsToUpdate} = req.body
+
+    try {
+        for (const productData of productsToUpdate) {
+            console.log(productData);
+            const { productId, quantity } = productData;
+            
+            // Find the product by its ID
+            const product = await ProductModel.findById(productId);
+            
+            product.stock = product.stock - quantity;
+            
+            // Save the updated product
+            await product.save();
+            console.log("ll");
+        }
+
+        return res.status(200).json({ 
+            success: true,
+            msg: 'Product Updated successfully' 
+        });
+    } catch (error) {
+        return res.status(404).json({ 
+            success: false,
+            msg: 'Internal server Error' 
+        });
+    }
+}

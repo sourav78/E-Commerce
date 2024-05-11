@@ -1,6 +1,7 @@
 import express from 'express'
 import { 
     applyCoupon,
+    claimCoupons,
     createCoupon, 
     createOrder, 
     getAllData, 
@@ -13,7 +14,8 @@ import {
     itemCountInCart,
     productAddToCart, 
     removeProductFromCart, 
-    updateCartProductQantity
+    updateCartProductQantity,
+    updateProductStock
 } from '../controllers/product.controller.js'
 
 const productRouter = express.Router()
@@ -29,9 +31,11 @@ productRouter.get('/get-cart-product', getCartProducts)
 productRouter.post('/update-product-quantity', updateCartProductQantity)
 productRouter.post('/remove-product-cart', removeProductFromCart)
 productRouter.post('/get-price-deatils', getCartPriceDetails)
+productRouter.post('/update-product-stock', updateProductStock)
 
 productRouter.post('/create-coupon', createCoupon)
 productRouter.post('/apply-coupon', applyCoupon)
+productRouter.post('/claim-coupon', claimCoupons)
 
 
 productRouter.post('/create-order', createOrder)
