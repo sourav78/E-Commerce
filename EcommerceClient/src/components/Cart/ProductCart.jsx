@@ -48,7 +48,7 @@ const ProductCart = ({onCartEmptyChange, setReloadOnQuantityUpdate, totalOrderPr
 
     const handlePlaceOrder = () => {
         dispatch(updateTotalAmount(totalOrderPrice+100))
-        dispatch(updateUserDetails({userId: user._id, email: user.email, userName: user.fullname}))
+        dispatch(updateUserDetails({userId: user._id, email: user.email, userName: user.fullname, mobile: user.mobile}))
         dispatch(updateInitializeOrder(true))
         navigate("../checkout")
     }

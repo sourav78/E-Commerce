@@ -1,9 +1,47 @@
-import React from 'react'
+import React, {useState} from 'react'
+import axios from "axios";
+import {BASE_URL} from '../../utils/constraints.js'
 
 const PaymentCheckout = ({isAddressSet, orderDetails}) => {
 
-    const handleMakePayment = () => {
-        console.log(orderDetails);
+
+    const handleMakePayment = async () => {
+
+        localStorage.setItem("orderDetails", JSON.stringify(orderDetails))
+
+        const {
+            data: { key },
+        } = await axios.get(`${BASE_URL}/api/getkey`);
+
+        const { data } = await axios.post(`${BASE_URL}/api/checkout`, {
+            amount: orderDetails.totalAmount,
+            receipt: orderDetails.userDetails.userId
+        });
+
+        const options = {
+            key: key,
+            amount: data.amount,
+            currency: "INR",
+            name: "Sourav r sahoo",
+            description: "S78 Store",
+            image: "https://avatars.githubusercontent.com/u/90958544?v=4",
+            order_id: data.id,
+            callback_url: `${BASE_URL}/api/paymentverification`,
+            prefill: {
+              name: orderDetails.userDetails.userName,
+              email: orderDetails.userDetails.email,
+              contact: orderDetails.userDetails.mobile,
+            },
+            notes: {
+              address: `Name:- ${orderDetails.address.name}, ${orderDetails.address.area}, ${orderDetails.address.locality}, ${orderDetails.address.city}, ${orderDetails.address.state} - ${orderDetails.address.postalCode}, ${orderDetails.address.mobile}`,
+            },
+            theme: {
+              color: "#1C1C1C",
+            },
+        };
+
+        var razor = new window.Razorpay(options);
+        razor.open();
     }
 
     return (

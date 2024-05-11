@@ -594,7 +594,6 @@ export const updateProductStock = async (req, res) => {
 
     try {
         for (const productData of productsToUpdate) {
-            console.log(productData);
             const { productId, quantity } = productData;
             
             // Find the product by its ID
@@ -604,7 +603,6 @@ export const updateProductStock = async (req, res) => {
             
             // Save the updated product
             await product.save();
-            console.log("ll");
         }
 
         return res.status(200).json({ 
