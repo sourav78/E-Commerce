@@ -4,6 +4,7 @@ import { Rate } from 'antd';
 import { FaMinus, FaPlus } from "react-icons/fa6";
 import axios from "axios";
 import { notification } from 'antd';
+import { FaHeart } from "react-icons/fa";
 
 import {BASE_URL} from '../utils/constraints.js'
 import { useDispatch, useSelector } from "react-redux";
@@ -23,6 +24,9 @@ const ProductDeatails = () => {
     const [counter, setCounter] = useState(1);
     const [product, setProduct] = useState({});
     const [highlights, setHighlights] = useState({})
+
+    const [isWishlisted, setIsWishlisted] = useState(false)
+    const [reloadWishlist, setReloadWishlist] = useState(false)
 
     const {productId} = useParams()
 
@@ -50,6 +54,43 @@ const ProductDeatails = () => {
 
         getProduct()
     }, [])
+
+    async function checkProductIsWishlist(){
+        try {
+            const response = await axios.post(`${BASE_URL}/product/check-wishlist-product`, {
+                productId: productId,
+                userId: user._id
+            })
+
+            const {data} = response
+
+            data.success && setIsWishlisted(data.data)
+        } catch (error) {
+            console.log(error);
+        }
+    }
+
+    useEffect(() => {
+        checkProductIsWishlist()
+    }, [user, reloadWishlist])
+
+    const handleWishlistProduct = async () => {
+        try {
+            const response = await axios.post(`${BASE_URL}/product/wishlist-product`, {
+                productId: productId,
+                userId: user._id
+            })
+
+            const {data} = response
+
+            data.success && openNotificationWithIcon('success', data.data)
+            data.success && setReloadWishlist(prev => !prev)
+
+        } catch (error) {
+            console.log(error);
+            openNotificationWithIcon('error', error.response.data.msg)
+        }
+    }
 
     const incraeseCounter = () =>{
         if(counter < product.stock){
@@ -113,8 +154,17 @@ const ProductDeatails = () => {
                             </div>
                             <div className=" p-2 sm:flex-1">
                                 <div className="">
-                                    <p className="text-xl font-semibold text-gray-500">{product.category}</p>
-                                    <p className="text-[28px] font-semibold">{product.name}</p>
+                                    <div className="flex justify-between">
+                                        <div className="">
+                                            <p className="text-xl font-semibold text-gray-500">{product.category}</p>
+                                            <p className="text-[28px] font-semibold">{product.name}</p>
+                                        </div>
+                                        <div className=" mr-1">
+                                            <FaHeart 
+                                                onClick={handleWishlistProduct}
+                                                className={`text-3xl ${isWishlisted ? "text-[#00ed64]" : "text-gray-400"} cursor-pointer`} />
+                                        </div>
+                                    </div>
                                     <p className="text-xl font-bold">{product.brand}</p>
                                     <p className="text-[18px] text-gray-600 mt-2">{product.description}</p>
                                     <div className="mt-4 flex gap-3 items-end">
