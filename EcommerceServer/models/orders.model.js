@@ -54,10 +54,15 @@ const orderSchema = new mongoose.Schema({
                         type: Number,
                         required: true
                     },
-                    price: {
+                    totalPrice: {
                         type: Number,
                         required: true
-                    }
+                    },
+                    status: {
+                        type: String,
+                        enum: ['processing', 'shipped', 'delivered', 'canceled'],
+                        default: 'processing'
+                    },
                 }
             ],
             totalAmount: {
@@ -65,12 +70,7 @@ const orderSchema = new mongoose.Schema({
                 required: true
             },
             address: orderAddressSchema,
-            status: {
-                type: String,
-                enum: ['processing', 'shipped', 'delivered', 'canceled'],
-                default: 'processing'
-            },
-            orderData: {
+            orderDate: {
                 type: Date,
                 default: Date.now()
             }
