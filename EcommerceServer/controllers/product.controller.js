@@ -3,6 +3,7 @@ import { CartModel } from "../models/cart.model.js"
 import { CouponModel } from "../models/coupons.model.js"
 import { OrderModel } from "../models/orders.model.js"
 import { ProductModel } from "../models/products.model.js"
+import { WishlistModel } from "../models/wishlist.model.js"
 
 export const getAllData = async (req, res) => {
 
@@ -614,5 +615,70 @@ export const updateProductStock = async (req, res) => {
             success: false,
             msg: 'Internal server Error' 
         });
+    }
+}
+
+export const wishlistAProduct = async (req, res) => {
+    const {productId, userId} = req.body
+
+    if(!productId || !userId){
+        return res.status(400).json({
+            success: false,
+            msg: "All fields are required."
+        })
+    }
+
+    try {
+        const wishlist = await WishlistModel.findOne({userId})
+
+        const isAlreadyWishlisted = wishlist.items.includes(productId)
+
+        if(isAlreadyWishlisted){
+            const newWishlist = wishlist.items.filter(item => item !== productId)
+            wishlist.items = newWishlist
+        }else{
+            wishlist.items.push(productId)
+        }
+
+        await wishlist.save()
+
+        return res.status(200).json({
+            success: true,
+            data: `${isAlreadyWishlisted ? "Product is removed from wishlist." : "Product is add to wishlist"}`
+        })
+
+    } catch (error) {
+        return res.status(400).json({
+            success: false,
+            msg: "Internal server error."
+        })
+    }
+}
+
+export const checkWishlistProduct = async (req, res) => {
+    const {productId, userId} = req.body
+
+    if(!productId || !userId){
+        return res.status(400).json({
+            success: false,
+            msg: "All fields are required."
+        })
+    }
+
+    try {
+        const wishlist = await WishlistModel.findOne({userId})
+
+        const isAlreadyWishlisted = wishlist.items.includes(productId)
+
+        return res.status(200).json({
+            success: true,
+            data: isAlreadyWishlisted
+        })
+
+    } catch (error) {
+        return res.status(400).json({
+            success: false,
+            msg: "Internal server error."
+        })
     }
 }
