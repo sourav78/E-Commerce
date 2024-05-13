@@ -734,7 +734,7 @@ export const getOrders = async (req, res) => {
 }
 
 export const cancelOrder = async (req, res) => {
-    const {userId, orderId} = req.body
+    const {userId, orderId, productId, quantity} = req.body
 
     try {
         const orders = await OrderModel.findOne({ userId: userId });
@@ -755,6 +755,13 @@ export const cancelOrder = async (req, res) => {
                 }
             })
         })
+
+        const product = await ProductModel.findById(productId);
+            
+        product.stock = product.stock + quantity;
+        
+        // Save the updated product
+        await product.save();
 
         await orders.save()
       
