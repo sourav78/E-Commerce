@@ -3,12 +3,22 @@ import React, { useEffect, useState } from 'react'
 import { BASE_URL } from '../../../utils/constraints'
 import { Link } from 'react-router-dom'
 import { Modal } from '@mui/material'
+import { notification } from 'antd';
 
 const SingleOrders = ({product, userId, setReloadOrder}) => {
+
+    const [api, contextHolder] = notification.useNotification();
 
     const [productData, setProductData] = useState({})
 
     const [showCancelModal, setShowCancelModal] = useState(false)
+
+    const openNotificationWithIcon = (type, msg) => {
+        api[type]({
+            description: msg,
+            placement: 'bottomRight',
+        });
+    };
 
     useEffect(() => {
         async function getProduct(){
@@ -32,20 +42,25 @@ const SingleOrders = ({product, userId, setReloadOrder}) => {
         try {
             const response = await axios.post(`${BASE_URL}/product/cancel-order-product`, {
                 orderId: product._id,
-                userId
+                userId,
+                productId: product.productId,
+                quantity: product.quantity
             })
 
             const {data} = response
             data.success && setReloadOrder(prev => !prev)
             data.success && setShowCancelModal(false)
+            data.success && openNotificationWithIcon('success', data.data)
 
         } catch (error) {
             console.log(error);
+            openNotificationWithIcon('error', error.response.data.msg)
         }
     }
 
     return (
         <>
+        {contextHolder}
             <div className="w-full border-b border-gray-300 sm:p-6 p-2">
                 <div className="">
                     <div className="flex sm:flex-row flex-col gap-8">

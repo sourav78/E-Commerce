@@ -14,9 +14,9 @@ import PersonalInformation from "../Pages/profile/PersonalInformation";
 import Address from "../Pages/profile/Address";
 import Orders from "../Pages/profile/Orders";
 import Wishlist from "../Pages/profile/Wishlist";
-import ProfileCart from "../Pages/profile/ProfileCart";
 import Checkout from "../Pages/Checkout";
 import PaymentSuccess from "../Pages/PaymentSuccess";
+import PageNotFound from "../Pages/PageNotFound";
 
 const PagesRoutes = () => {
   return (
@@ -37,6 +37,7 @@ const PagesRoutes = () => {
           </Route>
           <Route path="/checkout" element={<Checkout />} />
           <Route path="/paymentsuccess" element={<PaymentSuccess />} />
+          <Route path="*" element={<PageNotFound />} />
         </Routes>
     </>
   );

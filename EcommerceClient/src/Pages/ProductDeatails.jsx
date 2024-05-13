@@ -9,6 +9,7 @@ import { FaHeart } from "react-icons/fa";
 import {BASE_URL} from '../utils/constraints.js'
 import { useDispatch, useSelector } from "react-redux";
 import { toggleCartTrigger } from "../redux_slicer/ProductSlicer.js";
+import { updateInitializeOrder, updateProducts, updateTotalAmount, updateUserDetails } from "../redux_slicer/OrderSlicer.js";
 
 const ProductDeatails = () => {
 
@@ -75,20 +76,24 @@ const ProductDeatails = () => {
     }, [user, reloadWishlist])
 
     const handleWishlistProduct = async () => {
-        try {
-            const response = await axios.post(`${BASE_URL}/product/wishlist-product`, {
-                productId: productId,
-                userId: user._id
-            })
-
-            const {data} = response
-
-            data.success && openNotificationWithIcon('success', data.data)
-            data.success && setReloadWishlist(prev => !prev)
-
-        } catch (error) {
-            console.log(error);
-            openNotificationWithIcon('error', error.response.data.msg)
+        if(isAuthenticated){
+            try {
+                const response = await axios.post(`${BASE_URL}/product/wishlist-product`, {
+                    productId: productId,
+                    userId: user._id
+                })
+    
+                const {data} = response
+    
+                data.success && openNotificationWithIcon('success', data.data)
+                data.success && setReloadWishlist(prev => !prev)
+    
+            } catch (error) {
+                console.log(error);
+                openNotificationWithIcon('error', error.response.data.msg)
+            }
+        }else{
+            navigate('/login')
         }
     }
 
@@ -102,6 +107,18 @@ const ProductDeatails = () => {
     const decreaseCounter = () =>{
         if(counter > 1){
             setCounter(prev => prev-1)
+        }
+    }
+
+    const handleBuyNow = () => {
+        if(isAuthenticated){
+            dispatch(updateProducts([{productId: product._id, quantity: 1, totalPrice: product.price}]))
+            dispatch(updateTotalAmount(product.price+100))
+            dispatch(updateUserDetails({userId: user._id, email: user.email, userName: user.fullname, mobile: user.mobile}))
+            dispatch(updateInitializeOrder(true))
+            navigate("../checkout")
+        }else{
+            navigate('/login')
         }
     }
 
@@ -149,7 +166,9 @@ const ProductDeatails = () => {
                                     <button 
                                         onClick={handleAddToCart}
                                         className="border-2 border-black w-[45%] py-2 text-xl font-semibold hover:bg-[#00ed64] bg-white  text-black transition-all">Add To Cart</button>
-                                    <button className="border-2 border-black w-[45%] py-2 text-xl font-semibold bg-[#00ed64] hover:bg-white text-black transition-all">Buy Now</button>
+                                    <button 
+                                        onClick={handleBuyNow}
+                                        className="border-2 border-black w-[45%] py-2 text-xl font-semibold bg-[#00ed64] hover:bg-white text-black transition-all">Buy Now</button>
                                 </div>
                             </div>
                             <div className=" p-2 sm:flex-1">
