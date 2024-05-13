@@ -707,3 +707,65 @@ export const getWishlistProduct = async (req, res) => {
         })
     }
 }
+
+export const getOrders = async (req, res) => {
+    const {userId} = req.query
+
+    try {
+        const order = await OrderModel.findOne({userId})
+
+        if(!order){
+            return res.status(404).json({ 
+                success: false, 
+                msg: 'Order not found' 
+            });
+        }
+
+        return res.status(200).json({ 
+            success: true, 
+            data: order 
+        });
+    } catch (error) {
+        return res.status(404).json({ 
+            success: false, 
+            msg: 'Internal server error' 
+        });
+    }
+}
+
+export const cancelOrder = async (req, res) => {
+    const {userId, orderId} = req.body
+
+    try {
+        const orders = await OrderModel.findOne({ userId: userId });
+
+        if (!orders) {
+            return res.status(404).json({ 
+                success: false, 
+                msg: 'Order not found for the provided user ID' 
+            });
+        }
+
+        // console.log(orders);
+
+        orders.orders.map((order, index) => {
+            order.products.map((product, ind) => {
+                if(String(product._id) === orderId){
+                    orders.orders[index].products[ind].status = 'canceled'
+                }
+            })
+        })
+
+        await orders.save()
+      
+        return res.status(200).json({ 
+            success: true, 
+            data: 'Order canceled successfully' 
+        });
+    } catch (error) {
+        return res.status(500).json({ 
+            success: false, 
+            msg: 'Internal server error' 
+        });
+    }
+}

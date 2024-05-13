@@ -1,6 +1,7 @@
 import express from 'express'
 import { 
     applyCoupon,
+    cancelOrder,
     checkWishlistProduct,
     claimCoupons,
     createCoupon, 
@@ -11,6 +12,7 @@ import {
     getCategory, 
     getFilteredProduct, 
     getLatestProduct, 
+    getOrders, 
     getProductDetail, 
     getWishlistProduct, 
     itemCountInCart,
@@ -38,6 +40,8 @@ productRouter.post('/update-product-stock', updateProductStock)
 productRouter.post('/wishlist-product', wishlistAProduct)
 productRouter.post('/check-wishlist-product', checkWishlistProduct)
 productRouter.get('/get-wishlist-product', getWishlistProduct)
+productRouter.get('/get-order-product', getOrders)
+productRouter.post('/cancel-order-product', cancelOrder)
 
 productRouter.post('/create-coupon', createCoupon)
 productRouter.post('/apply-coupon', applyCoupon)
