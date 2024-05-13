@@ -22,7 +22,7 @@ export const AllWishlist = () => {
     
                 const {data} = response
     
-                data.success && setWishlistProducts(data.data)
+                data.success && setWishlistProducts(data.data.reverse())
                 data.success && console.log(data.data)
             } catch (error) {
                 console.log(error);
