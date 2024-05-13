@@ -63,7 +63,7 @@ const ProductCart = ({onCartEmptyChange, setReloadOnQuantityUpdate, totalOrderPr
                         <div className=" border-b pb-4 px-4">
                             <p className='sm:text-xl text-lg font-semibold'>Product In Your Cart</p>
                         </div>
-                        <div className="mt-4 px-4">
+                        <div className="mt-4 px-4 last:border-b-0">
                             {
                                 allCartProduct.map(product => (
                                     <CartProduct key={product.productId} product={product} setReloadOnQuantityUpdate={setReloadOnQuantityUpdate} setReloadTrigger={setReloadTrigger}/>

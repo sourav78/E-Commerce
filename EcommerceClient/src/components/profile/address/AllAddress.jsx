@@ -68,7 +68,7 @@ const AllAddress = () => {
     return (
         <>
             {contextHolder}
-            <div className="border border-gray-300">
+            <div className="border border-gray-300 last:border-b-0">
                 {
                     address && (
                         <>

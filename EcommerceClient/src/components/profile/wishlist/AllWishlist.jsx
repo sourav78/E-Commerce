@@ -38,7 +38,7 @@ export const AllWishlist = () => {
 
     return (
         <>
-            <div className="border border-gray-300">
+            <div className="border border-gray-300 last:border-b-0">
                 {
                     wishlistProducts.map(product => (
                         <SingleWishlist key={product} productId={product} userId={userId} setReloadWishlist={setReloadWishlist}/>

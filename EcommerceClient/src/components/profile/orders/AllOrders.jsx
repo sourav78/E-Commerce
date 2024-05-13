@@ -38,7 +38,7 @@ const AllOrders = () => {
         <>
             {
                 orderdProduct && (
-                    <div className="border border-gray-300">
+                    <div className="border border-gray-300 last:border-b-0">
                         {
                             orderdProduct.map(order => (
                                 order.products.map(product => (

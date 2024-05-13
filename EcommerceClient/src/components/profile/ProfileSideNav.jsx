@@ -40,7 +40,7 @@ const ProfileSideNav = () => {
                     <NavLink to='/profile/wishlist' className={({isActive}) => ` flex items-center justify-start gap-2 w-full px-4 py-3 font-semibold sm:border-b sm:border-gray-200 ${isActive ? `sm:bg-[#aaf8b6bf] bg-[#00ed64] sm:border-none border-2 border-black `: `bg-white hover:bg-[#aaf8b647]`}  transition-all`}>
                         <FaHeart className="text-lg" />Wishlist
                     </NavLink>
-                    <NavLink to='/profile/usercarts' className={({isActive}) => ` flex items-center justify-start gap-2 w-full px-4 py-3 font-semibold sm:border-b sm:border-gray-200 ${isActive ? `sm:bg-[#aaf8b6bf] bg-[#00ed64] sm:border-none border-2 border-black `: `bg-white hover:bg-[#aaf8b647]`}  transition-all`}>
+                    <NavLink to='../cart' className={({isActive}) => ` flex items-center justify-start gap-2 w-full px-4 py-3 font-semibold sm:border-b sm:border-gray-200 ${isActive ? `sm:bg-[#aaf8b6bf] bg-[#00ed64] sm:border-none border-2 border-black `: `bg-white hover:bg-[#aaf8b647]`}  transition-all`}>
                         <FaShoppingCart className="text-lg" />Cart
                     </NavLink>
                 </div>

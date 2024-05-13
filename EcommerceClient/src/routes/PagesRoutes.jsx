@@ -34,7 +34,6 @@ const PagesRoutes = () => {
             <Route path="address" element={<Address />}  />
             <Route path="orders" element={<Orders />}  />
             <Route path="wishlist" element={<Wishlist />}  />
-            <Route path="usercarts" element={<ProfileCart />}  />
           </Route>
           <Route path="/checkout" element={<Checkout />} />
           <Route path="/paymentsuccess" element={<PaymentSuccess />} />
