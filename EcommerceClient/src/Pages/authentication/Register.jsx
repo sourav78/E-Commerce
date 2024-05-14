@@ -48,7 +48,7 @@ const Register = () => {
 
     return (
         <>
-            <div className="w-full p-2 border-black bg-gray-200 flex justify-center items-start " style={{ minHeight: 'calc(100vh - 85px)' }}>
+            <div className="w-full h-screen p-2 border-black bg-gray-200 flex justify-center items-start " style={{ minHeight: 'calc(100vh - 85px)' }}>
                 <div className=" border-black lg:w-1/3 sm:w-1/2 w-full py-4 px-1 bg-white mt-5">
                     <div className="flex items-end justify-center">
                         <div className="w-1/3 ">

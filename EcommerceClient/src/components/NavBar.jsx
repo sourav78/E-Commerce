@@ -3,11 +3,10 @@ import s78_black from "../assets/S78_b.png";
 import { FiShoppingCart } from "react-icons/fi";
 import { FaBars } from "react-icons/fa6";
 import { RxCross2 } from "react-icons/rx";
-import { NavLink, useNavigate } from "react-router-dom";
+import { NavLink } from "react-router-dom";
 import { FiLogIn } from "react-icons/fi";
-import { useDispatch, useSelector } from "react-redux";
+import { useSelector } from "react-redux";
 import axios from "axios";
-import { updateIsAuthenticated, updateUser } from "../redux_slicer/EcomSlicer";
 
 import {BASE_URL} from '../utils/constraints.js'
 
@@ -16,36 +15,13 @@ const NavBar = () => {
     const [openNav, setOpenNav] = useState(false)
     const [numberOfProduct, setNumberOfProduct] = useState(0)
 
-    const dispatch = useDispatch()
-
-    const navigate = useNavigate()
 
     const isAuthenticated = useSelector(state => state.ecom.isAuthenticated)
-    const trigger = useSelector(state => state.ecom.trigger)
     const user = useSelector(state => state.ecom.user)
 
     const cartTriger = useSelector(state => state.product.cartTrigger)
 
-    useEffect(() => {
-        async function authenticateUser(){
-            try {
-                const response = await axios.get(`${BASE_URL}/auth/profile`, {
-                    withCredentials: true
-                })
-                const {data} = response.data
-                dispatch(updateIsAuthenticated(true))
-                dispatch(updateUser(data))
-                console.log(data);
-            } catch (error) {
-                console.log(error.response.data.msg);
-                dispatch(updateIsAuthenticated(false))
-                dispatch(updateUser({}))
-                navigate('/')
-            }
-        }
-
-        authenticateUser()
-    }, [trigger])
+    
 
     useEffect(() => {
         async function fetchNumberOfItemInCart(){

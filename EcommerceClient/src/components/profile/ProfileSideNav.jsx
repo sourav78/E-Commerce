@@ -28,7 +28,7 @@ const ProfileSideNav = () => {
                     <NavLink to='/profile' className={({isActive}) => `flex items-center justify-start gap-2 w-full px-4 py-3 font-semibold sm:border-b sm:border-gray-200 ${location.pathname === '/profile' ? 'sm:bg-[#aaf8b6bf] bg-[#00ed64] sm:border-none border-2 border-black ' : 'bg-white hover:bg-[#aaf8b647]'}  transition-all`}>
                         <FaUser className="text-lg" /> Personal Info
                     </NavLink>
-                    <NavLink to='/profile/address' className={({isActive}) => ` flex items-center justify-start gap-2 w-full px-4 py-3 font-semibold sm:border-b sm:border-gray-200 ${isActive ? `sm:bg-[#aaf8b6bf] bg-[#00ed64] sm:border-none border-2 border-black `: `bg-white`} ${user.isAdmin === 'ADMIN' ? '' : `hidden`} hover:bg-[#aaf8b647] transition-all`}>
+                    <NavLink to='../admin' className={({isActive}) => ` flex items-center justify-start gap-2 w-full px-4 py-3 font-semibold sm:border-b sm:border-gray-200 ${isActive ? `sm:bg-[#aaf8b6bf] bg-[#00ed64] sm:border-none border-2 border-black `: `bg-white`} ${user.isAdmin === 'ADMIN' ? '' : `hidden`} hover:bg-[#aaf8b647] transition-all`}>
                         <MdAdminPanelSettings className="text-lg" />Admin Panel
                     </NavLink>
                     <NavLink to='/profile/address' className={({isActive}) => ` flex items-center justify-start gap-2 w-full px-4 py-3 font-semibold sm:border-b sm:border-gray-200 ${isActive ? `sm:bg-[#aaf8b6bf] bg-[#00ed64] sm:border-none border-2 border-black `: `bg-white hover:bg-[#aaf8b647]`} transition-all`}>

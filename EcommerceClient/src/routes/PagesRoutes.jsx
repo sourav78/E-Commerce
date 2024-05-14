@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 
 import {Route, Routes} from 'react-router-dom'
 
@@ -17,6 +17,8 @@ import Wishlist from "../Pages/profile/Wishlist";
 import Checkout from "../Pages/Checkout";
 import PaymentSuccess from "../Pages/PaymentSuccess";
 import PageNotFound from "../Pages/PageNotFound";
+import Admin from "../Pages/Admin/Admin";
+import AdminDashboard from "../Pages/Admin/AdminDashboard";
 
 const PagesRoutes = () => {
   return (
@@ -37,6 +39,9 @@ const PagesRoutes = () => {
           </Route>
           <Route path="/checkout" element={<Checkout />} />
           <Route path="/paymentsuccess" element={<PaymentSuccess />} />
+          <Route path="/admin" element={<Admin />}>
+            <Route exact path="" element={<AdminDashboard />}  />
+          </Route>
           <Route path="*" element={<PageNotFound />} />
         </Routes>
     </>
