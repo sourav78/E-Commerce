@@ -41,8 +41,10 @@ const Admin = () => {
                             <p className='font-semibold'>{location.pathname}</p>
                         </div>
                         <div className="">
-                            <div className="w-9 rounded-full overflow-hidden">
-                                <img src={user.imageUrl} alt="" />
+                            <div 
+                                onClick={() => navigate('../profile')}
+                                className="w-9 h-9 rounded-full overflow-hidden cursor-pointer">
+                                <img className='object-contain' src={user.imageUrl} alt="" />
                             </div>
                         </div>
                     </div>
