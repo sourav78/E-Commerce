@@ -16,11 +16,9 @@ import { FiTag } from "react-icons/fi";
 import { MdAddchart } from "react-icons/md";
 import { MdLogout } from "react-icons/md";
 
-const AdminSideBar = () => {
+const AdminSideBar = ({responsiveClose, setResponsiveClose}) => {
 
     const [smallBar, setSmallBar] = useState(false)
-
-    const [responsiveClose, setResponsiveClose] = useState(false)
 
     const [toggleProduct, setToggleProduct] = useState(false)
     const [toggleUser, setToggleUser] = useState(false)
@@ -28,7 +26,7 @@ const AdminSideBar = () => {
 
     return (
         <>
-            <div className={`${smallBar ? "w-[5%]" : "w-1/2 sm:w-1/4 lg:w-1/6"} sm:static absolute ${responsiveClose ? '-left-0' : "-left-full"} flex flex-col h-screen border-r border-[#BDBDBD] px-2 bg-blue-500 text-white transition-all`}>
+            <div className={`${smallBar ? "w-[5%]" : "w-1/2 sm:w-1/4 lg:w-1/6"} sm:static sm:z-0 z-10 absolute ${responsiveClose ? '-left-0' : "-left-full"} flex flex-col h-screen border-r border-[#BDBDBD] px-2 bg-blue-500 text-white transition-all`}>
                 <div className="py-4">
                     <div className={"flex justify-between gap-1 items-center"}>
                         <div className={`flex items-end justify-start`}>
