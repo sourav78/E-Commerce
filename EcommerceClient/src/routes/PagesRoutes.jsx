@@ -19,6 +19,13 @@ import PaymentSuccess from "../Pages/PaymentSuccess";
 import PageNotFound from "../Pages/PageNotFound";
 import Admin from "../Pages/Admin/Admin";
 import AdminDashboard from "../Pages/Admin/AdminDashboard";
+import AdminAllProducts from "../Pages/Admin/AdminAllProducts";
+import AdminCreateProducts from "../Pages/Admin/AdminCreateProducts";
+import AdminOrders from "../Pages/Admin/AdminOrders";
+import AdminAllUsers from "../Pages/Admin/AdminAllUsers";
+import AdminCreateUsers from "../Pages/Admin/AdminCreateUsers";
+import AdminAllCoupons from "../Pages/Admin/AdminAllCoupons";
+import AdminCreateCoupons from "../Pages/Admin/AdminCreateCoupons";
 
 const PagesRoutes = () => {
   return (
@@ -41,6 +48,13 @@ const PagesRoutes = () => {
           <Route path="/paymentsuccess" element={<PaymentSuccess />} />
           <Route path="/admin" element={<Admin />}>
             <Route exact path="" element={<AdminDashboard />}  />
+            <Route path="all-products" element={<AdminAllProducts />}  />
+            <Route path="create-products" element={<AdminCreateProducts />}  />
+            <Route path="orders" element={<AdminOrders />}  />
+            <Route path="all-users" element={<AdminAllUsers />}  />
+            <Route path="create-users" element={<AdminCreateUsers />}  />
+            <Route path="all-coupons" element={<AdminAllCoupons />}  />
+            <Route path="create-coupons" element={<AdminCreateCoupons />}  />
           </Route>
           <Route path="*" element={<PageNotFound />} />
         </Routes>
