@@ -8,7 +8,7 @@ import { UserAddressModel } from "../models/address.model.js"
 export const uploadProfile = async (req, res) => {
     const { id } = req.body
 
-    const result = await uploadOnCloudynary(`./public/profiles/${req.file.filename}`, id)
+    const result = await uploadOnCloudynary(`./public/profiles/${req.file.filename}`, id, "Ecom-users")
 
     if (result === null) {
         return res.status(400).json({

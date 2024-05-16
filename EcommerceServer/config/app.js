@@ -11,6 +11,7 @@ import ProductRouter from '../routes/products.routes.js'
 import AuthRouter from '../routes/auth.routes.js'
 import ProfileRouter from '../routes/profile.routes.js'
 import PaymentRouter from '../routes/payment.routes.js'
+import adminRouter from '../routes/admin.routes.js'
 
 const app = express()
 export const cache = new NodeCache({ stdTTL: 900 })
@@ -36,5 +37,6 @@ app.use('/product', ProductRouter)
 app.use('/auth', AuthRouter)
 app.use('/profile', ProfileRouter)
 app.use('/api', PaymentRouter)
+app.use('/admin', adminRouter)
 
 export default app

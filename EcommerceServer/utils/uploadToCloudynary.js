@@ -10,7 +10,7 @@ cloudinary.config({
     api_secret: process.env.CLOUD_API_SECRET,
 });
 
-export const uploadOnCloudynary = async (localFilePath, imageName) => {
+export const uploadOnCloudynary = async (localFilePath, imageName, folderName) => {
 
     try {
         if (!localFilePath){
@@ -19,7 +19,7 @@ export const uploadOnCloudynary = async (localFilePath, imageName) => {
 
         const result = await cloudinary.uploader.upload(localFilePath, {
             public_id: imageName,
-            folder: "Ecom-users"
+            folder: folderName
         })
 
         fs.unlinkSync(localFilePath)
