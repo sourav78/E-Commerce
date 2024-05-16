@@ -40,7 +40,7 @@ export const addProductWithUrl = async (req, res) => {
     } catch (error) {
         return res.status(400).json({
             success: false,
-            data: 'Product is not added.'
+            msg: 'Product is not added.'
         })
     }
 }
@@ -90,7 +90,7 @@ export const addProductWithImage = async (req, res) => {
         } catch (error) {
             return res.status(400).json({
                 success: false,
-                data: 'Product is not added.'
+                msg: 'Product is not added.'
             })
         }
     }
