@@ -96,3 +96,30 @@ export const addProductWithImage = async (req, res) => {
     }
 
 }
+
+export const getAllProduct = async (req, res) => {
+    const {category, limit, skip} = req.query
+
+    try {
+        const query = {}
+        if(category !== "all"){
+            query.category = category
+        }
+
+        const totalProduct = await ProductModel.countDocuments(query)
+        const products = await ProductModel.find(query).limit(Number(limit)).skip(Number(skip)*12)
+
+        return res.status(200).json({
+            success: true,
+            data: {
+                products,
+                total: totalProduct
+            }
+        })
+    } catch (error) {
+        return res.status(400).json({
+            success: false,
+            msg: 'Internal Server Error'
+        })
+    }
+}
