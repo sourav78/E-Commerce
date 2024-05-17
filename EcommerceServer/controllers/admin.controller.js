@@ -107,7 +107,7 @@ export const getAllProduct = async (req, res) => {
         }
 
         const totalProduct = await ProductModel.countDocuments(query)
-        const products = await ProductModel.find(query).limit(Number(limit)).skip(Number(skip)*12)
+        const products = await ProductModel.find(query).limit(Number(limit)).skip(Number(skip)*20)
 
         return res.status(200).json({
             success: true,
@@ -122,4 +122,38 @@ export const getAllProduct = async (req, res) => {
             msg: 'Internal Server Error'
         })
     }
+}
+
+export const deleteProduct = async (req, res) => {
+    const {productId} = req.body
+
+    if(!productId){
+        return res.status(400).json({
+            success: false,
+            msg: "Product ID is missing"
+        })
+    }
+
+    try {
+        const result = await ProductModel.findByIdAndDelete(productId)
+
+        if(!result){
+            return res.status(400).json({
+                success: false,
+                msg: "Product is not available in database."
+            })
+        }
+
+        return res.status(200).json({
+            success: true,
+            data: "Product is deleted successfully."
+        })
+    } catch (error) {
+        return res.status(400).json({
+            success: false,
+            msg: "Internal Server Error"
+        })
+    }
+
+    
 }
