@@ -26,6 +26,7 @@ import AdminAllUsers from "../Pages/Admin/AdminAllUsers";
 import AdminCreateUsers from "../Pages/Admin/AdminCreateUsers";
 import AdminAllCoupons from "../Pages/Admin/AdminAllCoupons";
 import AdminCreateCoupons from "../Pages/Admin/AdminCreateCoupons";
+import AdminEditProduct from "../Pages/Admin/AdminEditProduct";
 
 const PagesRoutes = () => {
   return (
@@ -50,6 +51,7 @@ const PagesRoutes = () => {
             <Route exact path="" element={<AdminDashboard />}  />
             <Route path="all-products" element={<AdminAllProducts />}  />
             <Route path="create-products" element={<AdminCreateProducts />}  />
+            <Route path="edit-products/:productId" element={<AdminEditProduct />}  />
             <Route path="orders" element={<AdminOrders />}  />
             <Route path="all-users" element={<AdminAllUsers />}  />
             <Route path="create-users" element={<AdminCreateUsers />}  />

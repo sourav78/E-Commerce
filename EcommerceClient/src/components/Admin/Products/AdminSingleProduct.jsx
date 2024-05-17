@@ -5,6 +5,7 @@ import { BsThreeDotsVertical } from "react-icons/bs";
 import axios from 'axios'
 import { BASE_URL } from '../../../utils/constraints'
 import Modal from '@mui/material/Modal';
+import { Link } from 'react-router-dom';
 
 const AdminSingleProduct = ({productId, setReloadProducts}) => {
 
@@ -27,10 +28,6 @@ const AdminSingleProduct = ({productId, setReloadProducts}) => {
 
         getProduct()
     }, [])
-
-    const handleEditProduct = () => {
-        
-    }
 
     const handleDeleteProduct = async () => {
         try {
@@ -65,7 +62,7 @@ const AdminSingleProduct = ({productId, setReloadProducts}) => {
                 </div>
                 <div className="p-2 border-gray-500 w-1/4 relative mr-2 sm:mr-0">
                     <div className="flex justify-between items-center">
-                        <p className='text-lg text-black'>{product.category}</p>
+                        <p className='text-lg text-black capitalize'>{product.category } - {product.stock}</p>
                         <div className="sm:hidden">
                             <BsThreeDotsVertical 
                                 className="cursor-pointer"
@@ -74,9 +71,11 @@ const AdminSingleProduct = ({productId, setReloadProducts}) => {
                         </div>
                         <div className={`flex gap-2 mr-2 ${!showButtons && 'hidden sm:flex'} absolute sm:static right-1 -bottom-8 bg-white sm:bg-transparent border sm:border-none border-black p-2 sm:p-0 rounded`}>
                             <button
-                                onClick={handleEditProduct}
+                                
                             >
-                                <FaEdit className='text-xl text-gray-600'/>
+                                <Link to={`../edit-products/${productId}`}>
+                                    <FaEdit className='text-xl text-gray-600'/>
+                                </Link>
                             </button>
                             <button
                                 onClick={() => setShowDeleteModal(true)}
