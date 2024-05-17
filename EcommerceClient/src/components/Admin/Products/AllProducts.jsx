@@ -11,6 +11,8 @@ const AllProducts = ({selectedCategory}) => {
     const [allProducts, setAllProducts] = useState(null)
     const [totalData, setTotalData] = useState(0);
 
+    const [reloadProducts, setReloadProducts] = useState(false)
+
     useEffect(() => {
         async function fetchProduct(){
             try {
@@ -27,7 +29,7 @@ const AllProducts = ({selectedCategory}) => {
         }
 
         fetchProduct()
-    }, [selectedCategory, selectedPage])
+    }, [selectedCategory, selectedPage, reloadProducts])
 
 
     const handlePageChange = (data) => {
@@ -41,7 +43,7 @@ const AllProducts = ({selectedCategory}) => {
                 <div className="">
                     {
                         allProducts && allProducts.map(product => (
-                            <AdminSingleProduct key={product._id} productId={product._id}/>
+                            <AdminSingleProduct key={product._id} productId={product._id} setReloadProducts={setReloadProducts}/>
                         ))
                     }
                 </div>

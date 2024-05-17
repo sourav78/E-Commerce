@@ -4,12 +4,15 @@ import { MdDelete } from "react-icons/md";
 import { BsThreeDotsVertical } from "react-icons/bs";
 import axios from 'axios'
 import { BASE_URL } from '../../../utils/constraints'
+import Modal from '@mui/material/Modal';
 
-const AdminSingleProduct = ({productId}) => {
+const AdminSingleProduct = ({productId, setReloadProducts}) => {
 
     const [showButtons, setShowButtons] = useState(false)
 
     const [product, setProduct] = useState({})
+
+    const [showDeleteModal, setShowDeleteModal] = useState(false)
 
     useEffect(() => {
         async function getProduct(){
@@ -29,8 +32,21 @@ const AdminSingleProduct = ({productId}) => {
         
     }
 
-    const handleDeleteProduct = () => {
+    const handleDeleteProduct = async () => {
+        try {
+            const response = await axios.delete(`${BASE_URL}/admin/delete-product`, {
+                data: {
+                    productId
+                }
+            })
+    
+            const {data} = response
 
+            data.success && console.log(data.data);
+            data.success && setReloadProducts(prev => !prev)
+        } catch (error) {
+            console.log(error);
+        }
     }
 
     return (
@@ -63,13 +79,36 @@ const AdminSingleProduct = ({productId}) => {
                                 <FaEdit className='text-xl text-gray-600'/>
                             </button>
                             <button
-                                onClick={handleDeleteProduct}
+                                onClick={() => setShowDeleteModal(true)}
                             >
                                 <MdDelete className='text-xl text-gray-600'/>
                             </button>
                         </div>
                     </div>
                 </div>
+                <Modal
+                    open={showDeleteModal}
+                    onClose={() => setShowDeleteModal(false)}
+                    aria-labelledby="modal-modal-title"
+                    aria-describedby="modal-modal-description"
+                >
+
+                    <div className="lg:w-[26%] sm:w-[50%] w-[95%] absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2">
+                        <div className="bg-white p-6 rounded-md">
+                            <p className='mt-1 text-lg font-semibold'>Delete Product</p>
+                            <p className='my-8 text-gray-500'>Are you sure you want to delete this product?</p>
+                            <div className=" flex justify-between">
+                                <button 
+                                    onClick={() => setShowDeleteModal(false)}
+                                    className='w-[42%] py-3 border rounded-sm border-black text-lg font-semibold'>CANCEL</button>
+                                <button 
+                                    onClick={handleDeleteProduct}
+                                    className='w-[42%] py-3 rounded-sm border-black text-lg font-semibold bg-blue-500 text-white'>DELETE</button>
+                            </div>
+                        </div>
+                    </div>
+                    
+                </Modal>
             </div>
         </>
     )
