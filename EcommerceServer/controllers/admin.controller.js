@@ -62,6 +62,13 @@ export const addProductWithImage = async (req, res) => {
         })
     }
 
+    if(discount < 0 || price < 0 || stock < 0){
+        return res.status(400).json({
+            success: false,
+            msg: 'Please enter valid value in Price/Discount/Stock.' 
+        })
+    }
+
     const result = await uploadOnCloudynary(`./public/profiles/${req.file.filename}`, name, "Ecom-products")
 
     if (result === null) {
@@ -156,4 +163,64 @@ export const deleteProduct = async (req, res) => {
     }
 
     
+}
+
+export const editProduct = async (req, res) => {
+    const {id, name, category, brand, description, discount, price, stock} = req.body
+
+    if(!id || !name || !category || !brand || !description || !discount || !price || !stock){
+        return res.status(400).json({
+            success: false,
+            msg: 'All fields are required.'
+        })
+    }
+
+    if(discount > 100){
+        return res.status(400).json({
+            success: false,
+            msg: 'Discount can not be more then 100 percentage.' 
+        })
+    }
+
+    if(discount < 0 || price < 0 || stock < 0){
+        return res.status(400).json({
+            success: false,
+            msg: 'Please enter valid value in Price/Discount/Stock.' 
+        })
+    }
+
+    try {
+        const product = await ProductModel.findById(id)
+
+        if(!product){
+            throw new Error("Product is not found")
+        }
+
+        product.name = name
+        product.brand = brand
+        product.category = category
+        product.description = description
+        product.price = price
+        product.discount = discount
+        product.stock = stock
+
+        await product.save()
+
+        return res.status(200).json({
+            success: true,
+            data: "Product is edited successfully."
+        })
+    } catch (error) {
+        if(error){
+            return res.status(400).json({
+                success: false,
+                msg: error.message
+            })
+        }else{
+            return res.status(400).json({
+                success: false,
+                msg: "Internal Server Error"
+            })
+        }
+    }
 }

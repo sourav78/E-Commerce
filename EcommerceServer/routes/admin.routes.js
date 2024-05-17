@@ -3,6 +3,7 @@ import {
     addProductWithImage, 
     addProductWithUrl, 
     deleteProduct, 
+    editProduct, 
     getAllProduct 
 } from '../controllers/admin.controller.js'
 import { upload } from '../middleware/uploadInMulter.middleware.js'
@@ -15,5 +16,6 @@ adminRouter.post("/add-product-img", upload.single("uploadImage"), addProductWit
 
 adminRouter.get("/get-all-product", getAllProduct)
 adminRouter.delete("/delete-product", deleteProduct)
+adminRouter.post("/edit-product", editProduct)
 
 export default adminRouter
