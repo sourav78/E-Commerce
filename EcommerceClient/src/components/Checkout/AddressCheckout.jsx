@@ -1,6 +1,5 @@
 import React, {useEffect, useState} from 'react'
 import axios from 'axios'
-import { BASE_URL } from '../../utils/constraints'
 import SingleAddressCheckout from './SingleAddressCheckout'
 import AddNewAddress from '../profile/address/AddNewAddress'
 
@@ -16,7 +15,7 @@ const AddressCheckout = ({userId, selectedAddress, setIsAddressSet, isAddressSet
         async function fetchAllAddress(){
             
             try {
-                const response = await axios.get(`${BASE_URL}/profile/get-address/${userId}`)
+                const response = await axios.get(`${import.meta.env.VITE_API_URL}/profile/get-address/${userId}`)
 
                 const {data} = response
 

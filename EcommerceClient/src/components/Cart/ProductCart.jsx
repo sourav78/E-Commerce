@@ -1,7 +1,6 @@
 import React, { useEffect, useState } from 'react'
 import CartProduct from './CartProduct'
 import {useDispatch, useSelector} from 'react-redux'
-import {BASE_URL} from '../../utils/constraints.js'
 import axios from 'axios'
 import EmptyCart from './EmptyCart.jsx'
 import { toggleCartTrigger } from '../../redux_slicer/ProductSlicer.js'
@@ -22,7 +21,7 @@ const ProductCart = ({onCartEmptyChange, setReloadOnQuantityUpdate, totalOrderPr
 
     async function fetchCartProductData(){
         try {
-            const response = await axios.get(`${BASE_URL}/product/get-cart-product?userId=${user._id}`)
+            const response = await axios.get(`${import.meta.env.VITE_API_URL}/product/get-cart-product?userId=${user._id}`)
             const {data} = response
 
             data.success && console.log(data.data);

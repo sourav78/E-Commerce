@@ -1,6 +1,5 @@
 import React, { useEffect, useState } from "react";
 import axios from "axios";
-import {BASE_URL} from '../../utils/constraints'
 import { useSelector } from "react-redux";
 import ProductCardVertical from "../Home/ProductCardVertical";
 import ProductPagination from "./ProductPagination";
@@ -23,7 +22,7 @@ const ProductPannel = () => {
     useEffect(() => {
         async function fetchProduct(){
             try {
-                const response = await axios.post(`${BASE_URL}/product/get-filtered-product?limit=12&skip=${selectedPage}`, {
+                const response = await axios.post(`${import.meta.env.VITE_API_URL}/product/get-filtered-product?limit=12&skip=${selectedPage}`, {
                     category: categoryFilter,
                     price: priceFilter,
                     ratting: rattingFilter,

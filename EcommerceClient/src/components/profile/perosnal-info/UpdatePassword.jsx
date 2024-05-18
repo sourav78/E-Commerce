@@ -4,7 +4,6 @@ import TextField from "@mui/material/TextField";
 import Modal from '@mui/material/Modal';
 import { useSelector } from "react-redux";
 import axios from "axios";
-import {BASE_URL} from '../../../utils/constraints'
 import { notification } from 'antd';
 
 const UpdatePassword = () => {
@@ -43,7 +42,7 @@ const UpdatePassword = () => {
 
 
         try {
-            const response = await axios.post(`${BASE_URL}/auth/send-otp`, {email: userEmail}, {
+            const response = await axios.post(`${import.meta.env.VITE_API_URL}/auth/send-otp`, {email: userEmail}, {
                 headers: {
                     'Content-Type': 'application/json',
                 },
@@ -80,7 +79,7 @@ const UpdatePassword = () => {
     const onPasswordChange = async () => {
         
         try {
-            const response = await axios.post(`${BASE_URL}/auth/change-password`, {
+            const response = await axios.post(`${import.meta.env.VITE_API_URL}/auth/change-password`, {
                 id: user._id,
                 password: newPassword
             },{

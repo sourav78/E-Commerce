@@ -6,7 +6,6 @@ import axios from "axios";
 import { useDispatch } from "react-redux";
 import { toggleTrigger } from "../../redux_slicer/EcomSlicer.js";
 
-import {BASE_URL} from '../../utils/constraints.js'
 
 const Login = () => {
 
@@ -24,7 +23,7 @@ const Login = () => {
         const loginData = {email, password}
 
         try {
-            const response = await axios.post(`${BASE_URL}/auth/login`, loginData,
+            const response = await axios.post(`${import.meta.env.VITE_API_URL}/auth/login`, loginData,
                 {
                     headers: {
                         'Content-Type': 'application/json',

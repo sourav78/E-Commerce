@@ -1,5 +1,4 @@
 import React, {useState, useEffect} from 'react'
-import { BASE_URL } from '../../../utils/constraints'
 import axios from 'axios'
 import { Link } from 'react-router-dom'
 
@@ -10,7 +9,7 @@ const SingleWishlist = ({productId, userId, setReloadWishlist}) => {
     useEffect(() => {
         async function getProduct(){
             try {
-                const response = await axios.post(`${BASE_URL}/product/get-product-details`, {
+                const response = await axios.post(`${import.meta.env.VITE_API_URL}/product/get-product-details`, {
                     productId
                 })
                 const {data} = response
@@ -27,7 +26,7 @@ const SingleWishlist = ({productId, userId, setReloadWishlist}) => {
     const handleRemoveWishlistProduct = async () => {
         try {
             console.log(userId);
-            const response = await axios.post(`${BASE_URL}/product/wishlist-product`, {
+            const response = await axios.post(`${import.meta.env.VITE_API_URL}/product/wishlist-product`, {
                 productId: productData._id,
                 userId
             })

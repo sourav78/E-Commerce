@@ -1,7 +1,6 @@
 import axios from "axios";
 import React, { useState, useEffect } from "react";
 import { BsThreeDotsVertical } from "react-icons/bs";
-import {BASE_URL} from '../../../utils/constraints'
 import AddressForm from "./AddressForm";
 import { notification } from 'antd';
 
@@ -51,7 +50,7 @@ const SingleAddress = ({address, userId, setLoadAddress, setOnDeleteAddress}) =>
         console.log(userId);
 
         try {
-            const response = await axios.post(`${BASE_URL}/profile/delete-address`, {
+            const response = await axios.post(`${import.meta.env.VITE_API_URL}/profile/delete-address`, {
                 id: userId,
                 addressId: address._id
             }, {

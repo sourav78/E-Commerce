@@ -3,7 +3,6 @@ import { useLocation, useNavigate } from 'react-router-dom'
 import paymentsuccess from "../assets/success.png"
 import {Link} from 'react-router-dom'
 import axios from 'axios'
-import {BASE_URL} from "../utils/constraints"
 
 const PaymentSuccess = () => {
 
@@ -19,7 +18,7 @@ const PaymentSuccess = () => {
 
     async function createOrder(){
         try {
-            const response = await axios.post(`${BASE_URL}/product/create-order`, {
+            const response = await axios.post(`${import.meta.env.VITE_API_URL}/product/create-order`, {
                 userId: orderDetails.userDetails.userId,
                 products: orderDetails.products,
                 totalAmount: orderDetails.totalAmount,
@@ -28,13 +27,13 @@ const PaymentSuccess = () => {
 
             if(orderDetails.coupons.length){
                 console.log("coupons");
-                await axios.post(`${BASE_URL}/product/claim-coupon`, {
+                await axios.post(`${import.meta.env.VITE_API_URL}/product/claim-coupon`, {
                     couponCodes: orderDetails.coupons,
                     userId: orderDetails.userDetails.userId
                 })
             }
             
-            await axios.post(`${BASE_URL}/product/update-product-stock`, {
+            await axios.post(`${import.meta.env.VITE_API_URL}/product/update-product-stock`, {
                 productsToUpdate: orderDetails.products
             })
 

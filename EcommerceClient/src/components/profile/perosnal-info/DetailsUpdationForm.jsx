@@ -5,7 +5,6 @@ import { useDispatch, useSelector } from "react-redux";
 import axios from "axios";
 import { notification } from 'antd';
 
-import {BASE_URL} from '../../../utils/constraints'
 import { toggleTrigger } from "../../../redux_slicer/EcomSlicer";
 
 const DetailsUpdationForm = ({field, fieldLable}) => {
@@ -45,7 +44,7 @@ const DetailsUpdationForm = ({field, fieldLable}) => {
         }
 
         try {
-            const response = await axios.post(`${BASE_URL}/profile/update-personal-info`, updateData,{
+            const response = await axios.post(`${import.meta.env.VITE_API_URL}/profile/update-personal-info`, updateData,{
                 headers: {
                     'Content-Type': 'application/json',
                 },

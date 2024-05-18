@@ -1,6 +1,5 @@
 import React, {useState} from 'react'
 import axios from "axios";
-import {BASE_URL} from '../../utils/constraints.js'
 
 const PaymentCheckout = ({isAddressSet, orderDetails}) => {
 
@@ -11,9 +10,9 @@ const PaymentCheckout = ({isAddressSet, orderDetails}) => {
 
         const {
             data: { key },
-        } = await axios.get(`${BASE_URL}/api/getkey`);
+        } = await axios.get(`${import.meta.env.VITE_API_URL}/api/getkey`);
 
-        const { data } = await axios.post(`${BASE_URL}/api/checkout`, {
+        const { data } = await axios.post(`${import.meta.env.VITE_API_URL}/api/checkout`, {
             amount: orderDetails.totalAmount,
             receipt: orderDetails.userDetails.userId
         });
@@ -26,7 +25,7 @@ const PaymentCheckout = ({isAddressSet, orderDetails}) => {
             description: "S78 Store",
             image: "https://avatars.githubusercontent.com/u/90958544?v=4",
             order_id: data.id,
-            callback_url: `${BASE_URL}/api/paymentverification`,
+            callback_url: `${import.meta.env.VITE_API_URL}/api/paymentverification`,
             prefill: {
               name: orderDetails.userDetails.userName,
               email: orderDetails.userDetails.email,

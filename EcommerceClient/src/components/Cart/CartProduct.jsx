@@ -1,5 +1,4 @@
 import React, {useState, useEffect} from 'react'
-import {BASE_URL} from '../../utils/constraints.js'
 import axios from 'axios'
 import { notification } from 'antd';
 import { useDispatch, useSelector } from 'react-redux';
@@ -33,7 +32,7 @@ const CartProduct = ({product, setReloadTrigger, setReloadOnQuantityUpdate}) => 
         async function getProduct(){
 
             try {
-                const response = await axios.post(`${BASE_URL}/product/get-product-details`, {
+                const response = await axios.post(`${import.meta.env.VITE_API_URL}/product/get-product-details`, {
                     productId : product.productId
                 })
     
@@ -52,7 +51,7 @@ const CartProduct = ({product, setReloadTrigger, setReloadOnQuantityUpdate}) => 
         if(quantity < productData.stock){
             setCounterDisabled(true)
             try {
-                const response = await axios.post(`${BASE_URL}/product/update-product-quantity`, {
+                const response = await axios.post(`${import.meta.env.VITE_API_URL}/product/update-product-quantity`, {
                     itemId: product._id,
                     userId: user._id,
                     quantity: quantity+1
@@ -81,7 +80,7 @@ const CartProduct = ({product, setReloadTrigger, setReloadOnQuantityUpdate}) => 
         if(quantity > 1){
             setCounterDisabled(true)
             try {
-                const response = await axios.post(`${BASE_URL}/product/update-product-quantity`, {
+                const response = await axios.post(`${import.meta.env.VITE_API_URL}/product/update-product-quantity`, {
                     itemId: product._id,
                     userId: user._id,
                     quantity: quantity-1
@@ -106,7 +105,7 @@ const CartProduct = ({product, setReloadTrigger, setReloadOnQuantityUpdate}) => 
     const handleProductRemove = async () => {
         // setReloadTrigger(prev => !prev)
         try {
-            const response = await axios.post(`${BASE_URL}/product/remove-product-cart`, {
+            const response = await axios.post(`${import.meta.env.VITE_API_URL}/product/remove-product-cart`, {
                 itemId: product._id,
                 userId: user._id,
             })

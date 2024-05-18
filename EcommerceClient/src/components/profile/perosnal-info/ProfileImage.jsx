@@ -5,7 +5,6 @@ import { toggleTrigger } from "../../../redux_slicer/EcomSlicer";
 import { notification } from 'antd';
 import Modal from '@mui/material/Modal';
 
-import {BASE_URL} from '../../../utils/constraints'
 
 const ProfileImage = () => {
 
@@ -61,7 +60,7 @@ const ProfileImage = () => {
         formData.append('id', user._id)
 
         try {
-            const response = await axios.post(`${BASE_URL}/profile/upload-image`, formData, {
+            const response = await axios.post(`${import.meta.env.VITE_API_URL}/profile/upload-image`, formData, {
                 headers: {
                     'Content-Type': 'multipart/form-data'
                 }

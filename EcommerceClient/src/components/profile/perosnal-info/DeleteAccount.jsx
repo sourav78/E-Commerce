@@ -3,7 +3,6 @@ import Modal from '@mui/material/Modal';
 import TextField from "@mui/material/TextField";
 import { useDispatch, useSelector } from "react-redux";
 import { notification } from 'antd';
-import {BASE_URL} from '../../../utils/constraints'
 import axios from "axios";
 import { toggleTrigger } from "../../../redux_slicer/EcomSlicer";
 
@@ -40,7 +39,7 @@ const DeleteAccount = () => {
         setShowModal(true)
 
         try {
-            const response = await axios.post(`${BASE_URL}/auth/send-otp`, {email: userEmail}, {
+            const response = await axios.post(`${import.meta.env.VITE_API_URL}/auth/send-otp`, {email: userEmail}, {
                 headers: {
                     'Content-Type': 'application/json',
                 },
@@ -76,7 +75,7 @@ const DeleteAccount = () => {
 
     const handleDeleteAccount = async () => {
         try {
-            const response = await axios.post(`${BASE_URL}/auth/delete-account`, {id: user._id}, {
+            const response = await axios.post(`${import.meta.env.VITE_API_URL}/auth/delete-account`, {id: user._id}, {
                 headers: {
                     'Content-Type': 'application/json',
                 },

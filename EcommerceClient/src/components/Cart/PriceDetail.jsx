@@ -1,6 +1,5 @@
 import React, { useEffect, useState } from 'react'
 import { useDispatch, useSelector } from 'react-redux'
-import {BASE_URL} from '../../utils/constraints.js'
 import axios from 'axios'
 import { notification } from 'antd';
 import { updateCoupons, updateProducts } from '../../redux_slicer/OrderSlicer.js';
@@ -33,7 +32,7 @@ const PriceDetail = ({reloadOnQuantityUpdate, setTotalOrderPrice}) => {
     useEffect(() => {
         async function getPriceDeatils(){
             try {
-                const response = await axios.post(`${BASE_URL}/product/get-price-deatils`, {
+                const response = await axios.post(`${import.meta.env.VITE_API_URL}/product/get-price-deatils`, {
                     userId: user._id
                 })
                 const {data} = response
@@ -78,7 +77,7 @@ const PriceDetail = ({reloadOnQuantityUpdate, setTotalOrderPrice}) => {
 
     const handleCouponApply = async () => {
         try {
-            const response = await axios.post(`${BASE_URL}/product/apply-coupon`, {
+            const response = await axios.post(`${import.meta.env.VITE_API_URL}/product/apply-coupon`, {
                 couponCode: couponValue,
                 userId: user._id,
                 totalAmount: totalPrice

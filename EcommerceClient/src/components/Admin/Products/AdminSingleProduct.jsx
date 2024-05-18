@@ -3,7 +3,6 @@ import { FaEdit } from "react-icons/fa";
 import { MdDelete } from "react-icons/md";
 import { BsThreeDotsVertical } from "react-icons/bs";
 import axios from 'axios'
-import { BASE_URL } from '../../../utils/constraints'
 import Modal from '@mui/material/Modal';
 import { Link } from 'react-router-dom';
 
@@ -18,7 +17,7 @@ const AdminSingleProduct = ({productId, setReloadProducts}) => {
     useEffect(() => {
         async function getProduct(){
 
-            const response = await axios.post(`${BASE_URL}/product/get-product-details`, {
+            const response = await axios.post(`${import.meta.env.VITE_API_URL}/product/get-product-details`, {
                 productId
             })
 
@@ -31,7 +30,7 @@ const AdminSingleProduct = ({productId, setReloadProducts}) => {
 
     const handleDeleteProduct = async () => {
         try {
-            const response = await axios.delete(`${BASE_URL}/admin/delete-product`, {
+            const response = await axios.delete(`${import.meta.env.VITE_API_URL}/admin/delete-product`, {
                 data: {
                     productId
                 }

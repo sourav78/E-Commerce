@@ -8,7 +8,6 @@ import { FiLogIn } from "react-icons/fi";
 import { useSelector } from "react-redux";
 import axios from "axios";
 
-import {BASE_URL} from '../utils/constraints.js'
 
 const NavBar = () => {
 
@@ -26,7 +25,7 @@ const NavBar = () => {
     useEffect(() => {
         async function fetchNumberOfItemInCart(){
             try {
-                const response = await axios.get(`${BASE_URL}/product/items-in-cart?userId=${user._id}`, {
+                const response = await axios.get(`${import.meta.env.VITE_API_URL}/product/items-in-cart?userId=${user._id}`, {
                     withCredentials: true
                 })
                 const {data} = response

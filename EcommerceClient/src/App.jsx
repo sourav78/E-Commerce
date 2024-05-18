@@ -6,7 +6,6 @@ import NavBar from "./components/NavBar";
 import PagesRoutes from "./routes/PagesRoutes";
 import { useLocation, useNavigate } from "react-router-dom";
 import axios from "axios";
-import { BASE_URL } from "./utils/constraints";
 import { useDispatch, useSelector } from "react-redux";
 import { updateIsAuthenticated, updateUser } from "./redux_slicer/EcomSlicer";
 
@@ -29,7 +28,7 @@ const App = () => {
     useEffect(() => {
         async function authenticateUser(){
             try {
-                const response = await axios.get(`${BASE_URL}/auth/profile`, {
+                const response = await axios.get(`${import.meta.env.VITE_API_URL}/auth/profile`, {
                     withCredentials: true
                 })
                 const {data} = response.data

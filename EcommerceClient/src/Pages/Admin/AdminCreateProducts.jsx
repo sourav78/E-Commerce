@@ -2,7 +2,6 @@ import React, {useState} from 'react'
 import TextField from '@mui/material/TextField';
 import '../../App.css'
 import axios from 'axios';
-import { BASE_URL } from '../../utils/constraints';
 import { notification } from 'antd';
 
 const AdminCreateProducts = () => {
@@ -48,7 +47,7 @@ const AdminCreateProducts = () => {
         setOnPromiseState(true)
         if(toggleImageType){
             try {
-                const response = await axios.post(`${BASE_URL}/admin/add-product-url`, {
+                const response = await axios.post(`${import.meta.env.VITE_API_URL}/admin/add-product-url`, {
                     name: name,
                     category: category,
                     brand: brand,
@@ -80,7 +79,7 @@ const AdminCreateProducts = () => {
             formData.append('stock', stock)
 
             try {
-                const response = await axios.post(`${BASE_URL}/admin/add-product-img`, formData, {
+                const response = await axios.post(`${import.meta.env.VITE_API_URL}/admin/add-product-img`, formData, {
                     headers: {
                         'Content-Type': 'multipart/form-data'
                     }

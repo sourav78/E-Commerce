@@ -6,7 +6,6 @@ import axios from "axios";
 import {useNavigate} from 'react-router-dom'
 
 
-import {BASE_URL} from '../../utils/constraints.js'
 
 const Logout = () => {
 
@@ -14,7 +13,7 @@ const Logout = () => {
     const navigate = useNavigate()
 
     const handleLogout = async () => {
-        const response = await axios.get(`${BASE_URL}/auth/logout`, {
+        const response = await axios.get(`${import.meta.env.VITE_API_URL}/auth/logout`, {
             withCredentials: true
         })
 

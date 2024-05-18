@@ -2,7 +2,6 @@ import React, {useState, useEffect} from "react";
 import axios from "axios";
 import ProductCardVertical from "./ProductCardVertical";
 
-import {BASE_URL} from '../../utils/constraints.js'
 
 const LatestProduct = () => {
 
@@ -10,7 +9,7 @@ const LatestProduct = () => {
 
     useEffect(() => {
         async function fetchData(){
-            const getLatestProduct = await axios.get(`${BASE_URL}/product/get-latest-product`)
+            const getLatestProduct = await axios.get(`${import.meta.env.VITE_API_URL}/product/get-latest-product`)
             const {data} = getLatestProduct.data
             // console.log(import.meta.env.VITE_API_URL);
             setLatestProduct(data)

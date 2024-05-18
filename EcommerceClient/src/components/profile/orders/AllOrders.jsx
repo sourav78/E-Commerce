@@ -1,5 +1,4 @@
 import React, { useState, useEffect } from 'react'
-import { BASE_URL } from '../../../utils/constraints'
 import axios from 'axios'
 import { useSelector } from 'react-redux'
 import SingleOrders from './SingleOrders'
@@ -17,7 +16,7 @@ const AllOrders = () => {
     useEffect(() => {
         async function getOrderProducts(){
             try {
-                const response = await axios.get(`${BASE_URL}/product/get-order-product?userId=${user._id}`)
+                const response = await axios.get(`${import.meta.env.VITE_API_URL}/product/get-order-product?userId=${user._id}`)
     
                 const {data} = response
     

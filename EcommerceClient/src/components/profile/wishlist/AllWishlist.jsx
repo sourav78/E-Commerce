@@ -1,6 +1,5 @@
 import axios from 'axios'
 import React, { useEffect, useState } from 'react'
-import { BASE_URL } from '../../../utils/constraints'
 import { useSelector } from 'react-redux'
 import SingleWishlist from './SingleWishlist'
 
@@ -18,7 +17,7 @@ export const AllWishlist = () => {
         async function getWishlistProducts(){
             console.log(user._id);
             try {
-                const response = await axios.get(`${BASE_URL}/product/get-wishlist-product?userId=${user._id}`)
+                const response = await axios.get(`${import.meta.env.VITE_API_URL}/product/get-wishlist-product?userId=${user._id}`)
     
                 const {data} = response
     

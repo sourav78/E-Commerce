@@ -1,7 +1,6 @@
 import React, { useEffect, useState } from "react";
 import SingleAddress from "./SingleAddress";
 import axios from "axios";
-import {BASE_URL} from '../../../utils/constraints'
 import { useSelector } from "react-redux";
 import CircularProgress from '@mui/material/CircularProgress';
 import { notification } from 'antd';
@@ -34,7 +33,7 @@ const AllAddress = () => {
         async function fetchAllAddress(){
             
             try {
-                const response = await axios.get(`${BASE_URL}/profile/get-address/${user._id}`)
+                const response = await axios.get(`${import.meta.env.VITE_API_URL}/profile/get-address/${user._id}`)
 
                 const {data} = response
 

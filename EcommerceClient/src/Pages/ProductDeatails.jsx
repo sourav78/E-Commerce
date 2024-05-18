@@ -6,7 +6,6 @@ import axios from "axios";
 import { notification } from 'antd';
 import { FaHeart } from "react-icons/fa";
 
-import {BASE_URL} from '../utils/constraints.js'
 import { useDispatch, useSelector } from "react-redux";
 import { toggleCartTrigger } from "../redux_slicer/ProductSlicer.js";
 import { updateInitializeOrder, updateProducts, updateTotalAmount, updateUserDetails } from "../redux_slicer/OrderSlicer.js";
@@ -41,7 +40,7 @@ const ProductDeatails = () => {
     useEffect(() => {
         async function getProduct(){
 
-            const response = await axios.post(`${BASE_URL}/product/get-product-details`, {
+            const response = await axios.post(`${import.meta.env.VITE_API_URL}/product/get-product-details`, {
                 productId
             })
 
@@ -58,7 +57,7 @@ const ProductDeatails = () => {
 
     async function checkProductIsWishlist(){
         try {
-            const response = await axios.post(`${BASE_URL}/product/check-wishlist-product`, {
+            const response = await axios.post(`${import.meta.env.VITE_API_URL}/product/check-wishlist-product`, {
                 productId: productId,
                 userId: user._id
             })
@@ -78,7 +77,7 @@ const ProductDeatails = () => {
     const handleWishlistProduct = async () => {
         if(isAuthenticated){
             try {
-                const response = await axios.post(`${BASE_URL}/product/wishlist-product`, {
+                const response = await axios.post(`${import.meta.env.VITE_API_URL}/product/wishlist-product`, {
                     productId: productId,
                     userId: user._id
                 })
@@ -128,7 +127,7 @@ const ProductDeatails = () => {
                 openNotificationWithIcon('error', "Sorry, Product is not available right now")
             }else{
                 try {
-                    const response = await axios.post(`${BASE_URL}/product/add-to-cart`, {
+                    const response = await axios.post(`${import.meta.env.VITE_API_URL}/product/add-to-cart`, {
                         userId: user._id,
                         productId: productId,
                         quantity: counter

@@ -3,7 +3,6 @@ import InputLabel from '@mui/material/InputLabel';
 import MenuItem from '@mui/material/MenuItem';
 import FormControl from '@mui/material/FormControl';
 import Select from '@mui/material/Select';
-import { BASE_URL } from '../../utils/constraints';
 import axios from 'axios';
 import AllProducts from '../../components/Admin/Products/AllProducts';
 
@@ -17,7 +16,7 @@ const AdminAllProducts = () => {
     useEffect(() => {
         async function fetchCategory(){
             try {
-                const response = await axios.get(`${BASE_URL}/product/get-home-category`)
+                const response = await axios.get(`${import.meta.env.VITE_API_URL}/product/get-home-category`)
                 const {data} = response
                 data.success && console.log(data);
                 data.success && setAllCategories(data.data)

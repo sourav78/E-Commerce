@@ -23,7 +23,7 @@ const SingleOrders = ({product, userId, setReloadOrder}) => {
     useEffect(() => {
         async function getProduct(){
             try {
-                const response = await axios.post(`${BASE_URL}/product/get-product-details`, {
+                const response = await axios.post(`${import.meta.env.VITE_API_URL}/product/get-product-details`, {
                     productId: product.productId
                 })
                 const {data} = response
@@ -40,7 +40,7 @@ const SingleOrders = ({product, userId, setReloadOrder}) => {
 
     const handleCancelOrder = async () => {
         try {
-            const response = await axios.post(`${BASE_URL}/product/cancel-order-product`, {
+            const response = await axios.post(`${import.meta.env.VITE_API_URL}/product/cancel-order-product`, {
                 orderId: product._id,
                 userId,
                 productId: product.productId,

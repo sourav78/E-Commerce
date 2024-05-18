@@ -4,7 +4,6 @@ import {Link, useNavigate} from 'react-router-dom'
 import { Alert} from 'antd';
 import axios from "axios";
 
-import {BASE_URL} from '../../utils/constraints.js'
 
 const Register = () => {
 
@@ -23,7 +22,7 @@ const Register = () => {
         const registerData = {fullname, mobile: mobile.toString(), email, password, confirmPassword}
 
         try {
-            const response = await axios.post(`${BASE_URL}/auth/register`, registerData,
+            const response = await axios.post(`${import.meta.env.VITE_API_URL}/auth/register`, registerData,
                 {
                     headers: {
                         'Content-Type': 'application/json',

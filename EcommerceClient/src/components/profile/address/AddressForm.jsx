@@ -10,7 +10,6 @@ import MenuItem from '@mui/material/MenuItem';
 import Select from '@mui/material/Select';
 
 import {statesOfIndia} from '../../../utils/constraints'
-import {BASE_URL} from '../../../utils/constraints'
 import { useSelector } from "react-redux";
 import axios from "axios";
 
@@ -36,7 +35,7 @@ const AddressForm = ({setShowAddressForm, address, setAddressStatus, setLoadAddr
         console.log('new');
 
         try {
-            const response = await axios.post(`${BASE_URL}/profile/add-new-address`, {
+            const response = await axios.post(`${import.meta.env.VITE_API_URL}/profile/add-new-address`, {
                 id: user._id,
                 name: addressName,
                 mobile: addressMobile,
@@ -70,7 +69,7 @@ const AddressForm = ({setShowAddressForm, address, setAddressStatus, setLoadAddr
 
         console.log(address._id);
         try {
-            const response = await axios.post(`${BASE_URL}/profile/update-address`, {
+            const response = await axios.post(`${import.meta.env.VITE_API_URL}/profile/update-address`, {
                 addressId: address._id,
                 name: addressName,
                 mobile: addressMobile,

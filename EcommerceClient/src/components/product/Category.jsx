@@ -1,7 +1,6 @@
 import React, { useEffect, useState } from "react";
 import { FaAngleDown } from "react-icons/fa";
 import axios from "axios";
-import {BASE_URL} from '../../utils/constraints'
 import { useDispatch } from "react-redux";
 import { updateCategory } from "../../redux_slicer/ProductSlicer";
 
@@ -26,7 +25,7 @@ const Category = () => {
     useEffect(() => {
         async function fetchCategory(){
             try {
-                const response = await axios.get(`${BASE_URL}/product/get-home-category`)
+                const response = await axios.get(`${import.meta.env.VITE_API_URL}/product/get-home-category`)
                 const {data} = response
                 data.success && console.log(data);
                 data.success && setAllCategories(data.data)

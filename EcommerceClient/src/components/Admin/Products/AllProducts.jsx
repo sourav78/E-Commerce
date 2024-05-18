@@ -2,7 +2,6 @@ import React, { useEffect, useState } from 'react'
 import AdminSingleProduct from './AdminSingleProduct'
 import ReactPaginate from 'react-paginate'
 import axios from 'axios'
-import { BASE_URL } from '../../../utils/constraints'
 
 const AllProducts = ({selectedCategory}) => {
 
@@ -16,7 +15,7 @@ const AllProducts = ({selectedCategory}) => {
     useEffect(() => {
         async function fetchProduct(){
             try {
-                const response = await axios.get(`${BASE_URL}/admin/get-all-product?category=${selectedCategory}&limit=20&skip=${selectedPage}`)
+                const response = await axios.get(`${import.meta.env.VITE_API_URL}/admin/get-all-product?category=${selectedCategory}&limit=20&skip=${selectedPage}`)
     
                 const {data} = response
 
