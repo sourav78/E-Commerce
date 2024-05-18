@@ -4,16 +4,16 @@ import Switch from '@mui/material/Switch';
 import { notification } from 'antd';
 import axios from 'axios';
 
-const CouponForm = () => {
+const CouponForm = ({coupon}) => {
     
     const [api, contextHolder] = notification.useNotification();
 
-    const [code, setCode] = useState('')
-    const [discountType, setDiscountType] = useState('percentage')
-    const [discountAmount, setDiscountAmount] = useState(0)
-    const [minOrderAmount, setMinOrderAmount] = useState(0)
-    const [maxUses, setMaxUses] = useState(0)
-    const [isActive, setIsActive] = useState(true)
+    const [code, setCode] = useState(coupon?.code || '')
+    const [discountType, setDiscountType] = useState(coupon?.discountType || 'percentage')
+    const [discountAmount, setDiscountAmount] = useState(coupon?.discountAmount || 0)
+    const [minOrderAmount, setMinOrderAmount] = useState(coupon?.minOrderAmount || 0)
+    const [maxUses, setMaxUses] = useState(coupon?.minOrderAmount || 0)
+    const [isActive, setIsActive] = useState(coupon?.isActive !== undefined ? coupon.isActive : true)
 
     const [onPromiseState, setOnPromiseState] = useState(false)
 
@@ -24,7 +24,7 @@ const CouponForm = () => {
         });
     };
 
-    const handleCreateCoupon = async () => {
+    const createCoupon = async () => {
         setOnPromiseState(true)
         console.log(discountAmount);
         try {
@@ -47,11 +47,42 @@ const CouponForm = () => {
         }
     }
 
+    const editCoupon = async () => {
+        setOnPromiseState(true)
+        try {
+            const response = await axios.post(`${import.meta.env.VITE_API_URL}/admin/edit-coupon`, {
+                id: coupon._id,
+                code,
+                discountType,
+                discountAmount: Number(discountAmount),
+                minOrderAmount: Number(minOrderAmount),
+                maxUses: Number(maxUses),
+                isActive
+            })
+    
+            const {data} = response
+
+            data.success && openNotificationWithIcon('success', data.data)
+            data.success && setOnPromiseState(false)
+        } catch (error) {
+            openNotificationWithIcon('error', error.response.data.msg)
+            setOnPromiseState(false)
+        }
+    }
+
+    const handleCreateCoupon = async () => {
+        if(coupon){
+            editCoupon()
+        }else{
+            createCoupon()
+        }
+    }
+
 
     return (
         <>
             {contextHolder}
-            <div className="mt-8 xl:w-[50%] lg:w-[70%] sm:w-[90%] w-full border-gray-500 rounded px-6">
+            <div className=" mt-8 xl:w-[50%] lg:w-[70%] sm:w-[90%] w-full border-gray-500 rounded px-6">
                 <div className="flex flex-col sm:flex-row gap-4">
                     <div className=" w-full">
                         <label className='font-semibold mb-2'>Coupon Code:</label>
@@ -133,7 +164,7 @@ const CouponForm = () => {
                     <button 
                         onClick={handleCreateCoupon}
                         disabled={onPromiseState}
-                        className={`text-lg font-semibold px-12 py-2 rounded ${onPromiseState ? 'bg-blue-400 cursor-not-allowed' : 'bg-blue-500'} text-white`}>CREATE</button>
+                        className={`text-lg font-semibold px-12 py-2 rounded ${onPromiseState ? 'bg-blue-400 cursor-not-allowed' : 'bg-blue-500'} text-white`}>{coupon ? 'EDIT' : 'CREATE'}</button>
                 </div>
             </div>   
         </>
