@@ -8,7 +8,7 @@ import { Link } from 'react-router-dom';
 import CouponForm from './CouponForm';
 import { TbEditOff } from "react-icons/tb";
 
-const SingleCoupon = ({coupon}) => {
+const SingleCoupon = ({coupon, setReloadCoupon}) => {
 
     const [showButtons, setShowButtons] = useState(false)
 
@@ -17,8 +17,22 @@ const SingleCoupon = ({coupon}) => {
     const [showEdit, setShowEdit] = useState(false)
 
 
-    const handleDeleteCoupon = () => {
-        
+    const handleDeleteCoupon = async () => {
+        try {
+            const response = await axios.delete(`${import.meta.env.VITE_API_URL}/admin/delete-coupon`, {
+                data: {
+                    couponId: coupon._id
+                }
+            })
+    
+            const {data} = response
+
+            data.success && console.log(data.data);
+            data.success && setReloadCoupon(prev => !prev)
+            data.success && setShowDeleteModal(false)
+        } catch (error) {
+            console.log(error);
+        }
     }
 
     return (

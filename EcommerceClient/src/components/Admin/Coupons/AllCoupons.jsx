@@ -6,6 +6,8 @@ const AllCoupons = () => {
 
     const [coupons, setCoupons] = useState([])
 
+    const [reloadCoupon, setReloadCoupon] = useState(false)
+
     useEffect(() => {
         async function fetchAllCoupons(){
             try {
@@ -20,7 +22,7 @@ const AllCoupons = () => {
         }
 
         fetchAllCoupons()
-    }, [])
+    }, [reloadCoupon])
 
     return (
         <>
@@ -28,7 +30,7 @@ const AllCoupons = () => {
                 {
                     coupons ? (
                         coupons.map(coupon => (
-                            <SingleCoupon coupon={coupon}/>
+                            <SingleCoupon coupon={coupon} setReloadCoupon={setReloadCoupon}/>
                         ))
                     ) : (
                         <></>

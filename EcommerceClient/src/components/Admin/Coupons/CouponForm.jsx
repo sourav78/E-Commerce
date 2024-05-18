@@ -12,7 +12,7 @@ const CouponForm = ({coupon}) => {
     const [discountType, setDiscountType] = useState(coupon?.discountType || 'percentage')
     const [discountAmount, setDiscountAmount] = useState(coupon?.discountAmount || 0)
     const [minOrderAmount, setMinOrderAmount] = useState(coupon?.minOrderAmount || 0)
-    const [maxUses, setMaxUses] = useState(coupon?.minOrderAmount || 0)
+    const [maxUses, setMaxUses] = useState(coupon?.maxUses || 0)
     const [isActive, setIsActive] = useState(coupon?.isActive !== undefined ? coupon.isActive : true)
 
     const [onPromiseState, setOnPromiseState] = useState(false)
