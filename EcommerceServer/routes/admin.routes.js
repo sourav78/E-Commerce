@@ -4,7 +4,9 @@ import {
     addProductWithUrl, 
     createCoupon, 
     deleteProduct, 
+    editCoupon, 
     editProduct, 
+    getAllCoupons, 
     getAllProduct 
 } from '../controllers/admin.controller.js'
 import { upload } from '../middleware/uploadInMulter.middleware.js'
@@ -19,5 +21,7 @@ adminRouter.get("/get-all-product", getAllProduct)
 adminRouter.delete("/delete-product", deleteProduct)
 adminRouter.post("/edit-product", editProduct)
 adminRouter.post('/create-coupon', createCoupon)
+adminRouter.get('/get-all-coupons', getAllCoupons)
+adminRouter.post('/edit-coupon', editCoupon)
 
 export default adminRouter

@@ -286,3 +286,87 @@ export const createCoupon = async (req, res) => {
         })
     }
 }
+
+export const getAllCoupons = async (req, res) => {
+    try {
+        const coupons = await CouponModel.find({})
+
+        return res.status(200).json({
+            success: true,
+            data: coupons
+        })
+    } catch (error) {
+        return res.status(400).json({
+            success: false,
+            msg: 'Internal Server Error'
+        })
+    }
+}
+
+export const editCoupon = async (req, res) => {
+    const {id, code, discountType, discountAmount, minOrderAmount, maxUses, isActive} = req.body
+
+    if(!id || !code || !discountType || !discountAmount || !minOrderAmount || !maxUses){
+        return res.status(400).json({
+            success: false,
+            msg: 'All fields are required'
+        }) 
+    }
+
+    if (code.includes(" ")) {
+        return res.status(400).json({
+            success: false,
+            msg: 'Coupon code must not contain any spaces.'
+        });
+    }
+    
+    if (code.length < 6) {
+        return res.status(400).json({
+            success: false,
+            msg: 'Coupon code at least 6 characters long.'
+        });
+    }
+
+    if(discountType === 'percentage' && discountAmount > 100){
+        return res.status(400).json({
+            success: false,
+            msg: 'Invalid discount amount for percentage discount. Please enter a value between 0 and 100.'
+        })
+    }
+
+    if(discountAmount > minOrderAmount){
+        return res.status(400).json({
+            success: false,
+            msg: 'The discount amount exceeds the minimum order amount.'
+        })
+    }
+
+    try {
+        const coupon = await CouponModel.findById(id)
+
+        coupon.code = code
+        coupon.discountType = discountType
+        coupon.discountAmount = discountAmount
+        coupon.minOrderAmount = minOrderAmount
+        coupon.maxUses = maxUses
+        coupon.isActive = isActive
+
+        await coupon.save()
+
+        return res.status(200).json({
+            success: true,
+            data: 'Coupon is Edited successfully.'
+        })
+    } catch (error) {
+        if(error.code === 11000){
+            return res.status(400).json({
+                success: false,
+                msg: 'Coupon with the same name already exists.'
+            });
+        }
+        return res.status(400).json({
+            success: false,
+            msg: 'Coupon not edited.'
+        })
+    }
+}
