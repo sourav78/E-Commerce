@@ -24,12 +24,7 @@ const AdminCreateProducts = () => {
 
     const [onPromiseState, setOnPromiseState] = useState(false)
 
-    const openNotificationWithIcon = (type, msg) => {
-        api[type]({
-            description: msg,
-            placement: 'bottomRight'
-        });
-    };
+    
 
     const onClose = () => {
         setName('')
