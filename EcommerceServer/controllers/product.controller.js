@@ -374,67 +374,6 @@ export const getCartPriceDetails = async (req, res) => {
 
 }
 
-export const createCoupon = async (req, res) => {
-    const {code, discountType, discountAmount, minOrderAmount, maxUses, isActive} = req.body
-
-    if(!code || !discountType || !discountAmount || !minOrderAmount || !maxUses || !isActive){
-        return res.status(400).json({
-            success: false,
-            msg: 'All fields are required'
-        }) 
-    }
-
-    if (code.includes(" ")) {
-        return res.status(400).json({
-            success: false,
-            msg: 'Coupon code must not contain any spaces.'
-        });
-    }
-    
-    if (code.length < 6) {
-        return res.status(400).json({
-            success: false,
-            msg: 'Coupon code at least 6 characters long.'
-        });
-    }
-
-    if(discountType === 'percentage' && discountAmount > 100){
-        return res.status(400).json({
-            success: false,
-            msg: 'Invalid discount amount for percentage discount. Please enter a value between 0 and 100.'
-        })
-    }
-
-    if(discountAmount > minOrderAmount){
-        return res.status(400).json({
-            success: false,
-            msg: 'The discount amount exceeds the minimum order amount.'
-        })
-    }
-
-    try {
-        const coupon = await CouponModel.create({
-            code, discountType, discountAmount, minOrderAmount, maxUses, isActive
-        })
-
-        return res.status(200).json({
-            success: true,
-            data: coupon
-        })
-    } catch (error) {
-        if(error.code === 11000){
-            return res.status(400).json({
-                success: false,
-                msg: 'Coupon with the same name already exists.'
-            });
-        }
-        return res.status(400).json({
-            success: false,
-            msg: 'Coupon not created'
-        })
-    }
-}
-
 export const applyCoupon = async (req, res) => {
     const { couponCode, userId, totalAmount } = req.body;
 

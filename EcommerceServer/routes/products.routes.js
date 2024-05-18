@@ -4,7 +4,6 @@ import {
     cancelOrder,
     checkWishlistProduct,
     claimCoupons,
-    createCoupon, 
     createOrder, 
     getAllData, 
     getCartPriceDetails, 
@@ -43,7 +42,6 @@ productRouter.get('/get-wishlist-product', getWishlistProduct)
 productRouter.get('/get-order-product', getOrders)
 productRouter.post('/cancel-order-product', cancelOrder)
 
-productRouter.post('/create-coupon', createCoupon)
 productRouter.post('/apply-coupon', applyCoupon)
 productRouter.post('/claim-coupon', claimCoupons)
 
