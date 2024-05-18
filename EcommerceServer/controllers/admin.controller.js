@@ -370,3 +370,35 @@ export const editCoupon = async (req, res) => {
         })
     }
 }
+
+export const deleteCoupon = async (req, res) => {
+    const {couponId} = req.body
+
+    if(!couponId){
+        return res.status(400).json({
+            success: false,
+            msg: 'Coupon ID must be provided'
+        }) 
+    }
+
+    try {
+        const coupon = await CouponModel.findByIdAndDelete(couponId)
+
+        if(!coupon){
+            return res.status(400).json({
+                success: false,
+                msg: "Coupon is not available in database."
+            })
+        }
+
+        return res.status(200).json({
+            success: true,
+            data: "Coupon is deleted successfully."
+        })
+    } catch (error) {
+        return res.status(400).json({
+            success: false,
+            msg: "Internal Server Error"
+        })
+    }
+}

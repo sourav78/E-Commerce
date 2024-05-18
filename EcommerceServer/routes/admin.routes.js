@@ -3,6 +3,7 @@ import {
     addProductWithImage, 
     addProductWithUrl, 
     createCoupon, 
+    deleteCoupon, 
     deleteProduct, 
     editCoupon, 
     editProduct, 
@@ -23,5 +24,6 @@ adminRouter.post("/edit-product", editProduct)
 adminRouter.post('/create-coupon', createCoupon)
 adminRouter.get('/get-all-coupons', getAllCoupons)
 adminRouter.post('/edit-coupon', editCoupon)
+adminRouter.delete('/delete-coupon', deleteCoupon)
 
 export default adminRouter
