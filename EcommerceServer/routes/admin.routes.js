@@ -12,7 +12,9 @@ import {
     getAllCoupons, 
     getAllOrders, 
     getAllProduct, 
-    getAllUser
+    getAllUser,
+    getSingleOrder,
+    updateOrderStatus
 } from '../controllers/admin.controller.js'
 import { upload } from '../middleware/uploadInMulter.middleware.js'
 
@@ -35,5 +37,7 @@ adminRouter.post('/edit-user', editUser)
 adminRouter.get('/get-all-users', getAllUser)
 
 adminRouter.get('/get-all-orders', getAllOrders)
+adminRouter.get('/get-single-orders', getSingleOrder)
+adminRouter.post('/update-order-status', updateOrderStatus)
 
 export default adminRouter

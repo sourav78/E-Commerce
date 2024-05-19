@@ -582,6 +582,80 @@ export const getAllOrders = async (req, res) => {
     }
 }
 
+export const getSingleOrder = async (req, res) => {
+    const {orderId} = req.query
+
+    if(!orderId){
+        return res.status(400).json({
+            success: false,
+            msg: 'Order ID is not Provided'
+        })
+    }
+
+    try {
+        const order = await OrderModel.findById(orderId)
+
+        if(!order){
+            return res.status(400).json({
+                success: false,
+                msg: 'Orders is not found.'
+            })
+        }
+
+        return res.status(200).json({
+            success: true,
+            data: order
+        })
+    } catch (error) {
+        return res.status(400).json({
+            success: false,
+            msg: 'Internal Server Error'
+        })
+    }
+}
+
 export const updateOrderStatus = async (req, res) => {
-    
+    const {userId, orderId, productId, quantity, status} = req.body
+
+    try {
+        const orders = await OrderModel.findOne({ userId: userId });
+
+        if (!orders) {
+            return res.status(404).json({ 
+                success: false, 
+                msg: 'Order not found for the provided user ID' 
+            });
+        }
+
+        // console.log(orders);
+
+        orders.orders.map((order, index) => {
+            order.products.map((product, ind) => {
+                if(String(product._id) === orderId){
+                    orders.orders[index].products[ind].status = status
+                }
+            })
+        })
+
+        if(status === 'canceled'){
+            const product = await ProductModel.findById(productId);
+            
+            product.stock = product.stock + quantity;
+            
+            // Save the updated product
+            await product.save();
+        }
+
+        await orders.save()
+      
+        return res.status(200).json({ 
+            success: true, 
+            data: 'Order Updated successfully' 
+        });
+    } catch (error) {
+        return res.status(500).json({ 
+            success: false, 
+            msg: 'Internal server error' 
+        });
+    }
 }
