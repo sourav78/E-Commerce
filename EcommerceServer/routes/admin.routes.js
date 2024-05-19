@@ -10,6 +10,7 @@ import {
     editProduct, 
     editUser, 
     getAllCoupons, 
+    getAllOrders, 
     getAllProduct, 
     getAllUser
 } from '../controllers/admin.controller.js'
@@ -32,5 +33,7 @@ adminRouter.delete('/delete-coupon', deleteCoupon)
 adminRouter.post('/create-user', createUser)
 adminRouter.post('/edit-user', editUser)
 adminRouter.get('/get-all-users', getAllUser)
+
+adminRouter.get('/get-all-orders', getAllOrders)
 
 export default adminRouter
