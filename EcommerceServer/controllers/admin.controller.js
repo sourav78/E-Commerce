@@ -1,6 +1,12 @@
 import { ProductModel } from "../models/products.model.js"
 import { uploadOnCloudynary } from "../utils/uploadToCloudynary.js"
 import { CouponModel } from "../models/coupons.model.js"
+import { UserModel } from "../models/user.model.js"
+import { WishlistModel } from "../models/wishlist.model.js"
+import { CartModel } from "../models/cart.model.js"
+import emailValidator from 'email-validator'
+import { UserAddressModel } from "../models/address.model.js"
+import { OrderModel } from "../models/orders.model.js"
 
 
 export const addProductWithUrl = async (req, res) => {
@@ -399,6 +405,162 @@ export const deleteCoupon = async (req, res) => {
         return res.status(400).json({
             success: false,
             msg: "Internal Server Error"
+        })
+    }
+}
+
+export const getAllUser = async (req, res) => {
+    try {
+        const users = await UserModel.find({})
+
+        return res.status(200).json({
+            success: true,
+            data: users
+        })
+    } catch (error) {
+        return res.status(400).json({
+            success: false,
+            msg: 'Internal Server Error'
+        })
+    }
+}
+
+export const createUser = async (req, res) => {
+    const {fullname, mobile, email, password, confirmPassword, isAdmin} = req.body
+
+    if(!fullname || !mobile || !email || !password || !confirmPassword || !isAdmin){
+        return res.status(400).json({
+            success: false,
+            msg: "All fileds are required."
+        })
+    }
+
+    const validatedEmail = emailValidator.validate(email)
+
+    if(!validatedEmail){
+        return res.status(400).json({
+            success: false,
+            msg: "Please provide a valid email."
+        })
+    }
+
+    if(mobile.length !== 10){
+        return res.status(400).json({
+            success: false,
+            msg: "Please provide a valid mobile number."
+        })
+    }
+
+    if(password !== confirmPassword){
+        return res.status(400).json({
+            success: false,
+            msg: "Password and confirm password not matched."
+        })
+    }
+
+    try {
+        const user = await UserModel.create({
+            fullname,
+            mobile,
+            email,
+            password,
+            isAdmin
+        })
+        
+        await WishlistModel.create({
+            userId: user._id
+        })
+        
+        await CartModel.create({
+            userId: user._id
+        })
+        
+        await UserAddressModel.create({
+            userId: user._id
+        })
+
+        await OrderModel.create({
+            userId: user._id
+        })
+    
+        return res.status(200).json({
+            success: true,
+            data: "New user is created."
+        })
+    } catch (error) {
+
+        //this response duplication
+        if(error.code === 11000){
+            let errorMsg = "";
+            // Determine whether it's a duplicate username or email
+            if (error.keyPattern.email) {
+                errorMsg = "This email is already registered";
+            }
+            return res.status(400).json({
+                success: false,
+                msg: errorMsg
+            });
+        }
+        return res.status(400).json({
+            success: false,
+            msg: error.message
+        })
+    }
+}
+
+export const editUser = async (req, res) => {
+    const {id, fullname, mobile, email, isAdmin} = req.body
+
+    if(!id || !fullname || !mobile || !email || !isAdmin){
+        return res.status(400).json({
+            success: false,
+            msg: "All fileds are required."
+        })
+    }
+
+    const validatedEmail = emailValidator.validate(email)
+
+    if(!validatedEmail){
+        return res.status(400).json({
+            success: false,
+            msg: "Please provide a valid email."
+        })
+    }
+
+    if(mobile.length !== 10){
+        return res.status(400).json({
+            success: false,
+            msg: "Please provide a valid mobile number."
+        })
+    }
+
+    try {
+        const user = await UserModel.findById(id)
+
+        if(!user){
+            if(mobile.length !== 10){
+                return res.status(400).json({
+                    success: false,
+                    msg: "User not found."
+                })
+            }
+        }
+
+        user.fullname = fullname
+        user.mobile = mobile
+        user.email = email
+        user.isAdmin = isAdmin
+
+        await user.save()
+
+        return res.status(200).json({
+            success: true,
+            data: "Information updated successfully."
+        })
+    } catch (error) {
+        return res.status(400).json({
+            success: true,
+            msg: "Internal server error."
         })
     }
 }
