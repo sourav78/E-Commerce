@@ -27,6 +27,7 @@ import AdminCreateUsers from "../Pages/Admin/AdminCreateUsers";
 import AdminAllCoupons from "../Pages/Admin/AdminAllCoupons";
 import AdminCreateCoupons from "../Pages/Admin/AdminCreateCoupons";
 import AdminEditProduct from "../Pages/Admin/AdminEditProduct";
+import AdminOrdersDetails from "../Pages/Admin/AdminOrdersDetails";
 
 const PagesRoutes = () => {
   return (
@@ -53,6 +54,7 @@ const PagesRoutes = () => {
             <Route path="create-products" element={<AdminCreateProducts />}  />
             <Route path="edit-products/:productId" element={<AdminEditProduct />}  />
             <Route path="orders" element={<AdminOrders />}  />
+            <Route path="order-details/:allOrderId" element={<AdminOrdersDetails />}  />
             <Route path="all-users" element={<AdminAllUsers />}  />
             <Route path="create-users" element={<AdminCreateUsers />}  />
             <Route path="all-coupons" element={<AdminAllCoupons />}  />

@@ -1,6 +1,5 @@
 import axios from 'axios'
 import React, { useEffect, useState } from 'react'
-import { BASE_URL } from '../../../utils/constraints'
 import { Link } from 'react-router-dom'
 import { Modal } from '@mui/material'
 import { notification } from 'antd';

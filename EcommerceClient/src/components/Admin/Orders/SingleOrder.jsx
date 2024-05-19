@@ -2,8 +2,9 @@ import React, { useEffect, useState } from 'react'
 import { FaEdit } from "react-icons/fa";
 import { BsThreeDotsVertical } from "react-icons/bs";
 import axios from 'axios'
+import { Link } from 'react-router-dom';
 
-const SingleOrder = ({product, orderId, AllOrderId}) => {
+const SingleOrder = ({product, orderId, allOrderId}) => {
 
     const [showButtons, setShowButtons] = useState(false)
 
@@ -56,7 +57,9 @@ const SingleOrder = ({product, orderId, AllOrderId}) => {
                                 <button
                                     
                                 >
-                                    <FaEdit className='text-xl text-gray-600'/>
+                                    <Link to={`../order-details/${allOrderId}?orderId=${orderId}&productId=${product.productId}`}>
+                                        <FaEdit className='text-xl text-gray-600'/>
+                                    </Link>
                                 </button>
                             </div>
                         </div>
