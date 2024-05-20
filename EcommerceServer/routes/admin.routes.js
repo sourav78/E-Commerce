@@ -2,6 +2,7 @@ import express from 'express'
 import { 
     addProductWithImage, 
     addProductWithUrl, 
+    allOrderStatus, 
     createCoupon, 
     createUser, 
     deleteCoupon, 
@@ -15,6 +16,7 @@ import {
     getAllUser,
     getSingleOrder,
     storeOverview,
+    totalTransactionAmount,
     updateOrderStatus
 } from '../controllers/admin.controller.js'
 import { upload } from '../middleware/uploadInMulter.middleware.js'
@@ -43,5 +45,7 @@ adminRouter.post('/update-order-status', updateOrderStatus)
 
 
 adminRouter.get('/store-overview', storeOverview)
+adminRouter.get('/total-transaction-amount', totalTransactionAmount)
+adminRouter.get('/all-order-status', allOrderStatus)
 
 export default adminRouter

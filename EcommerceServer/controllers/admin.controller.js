@@ -692,3 +692,54 @@ export const storeOverview = async (req, res) => {
         });
     }
 }
+
+
+export const totalTransactionAmount = async (req, res) => {
+    try {
+        const orders = await OrderModel.aggregate([
+            { $unwind: "$orders" },
+            { $group: {
+                _id: { $dateToString: { format: "%Y-%m-%d", date: "$orders.orderDate" } },
+                totalAmount: { $sum: "$orders.totalAmount" }
+            }},
+            { $sort: { _id: 1 } }, // Sort by date
+            { $project: { _id: 0, date: "$_id", totalAmount: 1 } }
+        ]);
+    
+        res.status(200).json({ 
+            success: true,
+            data: orders 
+        });
+    } catch (error) {
+        return res.status(500).json({ 
+            success: false, 
+            msg: 'Internal server error' 
+        });
+    }
+}
+
+
+export const allOrderStatus = async (req, res) => {
+    try {
+        const statusCounts = await OrderModel.aggregate([
+            { $unwind: "$orders" },
+            { $unwind: "$orders.products" }, // Unwind products to access the status field
+            { $group: {
+                _id: "$orders.products.status",
+                count: { $sum: 1 }
+            }},
+            { $project: { _id: 0, status: "$_id", count: 1 } } // Rename _id to status
+        ]);
+      
+    
+        res.status(200).json({ 
+            success: true,
+            data: statusCounts 
+        });
+    } catch (error) {
+        return res.status(500).json({ 
+            success: false, 
+            msg: 'Internal server error' 
+        });
+    }
+}
