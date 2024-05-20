@@ -669,10 +669,15 @@ export const storeOverview = async (req, res) => {
         const orders = await OrderModel.find({})
 
         let totalOrders = 0
+
+        let totalAmount = 0
         
         orders.map(order => {
             order.orders.map(ord => {
-                if(ord) totalOrders += 1
+                if(ord){
+                    totalAmount += ord.totalAmount
+                    totalOrders += 1
+                }
             })
         })
 
@@ -681,7 +686,8 @@ export const storeOverview = async (req, res) => {
             data: {
                 totalProducts,
                 totalUsers,
-                totalOrders
+                totalOrders,
+                totalAmount
             }
         });
 
@@ -735,6 +741,45 @@ export const allOrderStatus = async (req, res) => {
         res.status(200).json({ 
             success: true,
             data: statusCounts 
+        });
+    } catch (error) {
+        return res.status(500).json({ 
+            success: false, 
+            msg: 'Internal server error' 
+        });
+    }
+}
+
+
+export const stockDetails = async (req, res) => {
+    try {
+        const availableStockCount = await ProductModel.countDocuments({ stock: { $gt: 0 } });
+        const unavailableStockCount = await ProductModel.countDocuments({ stock: { $eq: 0 } });
+      
+    
+        res.status(200).json({ 
+            success: true,
+            data: {
+                availableStock: availableStockCount,
+                unavailableStock: unavailableStockCount
+            } 
+        });
+    } catch (error) {
+        return res.status(500).json({ 
+            success: false, 
+            msg: 'Internal server error' 
+        });
+    }
+}
+
+
+export const getUnavailableProducts = async (req, res) => {
+    try {
+        const unavailableProducts = await ProductModel.find({ stock: { $eq: 0 } }).select('_id name category brand price stock image_url');
+      
+        res.status(200).json({ 
+            success: true,
+            data: unavailableProducts 
         });
     } catch (error) {
         return res.status(500).json({ 

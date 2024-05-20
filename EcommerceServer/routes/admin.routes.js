@@ -15,6 +15,8 @@ import {
     getAllProduct, 
     getAllUser,
     getSingleOrder,
+    getUnavailableProducts,
+    stockDetails,
     storeOverview,
     totalTransactionAmount,
     updateOrderStatus
@@ -47,5 +49,7 @@ adminRouter.post('/update-order-status', updateOrderStatus)
 adminRouter.get('/store-overview', storeOverview)
 adminRouter.get('/total-transaction-amount', totalTransactionAmount)
 adminRouter.get('/all-order-status', allOrderStatus)
+adminRouter.get('/stock-details', stockDetails)
+adminRouter.get('/get-unavailable-products', getUnavailableProducts)
 
 export default adminRouter
