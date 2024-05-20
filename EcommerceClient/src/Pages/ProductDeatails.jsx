@@ -111,11 +111,15 @@ const ProductDeatails = () => {
 
     const handleBuyNow = () => {
         if(isAuthenticated){
-            dispatch(updateProducts([{productId: product._id, quantity: 1, totalPrice: product.price}]))
-            dispatch(updateTotalAmount(product.price+100))
-            dispatch(updateUserDetails({userId: user._id, email: user.email, userName: user.fullname, mobile: user.mobile}))
-            dispatch(updateInitializeOrder(true))
-            navigate("../checkout")
+            if(product.stock <= 1){
+                openNotificationWithIcon('error', "Sorry, Product is not available right now")
+            }else{
+                dispatch(updateProducts([{productId: product._id, quantity: 1, totalPrice: product.price}]))
+                dispatch(updateTotalAmount(product.price+100))
+                dispatch(updateUserDetails({userId: user._id, email: user.email, userName: user.fullname, mobile: user.mobile}))
+                dispatch(updateInitializeOrder(true))
+                navigate("../checkout")
+            }
         }else{
             navigate('/login')
         }
