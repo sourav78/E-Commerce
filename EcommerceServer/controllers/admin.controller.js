@@ -659,3 +659,36 @@ export const updateOrderStatus = async (req, res) => {
         });
     }
 }
+
+export const storeOverview = async (req, res) => {
+    try {
+        
+        const totalProducts = await ProductModel.countDocuments({})
+        const totalUsers = await UserModel.countDocuments({})
+
+        const orders = await OrderModel.find({})
+
+        let totalOrders = 0
+        
+        orders.map(order => {
+            order.orders.map(ord => {
+                if(ord) totalOrders += 1
+            })
+        })
+
+        return res.status(200).json({ 
+            success: true, 
+            data: {
+                totalProducts,
+                totalUsers,
+                totalOrders
+            }
+        });
+
+    } catch (error) {
+        return res.status(500).json({ 
+            success: false, 
+            msg: 'Internal server error' 
+        });
+    }
+}
