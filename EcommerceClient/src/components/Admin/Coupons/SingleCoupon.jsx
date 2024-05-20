@@ -50,7 +50,7 @@ const SingleCoupon = ({coupon, setReloadCoupon}) => {
                     </div>
                     <div className="p-2 border-gray-500 w-1/4 relative mr-2 sm:mr-0">
                         <div className="flex justify-between items-center">
-                            <p className={`sm:text-lg text-sm text-black ${coupon.isActive ? 'text-blue-500' : 'text-red-500'} capitalize`}>{coupon.isActive ? 'Active' : 'Not Active'}</p>
+                            <p className={`sm:text-lg font-bold text-sm text-black ${coupon.isActive ? 'text-blue-500' : 'text-red-500'} capitalize`}>{coupon.isActive ? 'Active' : 'Not Active'}</p>
                             <div className="sm:hidden">
                                 <BsThreeDotsVertical 
                                     className="cursor-pointer"

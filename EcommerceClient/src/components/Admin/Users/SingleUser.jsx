@@ -46,7 +46,7 @@ const SingleUser = ({user, setReloadUser}) => {
                     </div>
                     <div className="p-2 border-gray-500 w-1/4 relative mr-2 sm:mr-0">
                         <div className="flex justify-between items-center">
-                            <p className={`sm:text-lg text-sm text-black ${user.isAdmin === 'ADMIN' ? 'text-green-500' : 'text-black'} capitalize`}>{user.isAdmin}</p>
+                            <p className={`sm:text-lg font-bold text-sm text-black ${user.isAdmin === 'ADMIN' ? 'text-green-500' : 'text-black'} capitalize`}>{user.isAdmin}</p>
                             <div className="sm:hidden">
                                 <BsThreeDotsVertical 
                                     className="cursor-pointer"

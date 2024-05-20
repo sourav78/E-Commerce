@@ -1,7 +1,8 @@
 import React, { useEffect, useState } from 'react'
 import { FcDeployment } from "react-icons/fc";
 import { FcManager } from "react-icons/fc";
-import { FcBullish } from "react-icons/fc";
+import { FcShipped } from "react-icons/fc";
+import { FcMoneyTransfer  } from "react-icons/fc";
 import axios from 'axios'
 
 const StoreOverview = () => {
@@ -26,7 +27,7 @@ const StoreOverview = () => {
 
     return (
         <>
-            <div className="p-4 border border-gray-300 rounded">
+            <div className="p-4 border-gray-300 rounded">
                 <div className="">
                     <p className='text-xl font-semibold'>Store Overview</p>
                 </div>
@@ -57,10 +58,21 @@ const StoreOverview = () => {
                         <div className="flex gap-4 items-center justify-between">
                             <div className="">
                                 <h3 className='text-lg font-semibold'>Total Orders</h3>
-                                <p className='text-3xl font-bold'>{overview.totalOrders}</p>
+                                <p className='mt-2 text-3xl font-bold'>{overview.totalOrders}</p>
                             </div>
                             <div className="">
-                                <FcBullish className='text-6xl' />
+                                <FcShipped className='text-6xl' />
+                            </div>
+                        </div>
+                    </div>
+                    <div className="py-2 px-4 flex-1 border border-gray-300 rounded">
+                        <div className="flex gap-4 items-center justify-between">
+                            <div className="">
+                                <h3 className='text-lg font-semibold'>Total Amount</h3>
+                                <p className='mt-2 text-3xl font-bold'>₹{overview.totalAmount}</p>
+                            </div>
+                            <div className="">
+                                <FcMoneyTransfer className='text-6xl' />
                             </div>
                         </div>
                     </div>

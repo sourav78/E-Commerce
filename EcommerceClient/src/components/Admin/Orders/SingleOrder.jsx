@@ -46,7 +46,7 @@ const SingleOrder = ({product, orderId, allOrderId}) => {
                     </div>
                     <div className="p-2 border-gray-500 w-1/4 relative mr-2 sm:mr-0">
                         <div className="flex justify-between items-center">
-                            <p className={`sm:text-lg text-sm text-black ${product.status === "processing" && 'text-blue-500'} ${product.status === "shipped" && 'text-yellow-500'} ${product.status === "delivered" && 'text-green-500'} ${product.status === "canceled" && 'text-red-500'} capitalize`}>{product.status}</p>
+                            <p className={`sm:text-lg font-bold text-sm text-black ${product.status === "processing" && 'text-blue-500'} ${product.status === "shipped" && 'text-yellow-500'} ${product.status === "delivered" && 'text-green-500'} ${product.status === "canceled" && 'text-red-500'} capitalize`}>{product.status}</p>
                             <div className="sm:hidden">
                                 <BsThreeDotsVertical 
                                     className="cursor-pointer"
