@@ -142,8 +142,8 @@ const AdminOrdersDetails = () => {
                         <div className="mt-8">
                             <h3 className='text-3xl font-semibold'>Payment</h3>
                             <div className="mt-2 ml-2">
-                                <p className='font-semibold text-green-500'>PAID</p>
-                                <p className='text-lg mt-1 font-semibold'>Total Amount: <span className='font-normal'>{orderedProduct.totalPrice}</span></p>
+                                <p className={`font-semibold ${orderedProduct.status === "canceled" ? 'text-red-500' : 'text-green-500' }`}>{orderedProduct.status === "canceled" ? 'CANCELED' : 'PAID'} </p>
+                                <p className='text-lg mt-1 font-semibold'>Total Amount: <span className={`font-normal ${orderedProduct.status === "canceled" && 'line-through'} `}>{orderedProduct.totalPrice}</span></p>
                             </div>
                         </div>
                         <div className="mt-8">
@@ -174,13 +174,13 @@ const AdminOrdersDetails = () => {
                                 <p className='text-2xl font-semibold text-center'>Proccess Order</p>
                                 <div className="mt-4">
                                     <FormControl sx={{ minWidth: 100, width:"100%" }} size="small">
-                                        <InputLabel id="demo-select-small-label">Age</InputLabel>
+                                        <InputLabel id="demo-select-small-label">Status</InputLabel>
                                         <Select
                                             className='w-full'
                                             labelId="demo-select-small-label"
                                             id="demo-select-small"
                                             value={status}
-                                            label="Age"
+                                            label="Status"
                                             onChange={handleChange}
                                         >
                                             <MenuItem value={'processing'}>Processeing</MenuItem>
