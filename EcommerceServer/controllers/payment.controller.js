@@ -35,7 +35,7 @@ export const paymentVerification = async (req, res) => {
             razorpay_signature
         })
 
-        res.redirect(`http://localhost:5173/paymentsuccess?success=true`)
+        res.redirect(`${process.env.CLIENT_URL}/paymentsuccess?success=true`)
     }else{
         res.status(400).json({
             success: false
