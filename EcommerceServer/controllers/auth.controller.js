@@ -127,7 +127,7 @@ export const login = async (req, res) => {
             maxAge: 7 * 24 * 60 * 60 * 1000,
             httpOnly: true,
             secure: true, // Set to true in production
-            sameSite: 'None'
+            sameSite: 'Strict'
         };
 
         res.cookie('jwttoken', token, cookieOptions)
