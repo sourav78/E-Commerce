@@ -19,7 +19,6 @@ const Checkout = () => {
 
         if(orderData){
             if(orderData.initializeOrder){
-                console.log(orderData);
                 setOrderDetails(orderData)
                 setIsLoading(false)
             }else{

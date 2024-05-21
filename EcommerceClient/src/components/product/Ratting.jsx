@@ -16,7 +16,6 @@ const Ratting = () => {
     }
 
     const onRattingChange = (e) => {
-        console.log(e.target.value);
         if(e.target.value === 'all'){
             dispatch(updateRatting(null))
         }else{

@@ -34,8 +34,6 @@ const DetailsUpdationForm = ({field, fieldLable}) => {
     }
 
     const handleSave = async () => {
-        console.log(userdata);
-        console.log(field);
 
         const updateData = {
             id: user._id,
@@ -53,7 +51,6 @@ const DetailsUpdationForm = ({field, fieldLable}) => {
     
             const {data} = response
 
-            data.success && console.log(data.data)
             data.success && setIsDisabled(!isDisabled)
             data.success && dispatch(toggleTrigger())
             data.success && openNotificationWithIcon('success', data.data)

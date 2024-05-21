@@ -34,7 +34,6 @@ const App = () => {
                 const {data} = response.data
                 dispatch(updateIsAuthenticated(true))
                 dispatch(updateUser(data))
-                console.log(data);
             } catch (error) {
                 console.log(error.response.data.msg);
                 dispatch(updateIsAuthenticated(false))

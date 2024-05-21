@@ -41,7 +41,6 @@ const AdminOrdersDetails = () => {
     };
 
     const handleChange = (event) => {
-        console.log(event.target.value);
         setStatus(event.target.value);
     };
 
@@ -56,7 +55,6 @@ const AdminOrdersDetails = () => {
                     setMainOrder(data.data)
                     data.data.orders.map(order => {
                         if(order._id === orderId){
-                            console.log(order);
                             setSingleOrders(order)
                         }
                     })
@@ -113,7 +111,6 @@ const AdminOrdersDetails = () => {
 
             const {data} = response
 
-            data.success && console.log(data.data);
             data.success && openNotificationWithIcon('success', data.data)
             data.success && setReloadOrder(prev => !prev)
         } catch (error) {

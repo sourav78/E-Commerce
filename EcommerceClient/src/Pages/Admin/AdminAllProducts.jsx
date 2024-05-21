@@ -18,7 +18,7 @@ const AdminAllProducts = () => {
             try {
                 const response = await axios.get(`${import.meta.env.VITE_API_URL}/product/get-home-category`)
                 const {data} = response
-                data.success && console.log(data);
+                
                 data.success && setAllCategories(data.data)
             } catch (error) {
                 console.log(error.message);

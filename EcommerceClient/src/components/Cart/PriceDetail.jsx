@@ -37,7 +37,6 @@ const PriceDetail = ({reloadOnQuantityUpdate, setTotalOrderPrice}) => {
                 })
                 const {data} = response
     
-                data.success && console.log(data.data);
                 data.success && setPriceDeatils(data.data)
             } catch (error) {
                 console.log(error.response.data.msg);
@@ -70,7 +69,6 @@ const PriceDetail = ({reloadOnQuantityUpdate, setTotalOrderPrice}) => {
             dispatch(updateCoupons(couponValue))
             setCouponValue('')
         }else{
-            console.log("applied");
             openNotificationWithIcon('error', 'This coupon is already applied.')
         }
     }, [couponDiscount])
@@ -85,7 +83,6 @@ const PriceDetail = ({reloadOnQuantityUpdate, setTotalOrderPrice}) => {
 
             const {data} = response
 
-            data.success && console.log(data.data);
             data.success && setCouponDiscount(Math.ceil(data.data))
         } catch (error) {
             console.log(error.response.data.msg);

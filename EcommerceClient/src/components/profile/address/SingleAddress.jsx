@@ -46,9 +46,6 @@ const SingleAddress = ({address, userId, setLoadAddress, setOnDeleteAddress}) =>
     }
 
     const handleDeleteAddress = async () => {
-        console.log(address._id);
-        console.log(userId);
-
         try {
             const response = await axios.post(`${import.meta.env.VITE_API_URL}/profile/delete-address`, {
                 id: userId,

@@ -25,7 +25,6 @@ const SingleWishlist = ({productId, userId, setReloadWishlist}) => {
 
     const handleRemoveWishlistProduct = async () => {
         try {
-            console.log(userId);
             const response = await axios.post(`${import.meta.env.VITE_API_URL}/product/wishlist-product`, {
                 productId: productData._id,
                 userId

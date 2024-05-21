@@ -66,7 +66,6 @@ const AdminEditProduct = () => {
     
             const {data} = response
 
-            data.success && console.log(data.data);
             data.success && openNotificationWithIcon('success', data.data);
         } catch (error) {
             console.log(error);

@@ -35,7 +35,6 @@ const ProductPannel = () => {
     
                 const {data} = response
 
-                data.success && console.log(data.data.products);
                 data.success && setAllProducts(data.data.products);
                 data.success && setTotalData(data.data.total)
             } catch (error) {

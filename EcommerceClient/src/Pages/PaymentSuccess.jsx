@@ -26,7 +26,6 @@ const PaymentSuccess = () => {
             })
 
             if(orderDetails.coupons.length){
-                console.log("coupons");
                 await axios.post(`${import.meta.env.VITE_API_URL}/product/claim-coupon`, {
                     couponCodes: orderDetails.coupons,
                     userId: orderDetails.userDetails.userId

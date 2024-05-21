@@ -33,7 +33,6 @@ const Register = () => {
 
             const data = response.data
             data.success && navigate('/login')
-            console.log(data);
         } catch (error) {
             console.log(error.response.data);
             setShowErrors(error.response.data.msg)

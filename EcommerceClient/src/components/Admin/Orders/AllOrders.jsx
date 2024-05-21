@@ -14,7 +14,6 @@ const AllOrders = () => {
 
                 const {data} = response
 
-                data.success && console.log(data.data);
                 data.success && setOrders(data.data)
             } catch (error) {
                 console.log(error);

@@ -66,7 +66,6 @@ const ProfileImage = () => {
                 }
             })
 
-            console.log(response);
 
             const {data} = response
 

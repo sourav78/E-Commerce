@@ -11,7 +11,6 @@ const LatestProduct = () => {
         async function fetchData(){
             const getLatestProduct = await axios.get(`${import.meta.env.VITE_API_URL}/product/get-latest-product`)
             const {data} = getLatestProduct.data
-            // console.log(import.meta.env.VITE_API_URL);
             setLatestProduct(data)
         }
 

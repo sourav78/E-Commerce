@@ -24,7 +24,6 @@ const ProductCart = ({onCartEmptyChange, setReloadOnQuantityUpdate, totalOrderPr
             const response = await axios.get(`${import.meta.env.VITE_API_URL}/product/get-cart-product?userId=${user._id}`)
             const {data} = response
 
-            data.success && console.log(data.data);
             data.success && setAllCartProduct(data.data)
         } catch (error) {
             console.log(error.response.data.msg);

@@ -19,7 +19,6 @@ const AddressCheckout = ({userId, selectedAddress, setIsAddressSet, isAddressSet
 
                 const {data} = response
 
-                data.success && console.log(data.data);
                 data.success && setAddress(data.data)
             } catch (error) {
                 console.log(error.message);

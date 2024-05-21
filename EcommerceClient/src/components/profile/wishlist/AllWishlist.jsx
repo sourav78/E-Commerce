@@ -15,14 +15,12 @@ export const AllWishlist = () => {
 
     useEffect(() => {
         async function getWishlistProducts(){
-            console.log(user._id);
             try {
                 const response = await axios.get(`${import.meta.env.VITE_API_URL}/product/get-wishlist-product?userId=${user._id}`)
     
                 const {data} = response
     
                 data.success && setWishlistProducts(data.data.reverse())
-                data.success && console.log(data.data)
             } catch (error) {
                 console.log(error);
             }

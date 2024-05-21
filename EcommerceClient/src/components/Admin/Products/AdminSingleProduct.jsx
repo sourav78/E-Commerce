@@ -38,7 +38,6 @@ const AdminSingleProduct = ({productId, setReloadProducts}) => {
     
             const {data} = response
 
-            data.success && console.log(data.data);
             data.success && setReloadProducts(prev => !prev)
         } catch (error) {
             console.log(error);

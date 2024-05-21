@@ -15,7 +15,6 @@ const AllUsers = () => {
 
                 const {data} = response
 
-                data.success && console.log(data.data);
                 data.success && setUsers(data.data)
             } catch (error) {
                 console.log(error);

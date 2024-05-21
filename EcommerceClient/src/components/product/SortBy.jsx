@@ -14,7 +14,6 @@ const SortBy = () => {
     }
 
     const onRattingChange = (e) => {
-        console.log(e.target.value);
         dispatch(updateDataOrder(e.target.value))
         setSelectedRatting(e.target.value)
     }

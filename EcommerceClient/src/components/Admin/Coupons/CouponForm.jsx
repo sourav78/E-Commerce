@@ -26,7 +26,6 @@ const CouponForm = ({coupon}) => {
 
     const createCoupon = async () => {
         setOnPromiseState(true)
-        console.log(discountAmount);
         try {
             const response = await axios.post(`${import.meta.env.VITE_API_URL}/admin/create-coupon`, {
                 code,

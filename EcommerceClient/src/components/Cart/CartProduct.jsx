@@ -59,7 +59,6 @@ const CartProduct = ({product, setReloadTrigger, setReloadOnQuantityUpdate}) => 
     
                 const {data} = response
 
-                data.success && console.log(data.data);
                 data.success && setQuantity(prev => prev+1)
                 data.success && setCounterDisabled(false)
                 data.success && setReloadOnQuantityUpdate(prev => !prev)

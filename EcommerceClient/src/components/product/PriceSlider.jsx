@@ -19,7 +19,6 @@ const PriceSlider = () => {
 
     const handleChange = (event, newValue) => {
         setValue(newValue);
-        console.log(newValue);
         dispatch(updatePrice({low:newValue[0], high:newValue[1]}))
     };
 

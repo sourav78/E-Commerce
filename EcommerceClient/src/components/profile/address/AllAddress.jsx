@@ -37,7 +37,6 @@ const AllAddress = () => {
 
                 const {data} = response
 
-                data.success && console.log(data.data);
                 data.success && setAddress(data.data)
             } catch (error) {
                 console.log(error.response.data.msg);

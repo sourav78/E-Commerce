@@ -20,7 +20,6 @@ const Logout = () => {
         const data = response.data
         dispatch(toggleTrigger())
         data.success && navigate('/')
-        console.log(data);
     }
 
     return (

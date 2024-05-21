@@ -35,7 +35,6 @@ const Login = () => {
             const data = await response.data
             dispatch(toggleTrigger())
             data.success && navigate('/')
-            console.log(data);
         } catch (error) {
             console.log(error.response.data);
             setShowErrors(error.response.data.msg)

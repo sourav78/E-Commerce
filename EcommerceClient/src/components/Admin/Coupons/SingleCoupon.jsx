@@ -27,7 +27,6 @@ const SingleCoupon = ({coupon, setReloadCoupon}) => {
     
             const {data} = response
 
-            data.success && console.log(data.data);
             data.success && setReloadCoupon(prev => !prev)
             data.success && setShowDeleteModal(false)
         } catch (error) {

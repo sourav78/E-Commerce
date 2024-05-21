@@ -27,7 +27,6 @@ const SingleOrders = ({product, userId, setReloadOrder}) => {
                 })
                 const {data} = response
     
-                data.success && console.log(data.data)
                 data.success && setProductData(data.data)
             } catch (error) {
                 console.log(error);

@@ -45,9 +45,8 @@ const ProductDeatails = () => {
             })
 
             const {data} = response.data
-            console.log(data);
             const {_id, category, name, brand, description, price, discount, stock, image_url, ratting, ...other} = data
-            console.log(other);
+            
             setHighlights(other)
             setProduct(data)
         }

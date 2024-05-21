@@ -32,7 +32,6 @@ const AddressForm = ({setShowAddressForm, address, setAddressStatus, setLoadAddr
     }, [user])
 
     async function addNewAddress(){
-        console.log('new');
 
         try {
             const response = await axios.post(`${import.meta.env.VITE_API_URL}/profile/add-new-address`, {
@@ -54,7 +53,6 @@ const AddressForm = ({setShowAddressForm, address, setAddressStatus, setLoadAddr
     
             const {data} = response
     
-            data.success && console.log(data.data);
             data.success && setAddressStatus({success: true, type: 'success', msg: data.data})
             data.success && onHandleCancel()
             data.success && setLoadAddress(prev => !prev)
@@ -67,7 +65,6 @@ const AddressForm = ({setShowAddressForm, address, setAddressStatus, setLoadAddr
     
     async function editAddress(){
 
-        console.log(address._id);
         try {
             const response = await axios.post(`${import.meta.env.VITE_API_URL}/profile/update-address`, {
                 addressId: address._id,
@@ -88,7 +85,6 @@ const AddressForm = ({setShowAddressForm, address, setAddressStatus, setLoadAddr
     
             const {data} = response
     
-            data.success && console.log(data.data);
             data.success && setAddressStatus({success: true, type: 'success', msg: data.data})
             data.success && onHandleCancel()
             data.success && setLoadAddress(prev => !prev)

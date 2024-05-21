@@ -23,7 +23,6 @@ const SingleUser = ({user, setReloadUser}) => {
     
             const {data} = response
 
-            data.success && console.log(data.data);
             data.success && setReloadUser(prev => !prev)
             data.success && setShowDeleteModal(false)
         } catch (error) {

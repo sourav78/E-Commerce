@@ -40,8 +40,6 @@ const TransactionLineChart = () => {
                             data: amounts
                         }
                     ])
-                    // console.log(amounts.reverse());
-                    // console.log(dates.reverse());
                 }
             } catch (error) {
                 console.log(error);
