@@ -41,7 +41,7 @@ const AllOrders = () => {
                         {
                             orderdProduct.map(order => (
                                 order.products.map(product => (
-                                    <SingleOrders product={product} userId={userId} setReloadOrder={setReloadOrder}/>
+                                    <SingleOrders key={product._id} product={product} userId={userId} setReloadOrder={setReloadOrder}/>
                                 ))
                             ))
                         }

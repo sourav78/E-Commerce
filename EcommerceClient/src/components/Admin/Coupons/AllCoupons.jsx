@@ -30,7 +30,7 @@ const AllCoupons = () => {
                 {
                     coupons ? (
                         coupons.map(coupon => (
-                            <SingleCoupon coupon={coupon} setReloadCoupon={setReloadCoupon}/>
+                            <SingleCoupon key={coupon._id} coupon={coupon} setReloadCoupon={setReloadCoupon}/>
                         ))
                     ) : (
                         <></>
