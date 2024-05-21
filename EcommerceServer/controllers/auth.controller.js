@@ -123,11 +123,14 @@ export const login = async (req, res) => {
 
         const token = user.JWTSign()
 
-        const cookieOption = {
-            maxAge: 7 * 24 * 60 * 60 * 1000
-        }
+        const cookieOptions = {
+            maxAge: 7 * 24 * 60 * 60 * 1000,
+            httpOnly: true,
+            secure: true, // Set to true in production
+            sameSite: 'None'
+        };
 
-        res.cookie('jwttoken', token, cookieOption)
+        res.cookie('jwttoken', token, cookieOptions)
 
         res.status(200).json({
             success: true,
