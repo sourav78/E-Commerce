@@ -173,7 +173,11 @@ export const profile = async (req, res) => {
 
 export const logout = (req, res) => {
     try {
-        res.clearCookie('jwttoken')
+        res.clearCookie('jwttoken', {
+            httpOnly: true,
+            secure: true, // Only secure in production
+            sameSite: 'Strict'
+        });
 
         res.status(200).json({
             success: true,
