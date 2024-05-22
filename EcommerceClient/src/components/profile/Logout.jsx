@@ -4,7 +4,7 @@ import { useDispatch } from "react-redux";
 import { toggleTrigger } from "../../redux_slicer/EcomSlicer.js";
 import axios from "axios";
 import {useNavigate} from 'react-router-dom'
-
+import RemoveCookie from "../../utils/RemoveCookie.js";
 
 
 const Logout = () => {
@@ -13,13 +13,9 @@ const Logout = () => {
     const navigate = useNavigate()
 
     const handleLogout = async () => {
-        const response = await axios.get(`${import.meta.env.VITE_API_URL}/auth/logout`, {
-            withCredentials: true
-        })
-
-        const data = response.data
+        RemoveCookie('jwttoken')
         dispatch(toggleTrigger())
-        data.success && navigate('/')
+        navigate('/')
     }
 
     return (

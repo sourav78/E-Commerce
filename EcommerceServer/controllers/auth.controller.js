@@ -125,7 +125,7 @@ export const login = async (req, res) => {
 
         const cookieOptions = {
             maxAge: 7 * 24 * 60 * 60 * 1000,
-            httpOnly: true,
+            httpOnly: false,
             secure: true, // Set to true in production
             sameSite: 'None'
         };
@@ -174,7 +174,7 @@ export const profile = async (req, res) => {
 export const logout = (req, res) => {
     try {
         res.clearCookie('jwttoken', {
-            httpOnly: true,
+            httpOnly: false,
             secure: true, // Only secure in production
             sameSite: 'Strict'
         });
